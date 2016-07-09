@@ -3,7 +3,7 @@
 
     'use strict';
 
-    angular.module('app.services')
+    angular.module('app.sales')
         .factory('ordersService',
         ['$log', 'backendCompositionService', '$http', 'orders.config',
             function ($log, backendCompositionService, $http, config) {

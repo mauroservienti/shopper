@@ -1,8 +1,8 @@
 /* global angular */
 (function () {
 
-    angular.module('app.components', [])
-    .directive('customerOrderDetails', ['$log',
+    angular.module('app.customers', [])
+        .directive('customerOrderDetails', ['$log',
             function($log) {
                 $log.debug('customerOrderDetails directive');
             

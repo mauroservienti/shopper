@@ -1,5 +1,5 @@
 (function () {
-    angular.module('app.controllers')
+    angular.module('app.sales')
         .controller('ordersController',
         ['$log', 'ordersService',
             function ($log, ordersService) {

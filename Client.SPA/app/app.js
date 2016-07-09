@@ -12,7 +12,10 @@
                 'app.controllers',
                 'app.components',
                 'app.services',
-                'app.templates'
+                'app.templates',
+                'app.customers',
+                'app.finance',
+                'app.sales'
     ]);
     
     app.config(['$stateProvider', '$locationProvider', '$logProvider',
@@ -20,9 +23,6 @@
 
                 $logProvider.debugEnabled(true);
                 $locationProvider.html5Mode(false);
-                // itemTemplateConfigProvider.setDefaultSettings({
-                //     templatesFolder: '/app/templates/'
-                // });
 
                 var rootViews = {
                     '': {

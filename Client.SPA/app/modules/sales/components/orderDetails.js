@@ -1,7 +1,7 @@
 /* global angular */
 (function(){
     
-    angular.module('app.components')
+    angular.module('app.sales')
         .directive('orderDetails', ['$log',
             function($log) {
                 $log.debug('orderDetails directive');

@@ -182,6 +182,6 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
-Client.SPA/wwwroot/
+Client.Angular1/wwwroot/
 .lock.json
 project.lock.json

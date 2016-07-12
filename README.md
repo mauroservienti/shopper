@@ -8,7 +8,7 @@ The overall goal of these set of sample aims to show, in the simplest form possi
 
 ## Front-end
 
-* `Client.SPA` is an AngularJS (1.x) single page application.
+* `Client.Angular1` is an AngularJS (1.x) single page application.
 
 ## Getting started
 

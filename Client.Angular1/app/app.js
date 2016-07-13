@@ -3,6 +3,10 @@
 
     'use strict';
 
+    angular.module('app.customers', []);
+    angular.module('app.finance', []);
+    angular.module('app.sales', []);
+
     angular.module('app.controllers', []);
     angular.module('app.services', []);
 
@@ -10,7 +14,6 @@
                 'ngRoute',
                 'ui.router',
                 'app.controllers',
-                'app.components',
                 'app.services',
                 'app.templates',
                 'app.customers',

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Divergent.Sales.Data.Models
+namespace Sales.Data.Models
 {
     public class Product
     {

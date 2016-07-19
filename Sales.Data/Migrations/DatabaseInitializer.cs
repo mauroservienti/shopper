@@ -5,10 +5,10 @@ using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Divergent.Sales.Data.Context;
+using Sales.Data.Context;
 using SQLite.CodeFirst;
 
-namespace Divergent.Sales.Data.Migrations
+namespace Sales.Data.Migrations
 {
     public class DatabaseInitializer : SqliteCreateDatabaseIfNotExists<SalesContext>
     {

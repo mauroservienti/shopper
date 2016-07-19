@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Divergent.Customers.Data.Repositories;
-using Divergent.Customers.Data.Models;
+using Customers.Data.Repositories;
+using Customers.Data.Models;
 
 namespace Customers.API.Controllers
 {

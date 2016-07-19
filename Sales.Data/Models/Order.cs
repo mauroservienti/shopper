@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Divergent.Sales.Data.Models
+namespace Sales.Data.Models
 {
     public class Order
     {

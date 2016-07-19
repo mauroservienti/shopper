@@ -4,10 +4,10 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Divergent.Sales.Data.Migrations;
-using Divergent.Sales.Data.Models;
+using Sales.Data.Migrations;
+using Sales.Data.Models;
 
-namespace Divergent.Sales.Data.Context
+namespace Sales.Data.Context
 {
     public interface ISalesContext
     {
@@ -20,7 +20,7 @@ namespace Divergent.Sales.Data.Context
     [DbConfigurationType(typeof(SqLiteConfig))]
     public class SalesContext : DbContext, ISalesContext
     {
-        public SalesContext() : base("Divergent.Sales")
+        public SalesContext() : base("Sales")
         {
         }
 

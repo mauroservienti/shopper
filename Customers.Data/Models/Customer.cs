@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Divergent.Customers.Data.Models
+namespace Customers.Data.Models
 {
     public class Customer
     {

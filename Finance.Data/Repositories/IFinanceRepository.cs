@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Divergent.Finance.Data.Models;
+using Finance.Data.Models;
 
-namespace Divergent.Finance.Data.Repositories
+namespace Finance.Data.Repositories
 {
     public interface IFinanceRepository
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Divergent.Customers.Data.Models;
+using Customers.Data.Models;
 
-namespace Divergent.Customers.Data.Repositories
+namespace Customers.Data.Repositories
 {
     public interface ICustomerRepository
     {

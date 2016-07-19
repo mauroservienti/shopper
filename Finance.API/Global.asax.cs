@@ -4,7 +4,7 @@ using System;
 using System.IO;
 using System.Net.Http.Formatting;
 using System.Web.Http;
-using Divergent.Finance.Data.Repositories;
+using Finance.Data.Repositories;
 
 namespace Finance.API
 {

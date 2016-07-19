@@ -4,7 +4,7 @@ using System;
 using System.IO;
 using System.Net.Http.Formatting;
 using System.Web.Http;
-using Divergent.Customers.Data.Repositories;
+using Customers.Data.Repositories;
 
 namespace Customers.API
 {

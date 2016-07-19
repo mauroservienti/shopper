@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Divergent.Finance.Data.Repositories;
+using Finance.Data.Repositories;
 
 namespace Finance.API.Controllers
 {

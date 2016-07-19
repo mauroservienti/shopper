@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Divergent.Finance.Data.Models;
+using Finance.Data.Models;
 
-namespace Divergent.Finance.Data.Repositories
+namespace Finance.Data.Repositories
 {
     public class FinanceRepository : IFinanceRepository
     {

@@ -2,7 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
-using Divergent.Sales.Data.Context;
+using Sales.Data.Context;
 using NServiceBus;
 
 namespace Sales.API.Controllers

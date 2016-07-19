@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Divergent.Customers.Data.Models;
+using Customers.Data.Models;
 
-namespace Divergent.Customers.Data.Repositories
+namespace Customers.Data.Repositories
 {
     public class CustomerRepository : ICustomerRepository
     {

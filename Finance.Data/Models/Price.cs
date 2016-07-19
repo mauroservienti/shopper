@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Divergent.Finance.Data.Models
+namespace Finance.Data.Models
 {
     public class Price
     {

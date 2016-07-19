@@ -3,21 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Customers.Data", "Customers.Data\Customers.Data.csproj", "{314AA28E-E5A9-40B3-AA9B-C2C0E5BAD059}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marketing.Data", "Marketing.Data\Marketing.Data.csproj", "{314AA28E-E5A9-40B3-AA9B-C2C0E5BAD059}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finance.Data", "Finance.Data\Finance.Data.csproj", "{FEE53DC5-B52D-49DB-8F07-A8C835998283}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warehouse.Data", "Warehouse.Data\Warehouse.Data.csproj", "{FEE53DC5-B52D-49DB-8F07-A8C835998283}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sales.Data", "Sales.Data\Sales.Data.csproj", "{80F82F7D-3F0A-4316-87CD-49F19DBD5B85}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Customers", "Customers", "{808B901F-6EF7-49F0-B668-F54EEDB1F3F1}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Marketing", "Marketing", "{808B901F-6EF7-49F0-B668-F54EEDB1F3F1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Finance", "Finance", "{65F37558-1C29-4247-BD01-4DFAFD452ECB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Warehouse", "Warehouse", "{65F37558-1C29-4247-BD01-4DFAFD452ECB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sales", "Sales", "{3F113598-B240-4E06-B41A-6C684C208F2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Customers.API", "Customers.API\Customers.API.csproj", "{222B8A52-4F51-4140-80B4-8AF531E293E4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marketing.API", "Marketing.API\Marketing.API.csproj", "{222B8A52-4F51-4140-80B4-8AF531E293E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finance.API", "Finance.API\Finance.API.csproj", "{BF4B517B-DBC4-4107-886F-9E246312E9AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warehouse.API", "Warehouse.API\Warehouse.API.csproj", "{BF4B517B-DBC4-4107-886F-9E246312E9AF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sales.API", "Sales.API\Sales.API.csproj", "{C2FE4732-EA4E-49CC-BE34-46341FB32E09}"
 EndProject

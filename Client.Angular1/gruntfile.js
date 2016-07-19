@@ -71,6 +71,7 @@ module.exports = function (grunt) {
     grunt.registerTask('default', [
         'bower:install',
         'uglify',
+        'less:development',
         'html2js:app',
         'watch']);
 

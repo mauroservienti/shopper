@@ -5,20 +5,20 @@ using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Sales.Data.Context;
+using Warehouse.Data.Context;
 using SQLite.CodeFirst;
 
-namespace Sales.Data.Migrations
+namespace Warehouse.Data.Migrations
 {
-    public class DatabaseInitializer : SqliteCreateDatabaseIfNotExists<SalesContext>
+    public class DatabaseInitializer : SqliteCreateDatabaseIfNotExists<WarehouseContext>
     {
         public DatabaseInitializer(DbModelBuilder modelBuilder) : base(modelBuilder)
         {
         }
 
-        protected override void Seed(SalesContext context)
+        protected override void Seed(WarehouseContext context)
         {
-            context.SellingPrices.AddOrUpdate(k => k.Id, SeedData.SellingPrices().ToArray());
+            context.StockItems.AddOrUpdate(k => k.Id, SeedData.StockItems().ToArray());
         }
     }
 }

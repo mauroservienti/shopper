@@ -4,7 +4,7 @@ using System;
 using System.IO;
 using System.Net.Http.Formatting;
 using System.Web.Http;
-using Marketing.Data.Repositories;
+using Marketing.Data.Context;
 
 namespace Marketing.API
 {
@@ -17,8 +17,8 @@ namespace Marketing.API
             var bootstrapper = new WindsorBootstrapper(Path.Combine(basePath, "bin"));
             var container = bootstrapper.Boot();
 
-            var dataManagerComponent = Component.For<IMarketingRepository>()
-                .Instance(new MarketingRepository())
+            var dataManagerComponent = Component.For<IMarketingContext>()
+                .Instance(new MarketingContext())
                 .LifestyleSingleton();
 
             container.Register(dataManagerComponent);

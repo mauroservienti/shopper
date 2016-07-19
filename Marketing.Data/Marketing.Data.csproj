@@ -67,10 +67,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Price.cs" />
+    <Compile Include="Context\MarketingContext.cs" />
+    <Compile Include="Context\SqLiteConfig.cs" />
+    <Compile Include="Migrations\DatabaseInitializer.cs" />
+    <Compile Include="Migrations\SeedData.cs" />
+    <Compile Include="Models\ProductDescription.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\MarketingRepository.cs" />
-    <Compile Include="Repositories\IMarketingRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

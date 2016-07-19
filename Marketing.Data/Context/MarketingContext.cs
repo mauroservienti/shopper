@@ -4,35 +4,35 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Sales.Data.Migrations;
-using Sales.Data.Models;
+using Marketing.Data.Migrations;
+using Marketing.Data.Models;
 
-namespace Sales.Data.Context
+namespace Marketing.Data.Context
 {
-    public interface ISalesContext
+    public interface IMarketingContext
     {
-        IQueryable<SellingPrice> SellingPrices { get; }
+        IQueryable<ProductDescription> ProductDescriptions { get; }
     }
 
     [DbConfigurationType(typeof(SqLiteConfig))]
-    public class SalesContext : DbContext, ISalesContext
+    public class MarketingContext : DbContext, IMarketingContext
     {
-        public SalesContext() : base("Sales")
+        public MarketingContext() : base("Marketing")
         {
         }
 
-        public IDbSet<SellingPrice> SellingPrices { get; set; }
+        public IDbSet<ProductDescription> ProductDescriptions { get; set; }
 
-        IQueryable<SellingPrice> ISalesContext.SellingPrices
+        IQueryable<ProductDescription> IMarketingContext.ProductDescriptions
         {
-            get { return this.SellingPrices; }
+            get { return this.ProductDescriptions; }
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             Database.SetInitializer(new DatabaseInitializer(modelBuilder));
 
-            modelBuilder.Entity<SellingPrice>()
+            modelBuilder.Entity<ProductDescription>()
                 .HasKey(sp => sp.Id);
             //.HasMany(e => e.Items)
             //.WithRequired()

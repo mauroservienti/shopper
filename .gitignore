@@ -6,11 +6,6 @@
 *.user
 *.sln.docstates
 
-# Grunt build output
-Client.Angular1/wwwroot/app/
-Client.Angular1/wwwroot/assets/
-Client.Angular1/wwwroot/lib/
-
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/

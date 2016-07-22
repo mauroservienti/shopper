@@ -9,11 +9,11 @@ using System;
 namespace Shipping.API.Controllers
 {
     [RoutePrefix("api/ShippingDetails")]
-    public class SellingPricesController : ApiController
+    public class ShippingDetailsController : ApiController
     {
         private readonly IShippingContext _context;
 
-        public SellingPricesController(IShippingContext context)
+        public ShippingDetailsController(IShippingContext context)
         {
             _context = context;
         }

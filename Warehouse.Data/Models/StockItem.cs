@@ -8,5 +8,6 @@ namespace Warehouse.Data.Models
         public string Code { get; set; }
         public string SupplierCode { get; set; }
         public string SupplierDescription { get; set; }
+        public decimal Weight { get; set; }
     }
 }

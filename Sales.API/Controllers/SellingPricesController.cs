@@ -24,7 +24,7 @@ namespace Sales.API.Controllers
         }
 
         [HttpGet, Route("ByStockItemIds/{ids}")]
-        public IEnumerable<dynamic> ByIds(string ids)
+        public IEnumerable<dynamic> ByStockItemIds(string ids)
         {
             var _ids = ids.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
                 .Select(id => int.Parse(id))

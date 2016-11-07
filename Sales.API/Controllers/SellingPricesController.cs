@@ -3,7 +3,6 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
 using Sales.Data.Context;
-using NServiceBus;
 using System;
 
 namespace Sales.API.Controllers

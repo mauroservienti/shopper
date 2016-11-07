@@ -3,7 +3,6 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
 using Shipping.Data.Context;
-using NServiceBus;
 using System;
 
 namespace Shipping.API.Controllers

@@ -1,4 +1,6 @@
 ﻿using Marketing.Data.Context;
+using Marketing.Data.Services;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace Marketing.API.Controllers
@@ -6,21 +8,17 @@ namespace Marketing.API.Controllers
     [RoutePrefix("api/Publishing")]
     public class PublishingController : ApiController
     {
-        private readonly IMarketingContext _context;
+        private readonly PublishingService _publishingService;
 
-        public PublishingController(IMarketingContext marketingRepository)
+        public PublishingController(PublishingService publishingService)
         {
-            _context = marketingRepository;
+            _publishingService = publishingService;
         }
 
         [HttpGet]
-        public dynamic GetHomeShowcase()
+        public Task<dynamic> GetHomeShowcase()
         {
-            return new
-            {
-                HeadlineStockItemId = 1,
-                ShowcaseStockItemIds = new[] { 2, 4, 5 }
-            };
+            return _publishingService.GetHomeShowcase();
         }
     }
 }

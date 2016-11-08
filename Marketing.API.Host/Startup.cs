@@ -22,11 +22,11 @@ namespace Marketing.API.Host
             var bootstrapper = new WindsorBootstrapper(AppDomain.CurrentDomain.BaseDirectory, filter: "*.*");
             var container = bootstrapper.Boot();
 
-            var dataManagerComponent = Component.For<IMarketingContext>()
-                .Instance(new MarketingContext())
-                .LifestyleSingleton();
+            //var dataManagerComponent = Component.For<IMarketingContext>()
+            //    .Instance(new MarketingContext())
+            //    .LifestyleSingleton();
 
-            container.Register(dataManagerComponent);
+            //container.Register(dataManagerComponent);
 
             var config = new HttpConfiguration();
 

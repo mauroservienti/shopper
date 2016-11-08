@@ -9,13 +9,13 @@ using Marketing.Data.Models;
 
 namespace Marketing.Data.Context
 {
-    public interface IMarketingContext
-    {
-        IQueryable<ProductDescription> ProductDescriptions { get; }
-    }
+    //public interface IMarketingContext
+    //{
+    //    IQueryable<ProductDescription> ProductDescriptions { get; }
+    //}
 
     [DbConfigurationType(typeof(SqLiteConfig))]
-    public class MarketingContext : DbContext, IMarketingContext
+    public class MarketingContext : DbContext //, IMarketingContext
     {
         public MarketingContext() : base("Marketing")
         {
@@ -23,10 +23,10 @@ namespace Marketing.Data.Context
 
         public IDbSet<ProductDescription> ProductDescriptions { get; set; }
 
-        IQueryable<ProductDescription> IMarketingContext.ProductDescriptions
-        {
-            get { return this.ProductDescriptions; }
-        }
+        //IQueryable<ProductDescription> IMarketingContext.ProductDescriptions
+        //{
+        //    get { return this.ProductDescriptions; }
+        //}
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

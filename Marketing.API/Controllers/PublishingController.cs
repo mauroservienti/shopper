@@ -19,9 +19,13 @@ namespace Marketing.API.Controllers
         }
 
         [HttpGet]
-        public dynamic GetHomePageShowcase()
+        public dynamic GetHomeShowcase()
         {
-            return null;
+            return new
+            {
+                HeadlineStockItemId = 1,
+                ShowcaseStockItemIds = new[] { 2, 4, 5 }
+            };
         }
     }
 }

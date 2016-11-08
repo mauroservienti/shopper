@@ -16,7 +16,7 @@
                                 return $http.get(uri)
                                     .then(function (response) {
 
-                                        $log.debug('HTTP response', response.data);
+                                        $log.debug('home-showcase HTTP response', response.data);
 
                                         var vm = new HomeShowcase(response.data);
                                         composedResults.showcase = vm;

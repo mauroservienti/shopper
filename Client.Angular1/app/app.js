@@ -5,8 +5,10 @@
 
     angular.module('app.customers', []);
     angular.module('app.finance', []);
+
     angular.module('app.sales', []);
     angular.module('app.home', []);
+    angular.module('app.marketing', []);
 
     angular.module('app.controllers', []);
     angular.module('app.services', []);
@@ -16,7 +18,9 @@
                 'ui.router',
                 'app.services',
                 'app.templates',
-                'app.home' //,
+                'app.home',
+                'app.marketing',
+                'app.sales' //,
                 // 'app.customers',
                 // 'app.finance',
                 // 'app.sales'

@@ -1,3 +1,16 @@
 <section>
-    This is the dashboard.
+    <div class="jumbotron">
+        <product-highlight-description data-product="home.showcase.headlineProduct" />
+        <br />
+        <product-highlight-price data-product="home.showcase.headlineProduct" />
+    </div>
+    <div class="row">
+        <div data-ng-repeat="p in home.showcase.showcaseProducts track by p.stockItemId" class="col-md-{{ 12 / home.showcase.showcaseProducts.length }}">
+            <div class="jumbotron">
+                <product-showcase-description data-product="p" />
+                <br />
+                <product-showcase-price data-product="p" />
+            </div>
+        </div>
+    </div>
 </section>

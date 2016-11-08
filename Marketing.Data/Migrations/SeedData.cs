@@ -37,7 +37,7 @@ namespace Marketing.Data.Migrations
                     StockItemId = 5,
                     Title = "LH740 Airplane Model",
                     Description ="",
-                    ImageUrl =""}
+                    ImageUrl ="/assets/Modell_LH_B748_200P.jpg"}
             };
         }
     }

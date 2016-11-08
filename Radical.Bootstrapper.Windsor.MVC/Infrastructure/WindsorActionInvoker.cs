@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using Castle.MicroKernel;
+using System.Web.Mvc.Async;
 
 namespace Radical.Bootstrapper.Windsor.MVC.Infrastructure
 {
-    public class WindsorActionInvoker : ControllerActionInvoker
+    public class WindsorActionInvoker : AsyncControllerActionInvoker
     {
         readonly IKernel kernel;
 

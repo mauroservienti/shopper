@@ -21,11 +21,11 @@ namespace Client.MVC.Controllers
             _composers = composers;
         }
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             try
             {
-                dynamic home = _service.GetHomeShowcase().GetAwaiter().GetResult();
+                dynamic home = await _service.GetHomeShowcase();
                 //go to publishing and get home structure
                 dynamic vm = new ExpandoObject();
                 vm.HeadlineProduct = new ExpandoObject();
@@ -41,14 +41,14 @@ namespace Client.MVC.Controllers
                 }
                 vm.ShowcaseProducts = products.ToArray();
 
-                var ts = new List<Task>();
+                //var ts = new List<Task>();
                 foreach(var composer in _composers)
                 {
-                    var t = composer.Compose(vm);
-                    ts.Add(t);
+                    await composer.Compose(vm);
+                    //ts.Add(t);
                 }
 
-                Task.WhenAll(ts.ToArray());
+                //Task.WhenAll(ts.ToArray());
 
                 return View(vm);
             }

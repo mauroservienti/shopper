@@ -17,8 +17,11 @@ namespace Marketing.CoreViewModelComposition
     {
         public async Task Compose(dynamic composedViewModel)
         {
-            var ids = new List<int>();
-            ids.Add(composedViewModel.HeadlineProduct.StockItemId);
+            var ids = new List<dynamic>()
+            {
+                composedViewModel.HeadlineProduct.StockItemId
+            };
+
             foreach(var p in composedViewModel.ShowcaseProducts)
             {
                 ids.Add(p.StockItemId);

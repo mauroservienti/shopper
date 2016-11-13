@@ -23,40 +23,33 @@ namespace MvcCoreFrontend.Controllers
 
         public async Task<IActionResult> Index()
         {
-            try
+            var config = _configuration.GetSection("app.marketing:config");
+            var client = new HttpClient();
+            var response = await client.GetAsync($"{config.GetValue<String>("apiUrl")}/Publishing/GetHomeShowcase");
+            dynamic home = await response.Content.AsExpandoAsync();
+
+            dynamic vm = new ExpandoObject();
+            vm.HeadlineProduct = new ExpandoObject();
+            vm.HeadlineProduct.StockItemId = home.HeadlineStockItemId;
+            vm.ShowcaseProducts = new List<dynamic>();
+
+            foreach(var item in home.ShowcaseStockItemIds)
             {
-                var config = _configuration.GetSection("app.marketing:config");
-                var client = new HttpClient();
-                var response = await client.GetAsync($"{config.GetValue<String>("apiUrl")}/Publishing/GetHomeShowcase");
-                dynamic home = await response.Content.AsExpandoAsync();
-                
-                dynamic vm = new ExpandoObject();
-                vm.HeadlineProduct = new ExpandoObject();
-                vm.HeadlineProduct.StockItemId = (int)home.HeadlineStockItemId;
-                vm.ShowcaseProducts = new List<dynamic>();
+                dynamic obj = new ExpandoObject();
+                obj.StockItemId = item;
 
-                foreach(var item in home.ShowcaseStockItemIds)
-                {
-                    dynamic obj = new ExpandoObject();
-                    obj.StockItemId = (int)item;
-
-                    vm.ShowcaseProducts.Add(obj);
-                }
-
-                var ts = new List<Task>();
-                foreach(var composer in _composers)
-                {
-                    ts.Add(composer.Compose(vm));
-                }
-
-                await Task.WhenAll(ts.ToArray());
-
-                return View(vm);
+                vm.ShowcaseProducts.Add(obj);
             }
-            catch(Exception ex)
+
+            var ts = new List<Task>();
+            foreach(var composer in _composers)
             {
-                throw;
+                ts.Add(composer.Compose(vm));
             }
+
+            await Task.WhenAll(ts.ToArray());
+
+            return View(vm);
         }
 
         public IActionResult Error()

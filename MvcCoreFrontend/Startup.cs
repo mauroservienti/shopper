@@ -31,7 +31,15 @@ namespace MvcCoreFrontend
             // Add framework services.
             services.AddMvc();
             services.AddSingleton<IConfiguration>(Configuration);
-            services.AddSingleton<IComposeHomeViewModel, Marketing.CoreViewModelComposition.ProductDescriptionHomeComposer>();
+
+            var composers = Configuration.GetSection("composers");
+            var elements = composers.GetChildren();
+            foreach(var item in elements)
+            {
+                var contract = Type.GetType(item.GetValue<string>("contract"));
+                var implementation = Type.GetType(item.GetValue<string>("implementation"));
+                services.AddSingleton(contract, implementation);
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,7 +48,7 @@ namespace MvcCoreFrontend
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            if (env.IsDevelopment())
+            if(env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();

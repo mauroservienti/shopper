@@ -22,11 +22,11 @@ Configure `Visual Studio` to run the following projects as startup projects:
 
 ### Single page application
 
-The single page application requires `Node.js`, `bower` and `grunt` to be built and served locally:
+The [single page application](https://github.com/mauroservienti/Services-UI-Composition/tree/master/Client.Angular1) requires `Node.js`, `bower` and `grunt` to be built and served locally:
 
 * Install `Node.js` if not already installed
 * Install `bower` globally running at a `Node` command prompt `npm install -g bower`
 * Install `grunt` globally running at a `Node` command prompt `npm install -g grunt`
 
-Open a `Node` command prompt and run `grunt connect` to build the single page application and serve it using the grung default web server, the application will be available at `http://localhost:9000`
+Open a `Node` command prompt, move to the [single page application](https://github.com/mauroservienti/Services-UI-Composition/tree/master/Client.Angular1), and run `grunt connect` to build the single page application and serve it using the grung default web server, the application will be available at `http://localhost:9000`
 

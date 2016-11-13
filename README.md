@@ -6,9 +6,15 @@ The overall goal of these set of sample aims to show, in the simplest form possi
 
 `Sales.API`, `Finance.API` and `Customers.API` expose data owned by 3 different bounded context, or services in the SOA terminology. In this sample `Customers` owns all the registry related data, `Sales` owns Orders and finally `Finance` owns prices and credit card information.
 
-## Front-end
+## Front-ends
 
-* `Client.Angular1` is an AngularJS (1.x) single page application.
+### MvcCoreFrontend
+
+[`MvcCoreFrontend`](https://github.com/mauroservienti/Services-UI-Composition/tree/master/MvcCoreFrontend) is a .Net MVC Core application.
+
+### Client.Angular1
+
+[`Client.Angular1`](https://github.com/mauroservienti/Services-UI-Composition/tree/master/Client.Angular1) is an AngularJS (1.x) single page application.
 
 ## Getting started
 

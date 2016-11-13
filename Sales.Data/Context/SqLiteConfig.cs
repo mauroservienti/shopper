@@ -3,7 +3,7 @@ using System.Data.Entity.Core.Common;
 using System.Data.SQLite;
 using System.Data.SQLite.EF6;
 
-namespace Divergent.Sales.Data.Context
+namespace Sales.Data.Context
 {
     internal class SqLiteConfig : DbConfiguration
     {

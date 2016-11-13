@@ -4,37 +4,39 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Divergent.Sales.Data.Migrations;
-using Divergent.Sales.Data.Models;
+using Sales.Data.Migrations;
+using Sales.Data.Models;
 
-namespace Divergent.Sales.Data.Context
+namespace Sales.Data.Context
 {
     public interface ISalesContext
     {
-        IDbSet<Product> Products { get; set; }
-        IDbSet<Order> Orders { get; set; }
-
-        Task<int> SaveChangesAsync();
+        IQueryable<SellingPrice> SellingPrices { get; }
     }
 
     [DbConfigurationType(typeof(SqLiteConfig))]
     public class SalesContext : DbContext, ISalesContext
     {
-        public SalesContext() : base("Divergent.Sales")
+        public SalesContext() : base("Sales")
         {
         }
 
-        public IDbSet<Product> Products { get; set; }
-        public IDbSet<Order> Orders { get; set; }
+        public IDbSet<SellingPrice> SellingPrices { get; set; }
+
+        IQueryable<SellingPrice> ISalesContext.SellingPrices
+        {
+            get { return this.SellingPrices; }
+        }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             Database.SetInitializer(new DatabaseInitializer(modelBuilder));
 
-            modelBuilder.Entity<Order>()
-                .HasMany(e => e.Items)
-                .WithRequired()
-                .HasForeignKey(k => k.OrderId);
+            modelBuilder.Entity<SellingPrice>()
+                .HasKey(sp => sp.Id);
+            //.HasMany(e => e.Items)
+            //.WithRequired()
+            //.HasForeignKey(k => k.OrderId);
 
             base.OnModelCreating(modelBuilder);
         }

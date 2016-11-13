@@ -1,0 +1,23 @@
+﻿@{
+    ViewData[ "Title" ] = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>@Model.HeadlineProduct.Description.Title</h1>
+    <p>@Model.HeadlineProduct.Description.Description</p>
+</div>
+
+<div class="row">
+    @{
+        var howMany = 12 / Model.ShowcaseProducts.Count;
+        foreach(var item in Model.ShowcaseProducts)
+        {
+            <div class="col-md-@howMany">
+                <div class="jumbotron">
+                    <h3>@item.Description.Title</h3>
+                    <p>@item.Description.Description</p>
+                </div>
+            </div>
+        }
+    }
+</div>

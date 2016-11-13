@@ -1,1 +1,14 @@
-#:C:\Repos\mauroservienti\Services-UI-Composition\Web.FrontEnd\Web.FrontEnd.xproj
+#:C:\Dev\Repos\mauroservienti\Services-UI-Composition\Marketing.CoreViewModelComposition\Marketing.CoreViewModelComposition.xproj
+C:\Dev\Repos\mauroservienti\Services-UI-Composition\Marketing.CoreViewModelComposition\Marketing.CoreViewModelComposition.xproj|C:\Dev\Repos\mauroservienti\Services-UI-Composition\CoreViewModelComposition\CoreViewModelComposition.xproj
+C:\Dev\Repos\mauroservienti\Services-UI-Composition\Marketing.CoreViewModelComposition\Marketing.CoreViewModelComposition.xproj|C:\Dev\Repos\mauroservienti\Services-UI-Composition\JsonHelpers\JsonHelpers.xproj
+C:\Dev\Repos\mauroservienti\Services-UI-Composition\Marketing.CoreViewModelComposition\Marketing.CoreViewModelComposition.xproj|C:\Dev\Repos\mauroservienti\Services-UI-Composition\HttpHelpers\HttpHelpers.xproj
+C:\Dev\Repos\mauroservienti\Services-UI-Composition\HttpHelpers\HttpHelpers.xproj|C:\Dev\Repos\mauroservienti\Services-UI-Composition\JsonHelpers\JsonHelpers.xproj
+#:C:\Dev\Repos\mauroservienti\Services-UI-Composition\MvcCoreFrontend\MvcCoreFrontend.xproj
+C:\Dev\Repos\mauroservienti\Services-UI-Composition\MvcCoreFrontend\MvcCoreFrontend.xproj|C:\Dev\Repos\mauroservienti\Services-UI-Composition\CoreViewModelComposition\CoreViewModelComposition.xproj
+C:\Dev\Repos\mauroservienti\Services-UI-Composition\MvcCoreFrontend\MvcCoreFrontend.xproj|C:\Dev\Repos\mauroservienti\Services-UI-Composition\HttpHelpers\HttpHelpers.xproj
+C:\Dev\Repos\mauroservienti\Services-UI-Composition\MvcCoreFrontend\MvcCoreFrontend.xproj|C:\Dev\Repos\mauroservienti\Services-UI-Composition\JsonHelpers\JsonHelpers.xproj
+C:\Dev\Repos\mauroservienti\Services-UI-Composition\MvcCoreFrontend\MvcCoreFrontend.xproj|C:\Dev\Repos\mauroservienti\Services-UI-Composition\Marketing.CoreViewModelComposition\Marketing.CoreViewModelComposition.xproj
+C:\Dev\Repos\mauroservienti\Services-UI-Composition\HttpHelpers\HttpHelpers.xproj|C:\Dev\Repos\mauroservienti\Services-UI-Composition\JsonHelpers\JsonHelpers.xproj
+C:\Dev\Repos\mauroservienti\Services-UI-Composition\Marketing.CoreViewModelComposition\Marketing.CoreViewModelComposition.xproj|C:\Dev\Repos\mauroservienti\Services-UI-Composition\CoreViewModelComposition\CoreViewModelComposition.xproj
+C:\Dev\Repos\mauroservienti\Services-UI-Composition\Marketing.CoreViewModelComposition\Marketing.CoreViewModelComposition.xproj|C:\Dev\Repos\mauroservienti\Services-UI-Composition\JsonHelpers\JsonHelpers.xproj
+C:\Dev\Repos\mauroservienti\Services-UI-Composition\Marketing.CoreViewModelComposition\Marketing.CoreViewModelComposition.xproj|C:\Dev\Repos\mauroservienti\Services-UI-Composition\HttpHelpers\HttpHelpers.xproj

@@ -1,10 +1,10 @@
-# Services-UI-Composition
+# Services UI Composition
 
-The overall goal of these set of sample aims to show, in the simplest form possible to keep them simple, the concepts expressed in [The secret of better UI composition](http://particular.net/blog/secret-of-better-ui-composition) blog post.
+The goal of this set of samples is to show concepts expressed in ["The secret of better UI composition"](http://particular.net/blog/secret-of-better-ui-composition) blog post.
 
-## API
+## Services
 
-`Sales.API`, `Finance.API` and `Customers.API` expose data owned by 3 different bounded context, or services in the SOA terminology. In this sample `Customers` owns all the registry related data, `Sales` owns Orders and finally `Finance` owns prices and credit card information.
+`CustomerCare`, `Marketing`, `Sales`, `Shipping`, and `Warehouse` are Services that compose this samples. The sample mimics a very small subset of an e-commerce system.
 
 ## Front-ends
 
@@ -22,9 +22,13 @@ The overall goal of these set of sample aims to show, in the simplest form possi
 
 Configure `Visual Studio` to run the following projects as startup projects:
 
-* `Sales.API`
-* `Finance.API`
-* `Customers.API`
+* `CustomerCare.API.Host`
+* `Marketing.API.Host`
+* `Sales.API.Host`
+* `Shipping.API.Host`
+* `Warehouse.API.Host`
+
+The above projects will expose, self-hosting Owin, APIs through data, owned by services, are accessible.
 
 ### Single page application
 

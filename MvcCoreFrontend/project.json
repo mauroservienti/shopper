@@ -26,7 +26,8 @@
         "Microsoft.NETCore.App": "1.1.0",
         "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.1.0",
         "Sales.ViewComponents": "1.0.0-*",
-        "Microsoft.Extensions.FileProviders.Embedded": "1.0.0"
+        "Microsoft.Extensions.FileProviders.Embedded": "1.0.0",
+        "Marketing.ViewComponents": "1.0.0-*"
     },
 
     "tools": {

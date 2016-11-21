@@ -9,9 +9,9 @@ namespace Sales.ViewComponents
     [ViewComponent(Name = "Sales.ViewComponents.HomeItemPrice")]
     public class HomeItemPriceViewComponent : ViewComponent
     {
-        public IViewComponentResult Invoke(dynamic headlineProduct)
+        public IViewComponentResult Invoke(dynamic product)
         {
-            return View(headlineProduct.ItemPrice);
+            return View(product.ItemPrice);
         }
     }
 }

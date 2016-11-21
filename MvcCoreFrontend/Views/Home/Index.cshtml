@@ -3,8 +3,7 @@
 }
 
 <div class="jumbotron">
-    <h1>@Model.HeadlineProduct.ItemDescription.Title</h1>
-    <p>@Model.HeadlineProduct.ItemDescription.Description</p>
+    @await Component.InvokeAsync("Marketing.ViewComponents.HomeHeadlineItemDescription", @Model.HeadlineProduct)
     @await Component.InvokeAsync("Sales.ViewComponents.HomeItemPrice", @Model.HeadlineProduct)
 </div>
 
@@ -15,8 +14,7 @@
         {
             <div class="col-md-@howMany">
                 <div class="jumbotron">
-                    <h3>@item.ItemDescription.Title</h3>
-                    <p>@item.ItemDescription.Description</p>
+                    @await Component.InvokeAsync("Marketing.ViewComponents.HomeShowcaseItemDescription", item)
                     @await Component.InvokeAsync("Sales.ViewComponents.HomeItemPrice", item)
                 </div>
             </div>

@@ -49,6 +49,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "HttpHelpers", "HttpHelpers\
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Sales.CoreViewModelComposition", "Sales.CoreViewModelComposition\Sales.CoreViewModelComposition.xproj", "{AACA465A-7FE1-43D6-BB19-23BA69582943}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Sales.ViewComponents", "Sales.ViewComponents\Sales.ViewComponents.xproj", "{819D4FFE-FF25-4C75-A0D6-CFD964B1CE2B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -123,6 +125,10 @@ Global
 		{AACA465A-7FE1-43D6-BB19-23BA69582943}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AACA465A-7FE1-43D6-BB19-23BA69582943}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AACA465A-7FE1-43D6-BB19-23BA69582943}.Release|Any CPU.Build.0 = Release|Any CPU
+		{819D4FFE-FF25-4C75-A0D6-CFD964B1CE2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{819D4FFE-FF25-4C75-A0D6-CFD964B1CE2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{819D4FFE-FF25-4C75-A0D6-CFD964B1CE2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{819D4FFE-FF25-4C75-A0D6-CFD964B1CE2B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -144,5 +150,6 @@ Global
 		{A8D9AD44-9BD3-4532-8884-8BD0DC727530} = {9C624413-311A-4BC3-8B7D-C0BD80654813}
 		{1332477D-3A04-4A2F-8F8A-C2517FDAF4E4} = {9C624413-311A-4BC3-8B7D-C0BD80654813}
 		{AACA465A-7FE1-43D6-BB19-23BA69582943} = {3F113598-B240-4E06-B41A-6C684C208F2A}
+		{819D4FFE-FF25-4C75-A0D6-CFD964B1CE2B} = {3F113598-B240-4E06-B41A-6C684C208F2A}
 	EndGlobalSection
 EndGlobal

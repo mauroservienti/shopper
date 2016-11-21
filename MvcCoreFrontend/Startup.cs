@@ -8,6 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using CoreViewModelComposition;
+using System.Reflection;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace MvcCoreFrontend
 {
@@ -34,6 +37,18 @@ namespace MvcCoreFrontend
 
             RegisterSingletons(services, Configuration.GetSection("composers"));
             RegisterSingletons(services, Configuration.GetSection("services"));
+
+            //Get a reference to the assembly that contains the view components
+            var assembly = typeof(Sales.ViewComponents.HomeItemPriceViewComponent).GetTypeInfo().Assembly;
+
+            //Add the file provider to the Razor view engine
+            services.Configure<RazorViewEngineOptions>(options =>
+            {
+                options.FileProviders.Add(new EmbeddedFileProvider(
+                    assembly,
+                    "Sales.ViewComponents"
+                ));
+            });
         }
 
         void RegisterSingletons(IServiceCollection services, IConfigurationSection section)
@@ -52,7 +67,7 @@ namespace MvcCoreFrontend
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            if(env.IsDevelopment())
+            if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();

@@ -38,17 +38,16 @@ namespace MvcCoreFrontend
             RegisterSingletons(services, Configuration.GetSection("composers"));
             RegisterSingletons(services, Configuration.GetSection("services"));
 
-            //Get a reference to the assembly that contains the view components
-            var assembly = typeof(Sales.ViewComponents.HomeItemPriceViewComponent).GetTypeInfo().Assembly;
-
-            //Add the file provider to the Razor view engine
-            services.Configure<RazorViewEngineOptions>(options =>
+            foreach (var vc in Configuration.GetSection("viewComponents").GetChildren())
             {
-                options.FileProviders.Add(new EmbeddedFileProvider(
-                    assembly,
-                    "Sales.ViewComponents"
-                ));
-            });
+                var an = new AssemblyName(vc.Value);
+                var a = Assembly.Load(an);
+
+                services.Configure<RazorViewEngineOptions>(options =>
+                {
+                    options.FileProviders.Add(new EmbeddedFileProvider(a, vc.Value));
+                });
+            }
         }
 
         void RegisterSingletons(IServiceCollection services, IConfigurationSection section)

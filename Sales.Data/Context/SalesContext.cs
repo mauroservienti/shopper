@@ -11,7 +11,7 @@ namespace Sales.Data.Context
 {
     public interface ISalesContext
     {
-        IQueryable<SellingPrice> SellingPrices { get; }
+        IQueryable<ItemPrice> ItemPrices { get; }
     }
 
     [DbConfigurationType(typeof(SqLiteConfig))]
@@ -21,9 +21,9 @@ namespace Sales.Data.Context
         {
         }
 
-        public IDbSet<SellingPrice> SellingPrices { get; set; }
+        public IDbSet<ItemPrice> SellingPrices { get; set; }
 
-        IQueryable<SellingPrice> ISalesContext.SellingPrices
+        IQueryable<ItemPrice> ISalesContext.ItemPrices
         {
             get { return this.SellingPrices; }
         }
@@ -32,7 +32,7 @@ namespace Sales.Data.Context
         {
             Database.SetInitializer(new DatabaseInitializer(modelBuilder));
 
-            modelBuilder.Entity<SellingPrice>()
+            modelBuilder.Entity<ItemPrice>()
                 .HasKey(sp => sp.Id);
             //.HasMany(e => e.Items)
             //.WithRequired()

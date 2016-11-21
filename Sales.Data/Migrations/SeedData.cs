@@ -9,15 +9,15 @@ namespace Sales.Data.Migrations
 {
     static class SeedData
     {
-        public static SellingPrice[] SellingPrices()
+        public static ItemPrice[] SellingPrices()
         {
-            return new SellingPrice[]
+            return new ItemPrice[]
             {
-                new SellingPrice() {StockItemId = 1, Price = 10},
-                new SellingPrice() {StockItemId = 2, Price = 300},
-                new SellingPrice() {StockItemId = 3, Price = 22},
-                new SellingPrice() {StockItemId = 4, Price = 55.6},
-                new SellingPrice() {StockItemId = 5, Price = 0.56}
+                new ItemPrice() {StockItemId = 1, StreetPrice = 10},
+                new ItemPrice() {StockItemId = 2, StreetPrice = 300},
+                new ItemPrice() {StockItemId = 3, StreetPrice = 22},
+                new ItemPrice() {StockItemId = 4, StreetPrice = 55.6},
+                new ItemPrice() {StockItemId = 5, StreetPrice = 0.56}
             };
         }
     }

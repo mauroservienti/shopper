@@ -7,7 +7,7 @@ using System;
 
 namespace Sales.API.Controllers
 {
-    [RoutePrefix("api/sellingprices")]
+    [RoutePrefix("api/ItemPrices")]
     public class SellingPricesController : ApiController
     {
         private readonly ISalesContext _context;
@@ -20,7 +20,7 @@ namespace Sales.API.Controllers
         [HttpGet]
         public dynamic Get(int id)
         {
-            return _context.SellingPrices.Where(si => si.Id == id).Single();
+            return _context.ItemPrices.Where(si => si.Id == id).Single();
         }
 
         [HttpGet, Route("ByStockItem")]
@@ -30,7 +30,7 @@ namespace Sales.API.Controllers
                 .Select(id => int.Parse(id))
                 .ToList();
 
-            var query = from si in _context.SellingPrices
+            var query = from si in _context.ItemPrices
                         where _ids.Contains(si.StockItemId)
                         select si;
 

@@ -2,10 +2,10 @@
 
 namespace Sales.Data.Models
 {
-    public class SellingPrice
+    public class ItemPrice
     {
         public int Id { get; set; }
         public int StockItemId { get; set; }
-        public double Price { get; set; }
+        public double StreetPrice { get; set; }
     }
 }

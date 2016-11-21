@@ -6,13 +6,13 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 
-namespace Marketing.CoreViewModelComposition
+namespace Sales.CoreViewModelComposition
 {
-    public class ProductDescriptionHomeViewModelVisitor : IHomeViewModelVisitor
+    public class ProductPriceHomeViewModelVisitor : IHomeViewModelVisitor
     {
         readonly IConfiguration _config;
 
-        public ProductDescriptionHomeViewModelVisitor(IConfiguration config)
+        public ProductPriceHomeViewModelVisitor(IConfiguration config)
         {
             _config = config;
         }
@@ -29,19 +29,19 @@ namespace Marketing.CoreViewModelComposition
                 ids.Add(p.StockItemId);
             }
 
-            var apiUrl = _config.GetValue<string>("modules:marketing:config:apiUrl");
-            var url = $"{apiUrl}ProductDescriptions/ByStockItem?ids={ string.Join(",", ids) }";
+            var apiUrl = _config.GetValue<string>("modules:sales:config:apiUrl");
+            var url = $"{apiUrl}ItemPrices/ByStockItem?ids={ string.Join(",", ids) }";
 
             var client = new HttpClient();
             var response = await client.GetAsync(url);
-            dynamic[] descriptions = await response.Content.AsExpandoArrayAsync();
+            dynamic[] prices = await response.Content.AsExpandoArrayAsync();
 
-            composedViewModel.HeadlineProduct.ItemDescription = descriptions.Single(d => d.StockItemId == composedViewModel.HeadlineProduct.StockItemId);
+            composedViewModel.HeadlineProduct.ItemPrice = prices.Single(d => d.StockItemId == composedViewModel.HeadlineProduct.StockItemId);
 
             foreach(var p in composedViewModel.ShowcaseProducts)
             {
-                var obj = descriptions.Single(d => d.StockItemId == p.StockItemId);
-                p.ItemDescription = obj;
+                var obj = prices.Single(d => d.StockItemId == p.StockItemId);
+                p.ItemPrice = obj;
             }
         }
     }

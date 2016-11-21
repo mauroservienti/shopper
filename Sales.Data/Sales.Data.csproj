@@ -72,7 +72,7 @@
     <Compile Include="Context\SalesContext.cs" />
     <Compile Include="Migrations\DatabaseInitializer.cs" />
     <Compile Include="Migrations\SeedData.cs" />
-    <Compile Include="Models\SellingPrice.cs" />
+    <Compile Include="Models\ItemPrice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

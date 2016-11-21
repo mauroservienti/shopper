@@ -3,8 +3,9 @@
 }
 
 <div class="jumbotron">
-    <h1>@Model.HeadlineProduct.Description.Title</h1>
-    <p>@Model.HeadlineProduct.Description.Description</p>
+    <h1>@Model.HeadlineProduct.ItemDescription.Title</h1>
+    <p>@Model.HeadlineProduct.ItemDescription.Description</p>
+    <p>@Model.HeadlineProduct.ItemPrice.StreetPrice</p>
 </div>
 
 <div class="row">
@@ -14,8 +15,9 @@
         {
             <div class="col-md-@howMany">
                 <div class="jumbotron">
-                    <h3>@item.Description.Title</h3>
-                    <p>@item.Description.Description</p>
+                    <h3>@item.ItemDescription.Title</h3>
+                    <p>@item.ItemDescription.Description</p>
+                    <p>@item.ItemPrice.StreetPrice</p>
                 </div>
             </div>
         }

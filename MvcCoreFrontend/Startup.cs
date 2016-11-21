@@ -32,9 +32,13 @@ namespace MvcCoreFrontend
             services.AddMvc();
             services.AddSingleton<IConfiguration>(Configuration);
 
-            var composers = Configuration.GetSection("composers");
-            var elements = composers.GetChildren();
-            foreach(var item in elements)
+            RegisterSingletons(services, Configuration.GetSection("composers"));
+            RegisterSingletons(services, Configuration.GetSection("services"));
+        }
+
+        void RegisterSingletons(IServiceCollection services, IConfigurationSection section)
+        {
+            foreach (var item in section.GetChildren())
             {
                 var contract = Type.GetType(item.GetValue<string>("contract"));
                 var implementation = Type.GetType(item.GetValue<string>("implementation"));

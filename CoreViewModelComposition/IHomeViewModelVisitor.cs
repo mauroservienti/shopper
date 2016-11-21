@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace CoreViewModelComposition
 {
-    public interface IComposeHomeViewModel
+    public interface IHomeViewModelVisitor
     {
-        Task Compose(dynamic composedViewModel);
+        Task Visit(dynamic composedViewModel);
     }
 }

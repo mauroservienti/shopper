@@ -1,21 +1,23 @@
 ﻿using CoreViewModelComposition;
 using HttpHelpers;
-using JsonHelpers;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Serialization;
-using System;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace Marketing.CoreViewModelComposition
 {
-    public class ProductDescriptionHomeComposer : IComposeHomeViewModel
+    public class ProductDescriptionHomeViewModelVisitor : IHomeViewModelVisitor
     {
-        public async Task Compose(dynamic composedViewModel)
+        readonly IConfiguration _config;
+
+        public ProductDescriptionHomeViewModelVisitor(IConfiguration config)
+        {
+            _config = config;
+        }
+
+        public async Task Visit(dynamic composedViewModel)
         {
             var ids = new List<dynamic>()
             {
@@ -26,10 +28,12 @@ namespace Marketing.CoreViewModelComposition
             {
                 ids.Add(p.StockItemId);
             }
-            var apiUrl = $"http://localhost:20188/api/ProductDescriptions/ByStockItem?ids={ string.Join(",", ids) }";
+
+            var apiUrl = _config.GetValue<string>("modules:marketing:config:apiUrl");
+            var url = $"{apiUrl}ProductDescriptions/ByStockItem?ids={ string.Join(",", ids) }";
 
             var client = new HttpClient();
-            var response = await client.GetAsync(apiUrl);
+            var response = await client.GetAsync(url);
             dynamic[] descriptions = await response.Content.AsExpandoArrayAsync();
 
             composedViewModel.HeadlineProduct.Description = descriptions.Single(d => d.StockItemId == composedViewModel.HeadlineProduct.StockItemId);

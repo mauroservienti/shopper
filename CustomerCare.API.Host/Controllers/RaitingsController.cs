@@ -23,8 +23,8 @@ namespace CustomerCare.API.Controllers
             return _context.Raitings.Where(si => si.Id == id).Single();
         }
 
-        [HttpGet, Route("ByStockItemIds/{ids}")]
-        public IEnumerable<dynamic> ByStockItemIds(string ids)
+        [HttpGet, Route("ByStockItem")]
+        public IEnumerable<dynamic> ByStockItem(string ids)
         {
             var _ids = ids.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
                 .Select(id => int.Parse(id))

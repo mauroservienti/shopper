@@ -27,7 +27,9 @@
         "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.1.0",
         "Sales.ViewComponents": "1.0.0-*",
         "Microsoft.Extensions.FileProviders.Embedded": "1.0.0",
-        "Marketing.ViewComponents": "1.0.0-*"
+        "Marketing.ViewComponents": "1.0.0-*",
+        "CustomerCare.CoreViewModelComposition": "1.0.0-*",
+        "CustomerCare.ViewComponents": "1.0.0-*"
     },
 
     "tools": {

@@ -38,7 +38,6 @@ namespace MvcCoreFrontend
             var modules = Configuration.GetSection("modules").GetChildren();
 
             var allServices = new List<IConfigurationSection>();
-            var allComposers = new List<IConfigurationSection>();
             var allViewComponents = new List<IConfigurationSection>();
 
             foreach (var module in modules)
@@ -49,17 +48,12 @@ namespace MvcCoreFrontend
                     Configuration.GetSection($"modules:{moduleName}:services").GetChildren()
                     );
 
-                allComposers.AddRange(
-                    Configuration.GetSection($"modules:{moduleName}:composers").GetChildren()
-                    );
-
                 allViewComponents.AddRange(
                     Configuration.GetSection($"modules:{moduleName}:viewComponents").GetChildren()
                     );
             }
 
             RegisterSingletons(services, allServices);
-            RegisterSingletons(services, allComposers);
             RegisterViewComponents(services, allViewComponents);
         }
 

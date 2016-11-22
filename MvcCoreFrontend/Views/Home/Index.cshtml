@@ -5,6 +5,7 @@
 <div class="jumbotron">
     @await Component.InvokeAsync("Marketing.ViewComponents.HomeHeadlineItemDescription", @Model.HeadlineProduct)
     @await Component.InvokeAsync("Sales.ViewComponents.HomeItemPrice", @Model.HeadlineProduct)
+    @await Component.InvokeAsync("CustomerCare.ViewComponents.ItemRating", @Model.HeadlineProduct)
 </div>
 
 <div class="row">
@@ -16,6 +17,7 @@
                 <div class="jumbotron">
                     @await Component.InvokeAsync("Marketing.ViewComponents.HomeShowcaseItemDescription", item)
                     @await Component.InvokeAsync("Sales.ViewComponents.HomeItemPrice", item)
+                    @await Component.InvokeAsync("CustomerCare.ViewComponents.ItemRating", item)
                 </div>
             </div>
         }

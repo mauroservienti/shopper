@@ -35,10 +35,37 @@ namespace MvcCoreFrontend
             services.AddMvc();
             services.AddSingleton<IConfiguration>(Configuration);
 
-            RegisterSingletons(services, Configuration.GetSection("composers"));
-            RegisterSingletons(services, Configuration.GetSection("services"));
+            var modules = Configuration.GetSection("modules").GetChildren();
 
-            foreach (var vc in Configuration.GetSection("viewComponents").GetChildren())
+            var allServices = new List<IConfigurationSection>();
+            var allComposers = new List<IConfigurationSection>();
+            var allViewComponents = new List<IConfigurationSection>();
+
+            foreach (var module in modules)
+            {
+                var moduleName = module.Key;
+
+                allServices.AddRange(
+                    Configuration.GetSection($"modules:{moduleName}:services").GetChildren()
+                    );
+
+                allComposers.AddRange(
+                    Configuration.GetSection($"modules:{moduleName}:composers").GetChildren()
+                    );
+
+                allViewComponents.AddRange(
+                    Configuration.GetSection($"modules:{moduleName}:viewComponents").GetChildren()
+                    );
+            }
+
+            RegisterSingletons(services, allServices);
+            RegisterSingletons(services, allComposers);
+            RegisterViewComponents(services, allViewComponents);
+        }
+
+        void RegisterViewComponents(IServiceCollection services, IEnumerable<IConfigurationSection> viewComponents)
+        {
+            foreach (var vc in viewComponents)
             {
                 var an = new AssemblyName(vc.Value);
                 var a = Assembly.Load(an);
@@ -50,9 +77,9 @@ namespace MvcCoreFrontend
             }
         }
 
-        void RegisterSingletons(IServiceCollection services, IConfigurationSection section)
+        void RegisterSingletons(IServiceCollection services, IEnumerable<IConfigurationSection> registrations)
         {
-            foreach (var item in section.GetChildren())
+            foreach (var item in registrations)
             {
                 var contract = Type.GetType(item.GetValue<string>("contract"));
                 var implementation = Type.GetType(item.GetValue<string>("implementation"));

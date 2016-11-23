@@ -1,5 +1,5 @@
 {
-  "name": "Services-UI-Composition",
+  "name": "services-ui-composition",
   "description": "",
   "main": "",
   "private": true,
@@ -16,12 +16,12 @@
     "tests"
   ],
   "dependencies": {
-    "angular-route": "1.5.8",
-    "angular": "1.5.8",
-    "angular-ui-router": "^0.3.1",
-    "bootstrap": "^3.3.6",
+    "angular-route": "1.5.x",
+    "angular": "1.5.x",
+    "angular-ui-router": "0.3.x",
+    "bootstrap": "3.3.x",
     "jquery": "^1.9.1",
-    "underscore": "^1.8.3"
+    "underscore": "1.8.x"
   },
   "exportsOverride": {
     "bootstrap": {

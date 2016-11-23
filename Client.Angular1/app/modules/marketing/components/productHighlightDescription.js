@@ -9,7 +9,7 @@
                 return {
                     restrict: 'E',
                     scope: {
-                        product: '=',
+                        model: '=',
                     },
                     templateUrl: '/app/modules/marketing/components/productHighlightDescription.html'
                 };

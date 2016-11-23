@@ -6,10 +6,10 @@
                 
                 var homeShowcaseQueryId = 'home-showcase';
                 backendCompositionServiceProvider.registerQueryHandlerFactory(homeShowcaseQueryId,
-                    ['$log', '$http', 'messageBroker', 'publishing.config', function ($log, $http, messageBroker, config) {
+                    ['$log', '$http', 'publishing.config', function ($log, $http, config) {
 
-                        var handler = {
-                            get: function (args, composedResults) {
+                        var factory = {
+                            query: function (args, composedResults) {
 
                                 $log.debug('Ready to handle ', homeShowcaseQueryId, ' args: ', args);
                                 var uri = config.apiUrl + '/publishing/homeShowcase';
@@ -18,23 +18,25 @@
 
                                         $log.debug('home-showcase HTTP response', response.data);
 
-                                        var vm = new HomeShowcase(response.data);
-                                        composedResults.showcase = vm;
-
-                                        messageBroker.broadcast('home-showcase/retrieved', this, {
-                                            rawData: response.data,
-                                            viewModel: vm
+                                        // var vm = new HomeShowcase(response.data);
+                                        // composedResults.showcase = vm;
+                                        composedResults.headlineProduct ={
+                                            stockItemId: response.data.headlineStockItemId
+                                        };
+                                        composedResults.showcaseProducts = [];
+                                        angular.forEach(response.data.showcaseStockItemIds, function(value, key){
+                                            composedResults.showcaseProducts.push({stockItemId: value});
                                         });
 
                                         $log.debug('Query ', homeShowcaseQueryId, 'handled: ', composedResults);
 
-                                        return composedResults;
+                                        return response.data;
                                     });
 
                             }
                         }
 
-                        return handler;
+                        return factory;
                     }]);
 
         }]);

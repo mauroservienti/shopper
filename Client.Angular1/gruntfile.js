@@ -68,11 +68,15 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('default', [
+    
+    grunt.registerTask('build', [
         'bower:install',
         'uglify',
         'less:development',
-        'html2js:app',
+        'html2js:app']);
+    
+    grunt.registerTask('default', [
+        'build',
         'watch']);
 
     grunt.loadNpmTasks('grunt-bower-task');

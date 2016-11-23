@@ -39,5 +39,8 @@ The [single page application](https://github.com/mauroservienti/Services-UI-Comp
 * Install `grunt` globally running at a `Node` command prompt `npm install -g grunt`
 * Install `grunt-cli` globally running at a `Node` command prompt `npm install -g grunt-cli`
 
-Open a `Node` command prompt, move to the [single page application](https://github.com/mauroservienti/Services-UI-Composition/tree/master/Client.Angular1), and run `grunt connect` to build the single page application and serve it using the grung default web server, the application will be available at `http://localhost:9000`
+Open a `Node` command prompt, move to the [single page application](https://github.com/mauroservienti/Services-UI-Composition/tree/master/Client.Angular1):
+* _first time only_: run `npm install` to install all required dependencies
+* run `grunt build` to build the single page application
+* run `gunt connect` to serve it using the grung default web server (application will be available at `http://localhost:9000`)
 

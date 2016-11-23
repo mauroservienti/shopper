@@ -6,9 +6,9 @@
                 
                 var homeShowcaseQueryId = 'home-showcase';
                 backendCompositionServiceProvider.registerQueryHandlerFactory(homeShowcaseQueryId,
-                    ['$log', '$http', 'messageBroker', 'publishing.config', function ($log, $http, messageBroker, config) {
+                    ['$log', '$http', 'publishing.config', function ($log, $http, config) {
 
-                        var handler = {
+                        var factory = {
                             get: function (args, composedResults) {
 
                                 $log.debug('Ready to handle ', homeShowcaseQueryId, ' args: ', args);
@@ -21,20 +21,15 @@
                                         var vm = new HomeShowcase(response.data);
                                         composedResults.showcase = vm;
 
-                                        messageBroker.broadcast('home-showcase/retrieved', this, {
-                                            rawData: response.data,
-                                            viewModel: vm
-                                        });
-
                                         $log.debug('Query ', homeShowcaseQueryId, 'handled: ', composedResults);
 
-                                        return composedResults;
+                                        return response.data;
                                     });
 
                             }
                         }
 
-                        return handler;
+                        return factory;
                     }]);
 
         }]);

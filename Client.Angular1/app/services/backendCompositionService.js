@@ -5,17 +5,29 @@
             var queryHandlerFactories = {};
             var queryHandlers = {};
 
-            this.registerQueryHandlerFactory = function (queryId, handlerFactory) {
+            var viewModelVisitorFactories = {};
+            var viewModelVisitors = {};
+
+            this.registerQueryHandlerFactory = function (queryId, factory) {
 
                 if (!queryHandlerFactories.hasOwnProperty(queryId)) {
                     queryHandlerFactories[queryId] = [];
                 }
 
-                queryHandlerFactories[queryId].push(handlerFactory);
+                queryHandlerFactories[queryId].push(factory);
             };
 
-            this.$get = ['$log', '$injector', '$q',
-                function backendCompositionServiceFactory($log, $injector, $q) {
+            this.registerViewModelVisitorFactory = function (queryId, factory) {
+
+                if (!viewModelVisitorFactories.hasOwnProperty(queryId)) {
+                    viewModelVisitorFactories[queryId] = [];
+                }
+
+                viewModelVisitorFactories[queryId].push(factory);
+            };
+
+            this.$get = ['$log', '$injector', '$q', 'messageBroker',
+                function backendCompositionServiceFactory($log, $injector, $q, messageBroker) {
 
                     $log.debug('backendCompositionServiceFactory');
 
@@ -39,6 +51,20 @@
                             queryHandlers[queryId] = handlers;
                         }
 
+                        var visitors = viewModelVisitors[queryId];
+                        if (!visitors) {
+                            visitors = [];
+                            var factories = viewModelVisitorFactories[queryId];
+                            if (factories) {
+                                angular.forEach(factories, function (factory, index) {
+                                    var visitor = $injector.invoke(factory);
+                                    visitors.push(visitor);
+                                });
+
+                                viewModelVisitors[queryId] = visitors;
+                            }
+                        }
+
                         var deferred = $q.defer();
 
                         var composedResult = {
@@ -48,11 +74,25 @@
 
                         angular.forEach(handlers, function (handler, index) {
 
-                            var promise = handler.get(args, composedResult);
-                            if (!promise) {
+                            var handlerPromise = handler.get(args, composedResult);
+                            if (!handlerPromise) {
                                 throw 'executeQuery must return a promise.';
                             }
-                            promises.push(promise);
+
+                            handlerPromise
+                                .then(function(rawData){
+                                    messageBroker.broadcast(queryId + '/retrieved', this, {
+                                        rawData: rawData,
+                                        composedResult: composedResult
+                                    });
+                                })
+                                .then(function(rawData){
+                                    angular.forEach(visitors, function (visitor, index) {
+                                        visitor.visit(args, composedResult, rawData);
+                                    });
+                                });
+
+                            promises.push(handlerPromise);
                         });
 
                         return $q.all(promises)

@@ -6,35 +6,37 @@
 
             messageBroker.subscribe('home-showcase/retrieved', function (sender, args) {
 
-                var showcaseIds = [];
-                showcaseIds.push(args.viewModel.headlineProduct.stockItemId);
-                angular.forEach(args.viewModel.showcaseProducts, function(value, key){
-                    showcaseIds.push(value.stockItemId);
-                });
+                    $log.debug('Marketing - home-showcase/retrieved handler, args: ', args);
 
-                $log.debug('showcaseIds', showcaseIds);
+            //     var showcaseIds = [];
+            //     showcaseIds.push(args.viewModel.headlineProduct.stockItemId);
+            //     angular.forEach(args.viewModel.showcaseProducts, function(value, key){
+            //         showcaseIds.push(value.stockItemId);
+            //     });
 
-                var uri = config.apiUrl + '/ProductDescriptions/ByStockItem?ids=' + showcaseIds;
-                $log.debug('showcaseIds - URL', uri);
+            //     $log.debug('showcaseIds', showcaseIds);
 
-                $http.get(uri)
-                     .then(function (response) {
+            //     var uri = config.apiUrl + '/ProductDescriptions/ByStockItem?ids=' + showcaseIds;
+            //     $log.debug('showcaseIds - URL', uri);
 
-                         $log.debug('HTTP response', response.data);
-                         var _headline = response.data[0];
-                         var _showcases = response.data.slice(1);
+            //     $http.get(uri)
+            //          .then(function (response) {
 
-                        args.viewModel.headlineProduct.description = _headline;
-                        angular.forEach(_showcases, function(value, key){
-                            var vm = _.findWhere(args.viewModel.showcaseProducts, { 
-                                stockItemId: value.stockItemId
-                            }); 
-                            vm.description = value;
-                        });
+            //              $log.debug('HTTP response', response.data);
+            //              var _headline = response.data[0];
+            //              var _showcases = response.data.slice(1);
+
+            //             args.viewModel.headlineProduct.description = _headline;
+            //             angular.forEach(_showcases, function(value, key){
+            //                 var vm = _.findWhere(args.viewModel.showcaseProducts, { 
+            //                     stockItemId: value.stockItemId
+            //                 }); 
+            //                 vm.description = value;
+            //             });
 
 
-                        $log.debug('Marketing - home-showcase/retrieved - composed', args.viewModel);
-                     });
+            //             $log.debug('Marketing - home-showcase/retrieved - composed', args.viewModel);
+            //          });
             });
 
         }]);

@@ -1,15 +1,15 @@
 <section>
     <div class="jumbotron">
-        <product-highlight-description data-product="home.showcase.headlineProduct" />
+        <product-highlight-description data-model="home.model.headlineProduct" />
         <br />
-        <product-highlight-price data-product="home.showcase.headlineProduct" />
+        <product-highlight-price data-model="home.model.headlineProduct" />
     </div>
     <div class="row">
-        <div data-ng-repeat="p in home.showcase.showcaseProducts track by p.stockItemId" class="col-md-{{ 12 / home.showcase.showcaseProducts.length }}">
+        <div data-ng-repeat="p in home.model.showcaseProducts track by p.stockItemId" class="col-md-{{ 12 / home.model.showcaseProducts.length }}">
             <div class="jumbotron">
-                <product-showcase-description data-product="p" />
+                <product-showcase-description data-model="p" />
                 <br />
-                <product-showcase-price data-product="p" />
+                <product-showcase-price data-model="p" />
             </div>
         </div>
     </div>

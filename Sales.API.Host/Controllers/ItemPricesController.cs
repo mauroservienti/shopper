@@ -8,11 +8,11 @@ using System;
 namespace Sales.API.Controllers
 {
     [RoutePrefix("api/ItemPrices")]
-    public class SellingPricesController : ApiController
+    public class ItemPricesController : ApiController
     {
         private readonly ISalesContext _context;
 
-        public SellingPricesController(ISalesContext context)
+        public ItemPricesController(ISalesContext context)
         {
             _context = context;
         }

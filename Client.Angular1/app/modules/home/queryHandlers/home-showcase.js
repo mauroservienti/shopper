@@ -9,7 +9,7 @@
                     ['$log', '$http', 'publishing.config', function ($log, $http, config) {
 
                         var factory = {
-                            get: function (args, composedResults) {
+                            query: function (args, composedResults) {
 
                                 $log.debug('Ready to handle ', homeShowcaseQueryId, ' args: ', args);
                                 var uri = config.apiUrl + '/publishing/homeShowcase';
@@ -18,8 +18,15 @@
 
                                         $log.debug('home-showcase HTTP response', response.data);
 
-                                        var vm = new HomeShowcase(response.data);
-                                        composedResults.showcase = vm;
+                                        // var vm = new HomeShowcase(response.data);
+                                        // composedResults.showcase = vm;
+                                        composedResults.headlineProduct ={
+                                            stockItemId: response.data.headlineStockItemId
+                                        };
+                                        composedResults.showcaseProducts = [];
+                                        angular.forEach(response.data.showcaseStockItemIds, function(value, key){
+                                            composedResults.showcaseProducts.push({stockItemId: value});
+                                        });
 
                                         $log.debug('Query ', homeShowcaseQueryId, 'handled: ', composedResults);
 

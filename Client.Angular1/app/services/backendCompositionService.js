@@ -37,14 +37,14 @@
 
                         var handlers = queryHandlers[queryId];
                         if (!handlers) {
-                            var factories = queryHandlerFactories[queryId];
-                            if (!factories) {
+                            var handlerFactories = queryHandlerFactories[queryId];
+                            if (!handlerFactories) {
                                 throw 'Cannot find any valid queryHandler or factory for "' + queryId + '"';
                             }
 
                             handlers = [];
-                            angular.forEach(factories, function (factory, index) {
-                                var handler = $injector.invoke(factory);
+                            angular.forEach(handlerFactories, function (handlerFactory, index) {
+                                var handler = $injector.invoke(handlerFactory);
                                 handlers.push(handler);
                             });
 
@@ -54,10 +54,10 @@
                         var visitors = viewModelVisitors[queryId];
                         if (!visitors) {
                             visitors = [];
-                            var factories = viewModelVisitorFactories[queryId];
-                            if (factories) {
-                                angular.forEach(factories, function (factory, index) {
-                                    var visitor = $injector.invoke(factory);
+                            var visitorFactories = viewModelVisitorFactories[queryId];
+                            if (visitorFactories) {
+                                angular.forEach(visitorFactories, function (visitorFactory, index) {
+                                    var visitor = $injector.invoke(visitorFactory);
                                     visitors.push(visitor);
                                 });
 
@@ -67,32 +67,37 @@
 
                         var deferred = $q.defer();
 
-                        var composedResult = {
-                            dataType: 'root'
-                        };
+                        var composedResult = {};
                         var promises = [];
 
                         angular.forEach(handlers, function (handler, index) {
 
-                            var handlerPromise = handler.get(args, composedResult);
+                            var handlerPromise = handler.query(args, composedResult);
                             if (!handlerPromise) {
-                                throw 'executeQuery must return a promise.';
+                                throw 'query must return a promise.';
                             }
 
-                            handlerPromise
-                                .then(function(rawData){
-                                    messageBroker.broadcast(queryId + '/retrieved', this, {
-                                        rawData: rawData,
-                                        composedResult: composedResult
-                                    });
-                                })
-                                .then(function(rawData){
-                                    angular.forEach(visitors, function (visitor, index) {
-                                        visitor.visit(args, composedResult, rawData);
-                                    });
-                                });
-
                             promises.push(handlerPromise);
+
+                            handlerPromise
+                                // .then(function(rawData){
+                                //     var evtId = queryId + '/retrieved';
+                                //     $log.debug('broadcasting event: ', evtId, rawData);
+                                //     messageBroker.broadcast(evtId, this, {
+                                //         args: args,
+                                //         rawData: rawData,
+                                //         composedResult: composedResult
+                                //     });
+
+                                //     return rawData;
+                                // })
+                                .then(function(rawData){
+                                    $log.debug('calling visitors, rawData: ', rawData);
+                                    angular.forEach(visitors, function (visitor, index) {
+                                        var vp = visitor.visit(args, composedResult, rawData);
+                                        promises.push(vp);
+                                    });
+                                }); 
                         });
 
                         return $q.all(promises)

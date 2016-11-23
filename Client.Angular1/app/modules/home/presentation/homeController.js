@@ -7,13 +7,13 @@
                 var vm = this;
 
                 vm.isBusy = null;
-                vm.showcase = null;
+                vm.model = null;
 
                 vm.isBusy = publishingService
                     .homeShowcase()
-                    .then(function (hs) {
-                        $log.debug('showcase:', hs);
-                        vm.showcase = hs;
+                    .then(function (model) {
+                        $log.debug('homeShowcase model:', model);
+                        vm.model = model;
                     });
 
             }]);

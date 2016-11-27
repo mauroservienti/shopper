@@ -3,12 +3,10 @@
 
     'use strict';
 
-    angular.module('app.customers', []);
-    angular.module('app.finance', []);
-
     angular.module('app.sales', []);
     angular.module('app.home', []);
     angular.module('app.marketing', []);
+    angular.module('app.customerCare', []);
 
     angular.module('app.controllers', []);
     angular.module('app.services', []);
@@ -20,7 +18,8 @@
                 'app.templates',
                 'app.home',
                 'app.marketing',
-                'app.sales' //,
+                'app.sales',
+                'app.customerCare' //,
                 // 'app.customers',
                 // 'app.finance',
                 // 'app.sales'

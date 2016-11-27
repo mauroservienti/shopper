@@ -31,10 +31,6 @@ namespace MvcCoreFrontend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
-            services.AddMvc();
-            services.AddSingleton<IConfiguration>(Configuration);
-
             var modules = Configuration.GetSection("modules").GetChildren();
 
             var allServices = new List<IConfigurationSection>();
@@ -53,23 +49,53 @@ namespace MvcCoreFrontend
                     );
             }
 
-            RegisterSingletons(services, allServices);
-            RegisterViewComponents(services, allViewComponents);
-        }
-
-        void RegisterViewComponents(IServiceCollection services, IEnumerable<IConfigurationSection> viewComponents)
-        {
-            foreach (var vc in viewComponents)
+            var viewComponents = allViewComponents.Select(cs =>
             {
-                var an = new AssemblyName(vc.Value);
+                var an = new AssemblyName(cs.Value);
                 var a = Assembly.Load(an);
 
+                return new
+                {
+                    baseNamesapce = cs.Value,
+                    assembly = a
+                };
+            });
+
+            foreach (var vc in viewComponents)
+            {
                 services.Configure<RazorViewEngineOptions>(options =>
                 {
-                    options.FileProviders.Add(new EmbeddedFileProvider(a, vc.Value));
+                    options.FileProviders.Add(new EmbeddedFileProvider(vc.assembly, vc.baseNamesapce));
                 });
             }
+
+            RegisterSingletons(services, allServices);
+            //RegisterViewComponents(services, allViewComponents);
+
+            // Add framework services.
+            var imvc = services.AddMvc();
+            foreach (var vc in viewComponents)
+            {
+                imvc = imvc.AddApplicationPart(vc.assembly);
+            }
+            imvc.AddControllersAsServices();
+
+            services.AddSingleton<IConfiguration>(Configuration);
         }
+
+        //void RegisterViewComponents(IServiceCollection services, IEnumerable<IConfigurationSection> viewComponents)
+        //{
+        //    foreach (var vc in viewComponents)
+        //    {
+        //        var an = new AssemblyName(vc.Value);
+        //        var a = Assembly.Load(an);
+
+        //        services.Configure<RazorViewEngineOptions>(options =>
+        //        {
+        //            options.FileProviders.Add(new EmbeddedFileProvider(a, vc.Value));
+        //        });
+        //    }
+        //}
 
         void RegisterSingletons(IServiceCollection services, IEnumerable<IConfigurationSection> registrations)
         {

@@ -7,8 +7,8 @@
     <ProjectGuid>{2722C284-6DAE-4A22-95EE-EE1BC89D2040}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Marketing.API.Host</RootNamespace>
-    <AssemblyName>Marketing.API.Host</AssemblyName>
+    <RootNamespace>CustomerCare.API.Host</RootNamespace>
+    <AssemblyName>CustomerCare.API.Host</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -130,10 +130,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\RaitingsController.cs" />
-    <Compile Include="Program.cs">
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceHost.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

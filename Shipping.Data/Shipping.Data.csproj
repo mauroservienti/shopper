@@ -69,7 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\SqLiteConfig.cs" />
-    <Compile Include="Context\SalesContext.cs" />
+    <Compile Include="Context\ShippingContext.cs" />
     <Compile Include="Migrations\DatabaseInitializer.cs" />
     <Compile Include="Migrations\SeedData.cs" />
     <Compile Include="Models\ShippingDetails.cs" />

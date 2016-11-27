@@ -27,12 +27,6 @@ namespace Sales.API.Host
             var bootstrapper = new WindsorBootstrapper(AppDomain.CurrentDomain.BaseDirectory, filter: "*.*");
             var container = bootstrapper.Boot();
 
-            var dataManagerComponent = Component.For<ISalesContext>()
-                .Instance(new SalesContext())
-                .LifestyleSingleton();
-
-            container.Register(dataManagerComponent);
-
             var config = new HttpConfiguration();
 
             config.Formatters.Clear();

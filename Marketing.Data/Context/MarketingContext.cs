@@ -9,11 +9,6 @@ using Marketing.Data.Models;
 
 namespace Marketing.Data.Context
 {
-    //public interface IMarketingContext
-    //{
-    //    IQueryable<ProductDescription> ProductDescriptions { get; }
-    //}
-
     [DbConfigurationType(typeof(SqLiteConfig))]
     public class MarketingContext : DbContext //, IMarketingContext
     {
@@ -23,20 +18,12 @@ namespace Marketing.Data.Context
 
         public IDbSet<ProductDescription> ProductDescriptions { get; set; }
 
-        //IQueryable<ProductDescription> IMarketingContext.ProductDescriptions
-        //{
-        //    get { return this.ProductDescriptions; }
-        //}
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             Database.SetInitializer(new DatabaseInitializer(modelBuilder));
 
             modelBuilder.Entity<ProductDescription>()
                 .HasKey(sp => sp.Id);
-            //.HasMany(e => e.Items)
-            //.WithRequired()
-            //.HasForeignKey(k => k.OrderId);
 
             base.OnModelCreating(modelBuilder);
         }

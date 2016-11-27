@@ -18,7 +18,7 @@ namespace Sales.Data.Migrations
 
         protected override void Seed(SalesContext context)
         {
-            context.SellingPrices.AddOrUpdate(k => k.Id, SeedData.SellingPrices().ToArray());
+            context.ItemPrices.AddOrUpdate(k => k.Id, SeedData.ItemPrices().ToArray());
         }
     }
 }

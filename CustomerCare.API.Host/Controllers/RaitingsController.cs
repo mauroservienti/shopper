@@ -10,31 +10,30 @@ namespace CustomerCare.API.Controllers
     [RoutePrefix("api/Raitings")]
     public class RaitingsController : ApiController
     {
-        private readonly ICustomerCareContext _context;
-
-        public RaitingsController(ICustomerCareContext context)
-        {
-            _context = context;
-        }
-
         [HttpGet]
         public dynamic Get(int id)
         {
-            return _context.Raitings.Where(si => si.Id == id).Single();
+            using (CustomerCareContext _context = new CustomerCareContext())
+            {
+                return _context.Raitings.Where(si => si.Id == id).Single();
+            }
         }
 
         [HttpGet, Route("ByStockItem")]
         public IEnumerable<dynamic> ByStockItem(string ids)
         {
-            var _ids = ids.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
-                .Select(id => int.Parse(id))
-                .ToList();
+            using (CustomerCareContext _context = new CustomerCareContext())
+            {
+                var _ids = ids.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
+                    .Select(id => int.Parse(id))
+                    .ToList();
 
-            var query = from si in _context.Raitings
-                        where _ids.Contains(si.StockItemId)
-                        select si;
+                var query = from si in _context.Raitings
+                            where _ids.Contains(si.StockItemId)
+                            select si;
 
-            return query.ToList();
+                return query.ToList();
+            }
         }
     }
 }

@@ -15,18 +15,10 @@ namespace Marketing.API.Host
 {
     public class Startup
     {
-        // This code configures Web API. The Startup class is specified as a type
-        // parameter in the WebApp.Start method.
         public void Configuration(IAppBuilder appBuilder)
         {
             var bootstrapper = new WindsorBootstrapper(AppDomain.CurrentDomain.BaseDirectory, filter: "*.*");
             var container = bootstrapper.Boot();
-
-            //var dataManagerComponent = Component.For<IMarketingContext>()
-            //    .Instance(new MarketingContext())
-            //    .LifestyleSingleton();
-
-            //container.Register(dataManagerComponent);
 
             var config = new HttpConfiguration();
 

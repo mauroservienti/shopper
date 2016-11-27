@@ -9,24 +9,14 @@ using Warehouse.Data.Models;
 
 namespace Warehouse.Data.Context
 {
-    public interface IWarehouseContext
-    {
-        IQueryable<StockItem> StockItems { get; }
-    }
-
     [DbConfigurationType(typeof(SqLiteConfig))]
-    public class WarehouseContext : DbContext, IWarehouseContext
+    public class WarehouseContext : DbContext
     {
         public WarehouseContext() : base("Warehouse")
         {
         }
 
         public IDbSet<StockItem> StockItems { get; set; }
-
-        IQueryable<StockItem> IWarehouseContext.StockItems
-        {
-            get { return this.StockItems; }
-        }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

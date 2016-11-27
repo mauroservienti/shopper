@@ -9,24 +9,14 @@ using CustomerCare.Data.Models;
 
 namespace CustomerCare.Data.Context
 {
-    public interface ICustomerCareContext
-    {
-        IQueryable<Raiting> Raitings { get; }
-    }
-
     [DbConfigurationType(typeof(SqLiteConfig))]
-    public class CustomerCareContext : DbContext, ICustomerCareContext
+    public class CustomerCareContext : DbContext
     {
         public CustomerCareContext() : base("CustomerCare")
         {
         }
 
         public IDbSet<Raiting> Raitings { get; set; }
-
-        IQueryable<Raiting> ICustomerCareContext.Raitings
-        {
-            get { return this.Raitings; }
-        }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

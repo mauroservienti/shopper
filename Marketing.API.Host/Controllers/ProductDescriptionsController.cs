@@ -18,12 +18,6 @@ namespace Marketing.API.Controllers
             _service = service;
         }
 
-        //[HttpGet]
-        //public dynamic Get(int id)
-        //{
-        //    return _context.ProductDescriptions.Where(si => si.Id == id).Single();
-        //}
-
         [HttpGet, Route("ByStockItem")]
         public async Task<IEnumerable<dynamic>> ByStockItem(string ids)
         {

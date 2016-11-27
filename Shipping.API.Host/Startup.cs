@@ -27,12 +27,6 @@ namespace Shipping.API.Host
             var bootstrapper = new WindsorBootstrapper(AppDomain.CurrentDomain.BaseDirectory, filter: "*.*");
             var container = bootstrapper.Boot();
 
-            var dataManagerComponent = Component.For<IShippingContext>()
-                .Instance(new ShippingContext())
-                .LifestyleSingleton();
-
-            container.Register(dataManagerComponent);
-
             var config = new HttpConfiguration();
 
             config.Formatters.Clear();

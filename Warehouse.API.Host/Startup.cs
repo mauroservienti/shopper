@@ -27,12 +27,6 @@ namespace Warehouse.API.Host
             var bootstrapper = new WindsorBootstrapper(AppDomain.CurrentDomain.BaseDirectory, filter: "*.*");
             var container = bootstrapper.Boot();
 
-            var dataManagerComponent = Component.For<IWarehouseContext>()
-                .Instance(new WarehouseContext())
-                .LifestyleSingleton();
-
-            container.Register(dataManagerComponent);
-
             var config = new HttpConfiguration();
 
             config.Formatters.Clear();

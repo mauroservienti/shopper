@@ -9,24 +9,14 @@ using Shipping.Data.Models;
 
 namespace Shipping.Data.Context
 {
-    public interface IShippingContext
-    {
-        IQueryable<ShippingDetails> ShippingDetails { get; }
-    }
-
     [DbConfigurationType(typeof(SqLiteConfig))]
-    public class ShippingContext : DbContext, IShippingContext
+    public class ShippingContext : DbContext
     {
         public ShippingContext() : base("Shipping")
         {
         }
 
         public IDbSet<ShippingDetails> ShippingDetails { get; set; }
-
-        IQueryable<ShippingDetails> IShippingContext.ShippingDetails
-        {
-            get { return this.ShippingDetails; }
-        }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

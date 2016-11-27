@@ -9,7 +9,7 @@ namespace Sales.Data.Migrations
 {
     static class SeedData
     {
-        public static ItemPrice[] SellingPrices()
+        public static ItemPrice[] ItemPrices()
         {
             return new ItemPrice[]
             {

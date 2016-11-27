@@ -9,24 +9,14 @@ using Sales.Data.Models;
 
 namespace Sales.Data.Context
 {
-    public interface ISalesContext
-    {
-        IQueryable<ItemPrice> ItemPrices { get; }
-    }
-
     [DbConfigurationType(typeof(SqLiteConfig))]
-    public class SalesContext : DbContext, ISalesContext
+    public class SalesContext : DbContext
     {
         public SalesContext() : base("Sales")
         {
         }
 
-        public IDbSet<ItemPrice> SellingPrices { get; set; }
-
-        IQueryable<ItemPrice> ISalesContext.ItemPrices
-        {
-            get { return this.SellingPrices; }
-        }
+        public IDbSet<ItemPrice> ItemPrices { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -34,9 +24,6 @@ namespace Sales.Data.Context
 
             modelBuilder.Entity<ItemPrice>()
                 .HasKey(sp => sp.Id);
-            //.HasMany(e => e.Items)
-            //.WithRequired()
-            //.HasForeignKey(k => k.OrderId);
 
             base.OnModelCreating(modelBuilder);
         }

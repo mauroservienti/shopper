@@ -19,6 +19,7 @@ namespace CustomerCare.Data.Migrations
         protected override void Seed(CustomerCareContext context)
         {
             context.Raitings.AddOrUpdate(k => k.Id, SeedData.Raitings().ToArray());
+            context.Reviews.AddOrUpdate(k => k.Id, SeedData.Reviews().ToArray());
         }
     }
 }

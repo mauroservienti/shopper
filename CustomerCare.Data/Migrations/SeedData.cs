@@ -20,5 +20,20 @@ namespace CustomerCare.Data.Migrations
                 new Raiting() {StockItemId = 5, Stars = 0, ReviewCount=0}
             };
         }
+
+        public static Review[] Reviews()
+        {
+            return new Review[]
+            {
+                new Review()
+                {
+                    StockItemId = 2,
+                    Stars = 4,
+                    Author = "Giovanna Coscialunga",
+                    Title ="Fondamentale",
+                    Text ="fondamentale se non vuoi mangiare marmellata di banana tutte le volte che vai in bicicletta o metti una banana nello zaino"
+                }
+            };
+        }
     }
 }

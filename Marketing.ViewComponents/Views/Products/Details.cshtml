@@ -1,11 +1,11 @@
 ﻿@{
-    ViewData["Title"] = "Product: " + Model.Id;
+    ViewData["Title"] = Model.ItemDescription.Title;
 }
 <div class="jumbotron">
-    <h3>Product page</h3>
+    @await Component.InvokeAsync("CustomerCare.ViewComponents.ItemRating", @Model)
     <hr />
-    @*@await Component.InvokeAsync("CustomerCare.ViewComponents.ItemRating", @Model)*@
     @await Component.InvokeAsync("Marketing.ViewComponents.ItemDescription", @Model)
-    @*@await Component.InvokeAsync("Sales.ViewComponents.ItemPrice", @Model)
-    @await Component.InvokeAsync("CustomerCare.ViewComponents.ItemReviews", @Model)*@
+    @await Component.InvokeAsync("Sales.ViewComponents.ItemPrice", @Model)
+    <hr />
+    @await Component.InvokeAsync("CustomerCare.ViewComponents.ItemReviews", @Model)
 </div>

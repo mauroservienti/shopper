@@ -1,17 +1,17 @@
 /* global angular */
 (function () {
 
-    angular.module('app.sales')
-        .directive('productShowcasePrice', ['$log',
+    angular.module('app.customerCare')
+        .directive('productReviews', ['$log',
             function($log) {
-                $log.debug('productShowcasePrice directive');
+                $log.debug('productReviews directive');
             
                 return {
                     restrict: 'E',
                     scope: {
                         model: '=',
                     },
-                    templateUrl: '/app/modules/sales/components/productShowcasePrice.html'
+                    templateUrl: '/app/modules/customerCare/components/productReviews.html'
                 };
         }]);
 

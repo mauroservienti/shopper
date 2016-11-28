@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Marketing.ViewComponents.Controllers
+namespace MvcCoreFrontend.Controllers
 {
     public class ProductsController : Controller
     {
-        public IActionResult Index(int id)
+        public IActionResult Details(int id)
         {
             ViewData["Title"] = "Product: " + id;
 

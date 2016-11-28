@@ -7,7 +7,9 @@
             "version": "1.0.0-preview2-final",
             "type": "build"
         },
-        "Microsoft.AspNetCore.Mvc": "1.1.0"
+        "Microsoft.AspNetCore.Mvc": "1.1.0",
+        "Microsoft.AspNetCore.Routing": "1.1.0",
+        "CoreUIComposition": "1.0.0-*"
     },
     "tools": {
         "Microsoft.AspNetCore.Razor.Tools": "1.0.0-preview2-final"

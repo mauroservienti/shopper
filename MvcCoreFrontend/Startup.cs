@@ -11,6 +11,7 @@ using CoreViewModelComposition;
 using System.Reflection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.AspNetCore.Mvc.Razor;
+using CoreUIComposition;
 
 namespace MvcCoreFrontend
 {
@@ -27,6 +28,7 @@ namespace MvcCoreFrontend
         }
 
         public IConfigurationRoot Configuration { get; }
+        List<Type> routesBuilders= new List<Type>();
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -47,6 +49,12 @@ namespace MvcCoreFrontend
                 allViewComponents.AddRange(
                     Configuration.GetSection($"modules:{moduleName}:viewComponents").GetChildren()
                     );
+
+                var routesBuilder = Configuration.GetSection($"modules:{moduleName}:routesBuilder").Value;
+                if (routesBuilder != null)
+                {
+                    routesBuilders.Add(Type.GetType(routesBuilder, true));
+                }
             }
 
             var viewComponents = allViewComponents.Select(cs =>
@@ -130,6 +138,12 @@ namespace MvcCoreFrontend
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+
+                foreach (var rbt in routesBuilders)
+                {
+                    var rb = (IHaveRoutes)Activator.CreateInstance(rbt);
+                    rb.BuildRoutes(routes);
+                }
             });
         }
     }

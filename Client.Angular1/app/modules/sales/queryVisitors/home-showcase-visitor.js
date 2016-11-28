@@ -5,8 +5,8 @@
         .config(['backendCompositionServiceProvider',
         function (backendCompositionServiceProvider) {
                 
-                var homeShowcaseQueryId = 'home-showcase';
-                backendCompositionServiceProvider.registerViewModelVisitorFactory(homeShowcaseQueryId,
+                var queryId = 'home-showcase';
+                backendCompositionServiceProvider.registerViewModelVisitorFactory(queryId,
                     ['$log', '$http', 'sales.config', function ($log, $http, config) {
 
                         $log.debug('Registering Sales home-showcase-visitor');
@@ -14,7 +14,7 @@
                         var visitor = {
                             visit: function (args, composedResults, rawData) {
 
-                                $log.debug('Sales - Ready to visit ', homeShowcaseQueryId, ': ', args, composedResults, rawData);
+                                $log.debug('Sales - Ready to visit ', queryId, ': ', args, composedResults, rawData);
 
                                 var showcaseIds = [];
                                 showcaseIds.push(composedResults.headlineProduct.stockItemId);

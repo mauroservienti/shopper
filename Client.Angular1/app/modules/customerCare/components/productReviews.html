@@ -1,0 +1,17 @@
+<section>
+    <span data-ng-show="model.itemReviews.length > 0">
+        <h3>We have {{ model.itemReviews.length }}
+            <span data-ng-show="model.itemReviews.length == 1"> review</span>
+            <span data-ng-show="model.itemReviews.length > 1"> reviews</span>
+        </h3>
+    </span>
+    <ul>
+        <li data-ng-repeat="review in model.itemReviews">
+            <p>Author: {{ review.author }} | Stars: {{ review.stars }}</p>
+            <h4>{{ review.title }}</h4>
+            <p>{{ review.text }}</p>
+        </li>
+    </ul>
+    </span>
+    <p data-ng-show="model.itemReviews.length == 0">Not reviews yet.</p>
+</section>

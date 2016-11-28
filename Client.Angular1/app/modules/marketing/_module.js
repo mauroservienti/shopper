@@ -14,7 +14,7 @@
 
                 var homeViews = {
                     '': {
-                        templateUrl: '/app/modules/home/presentation/homeView.html',
+                        templateUrl: '/app/modules/marketing/presentation/homeView.html',
                         controller: 'homeController',
                         controllerAs: 'home'
                     }
@@ -28,6 +28,16 @@
                     .state('home', {
                         url: '/',
                         views: homeViews
+                    })
+                    .state('product', {
+                        url: '/products/:id',
+                        views: {
+                            '': {
+                                templateUrl: '/app/modules/marketing/presentation/productView.html',
+                                controller: 'productController',
+                                controllerAs: 'viewModel'
+                            }
+                        }
                     });
 
             }]);

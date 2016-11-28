@@ -2,16 +2,16 @@
 (function () {
 
     angular.module('app.sales')
-        .directive('productShowcasePrice', ['$log',
+        .directive('productPrice', ['$log',
             function($log) {
-                $log.debug('productShowcasePrice directive');
+                $log.debug('productPrice directive');
             
                 return {
                     restrict: 'E',
                     scope: {
                         model: '=',
                     },
-                    templateUrl: '/app/modules/sales/components/productShowcasePrice.html'
+                    templateUrl: '/app/modules/sales/components/productPrice.html'
                 };
         }]);
 

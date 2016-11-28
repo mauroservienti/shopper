@@ -67,52 +67,35 @@ namespace MvcCoreFrontend
                     baseNamesapce = cs.Value,
                     assembly = a
                 };
-            });
+            })
+            .ToList();
 
-            foreach (var vc in viewComponents)
+            viewComponents.ForEach(vc => 
             {
                 services.Configure<RazorViewEngineOptions>(options =>
                 {
                     options.FileProviders.Add(new EmbeddedFileProvider(vc.assembly, vc.baseNamesapce));
                 });
-            }
+            });
 
-            RegisterSingletons(services, allServices);
-            //RegisterViewComponents(services, allViewComponents);
-
-            // Add framework services.
-            var imvc = services.AddMvc();
-            foreach (var vc in viewComponents)
-            {
-                imvc = imvc.AddApplicationPart(vc.assembly);
-            }
-            imvc.AddControllersAsServices();
-
-            services.AddSingleton<IConfiguration>(Configuration);
-        }
-
-        //void RegisterViewComponents(IServiceCollection services, IEnumerable<IConfigurationSection> viewComponents)
-        //{
-        //    foreach (var vc in viewComponents)
-        //    {
-        //        var an = new AssemblyName(vc.Value);
-        //        var a = Assembly.Load(an);
-
-        //        services.Configure<RazorViewEngineOptions>(options =>
-        //        {
-        //            options.FileProviders.Add(new EmbeddedFileProvider(a, vc.Value));
-        //        });
-        //    }
-        //}
-
-        void RegisterSingletons(IServiceCollection services, IEnumerable<IConfigurationSection> registrations)
-        {
-            foreach (var item in registrations)
+            allServices.ForEach(item => 
             {
                 var contract = Type.GetType(item.GetValue<string>("contract"));
                 var implementation = Type.GetType(item.GetValue<string>("implementation"));
                 services.AddSingleton(contract, implementation);
-            }
+            });
+
+            // Add framework services.
+            var imvc = services.AddMvc();
+
+            viewComponents.ForEach(vc =>
+            {
+                imvc = imvc.AddApplicationPart(vc.assembly);
+            });
+
+            imvc.AddControllersAsServices();
+
+            services.AddSingleton<IConfiguration>(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -128,7 +111,7 @@ namespace MvcCoreFrontend
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/UnhandledError/Error");
             }
 
             app.UseStaticFiles();

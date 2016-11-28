@@ -19,10 +19,5 @@ namespace MvcCoreFrontend.Controllers
 
             return View(vm);
         }
-
-        public IActionResult Error()
-        {
-            return View();
-        }
     }
 }

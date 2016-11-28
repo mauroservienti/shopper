@@ -8,10 +8,10 @@ namespace Marketing.ViewComponents
     {
         public void BuildRoutes(IRouteBuilder routes)
         {
-            routes.MapRoute(
-                    name: "products",
-                    template: "Products/{id:int}",
-                    defaults: new { controller = "Products", action = "Details" });
+            //routes.MapRoute(
+            //        name: "products",
+            //        template: "Products/{id:int}",
+            //        defaults: new { controller = "Products", action = "Details" });
         }
     }
 }

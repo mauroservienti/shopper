@@ -1,6 +1,6 @@
 (function () {
 
-    angular.module('app.home')
+    angular.module('app.marketing')
         .config(['backendCompositionServiceProvider',
         function (backendCompositionServiceProvider) {
                 

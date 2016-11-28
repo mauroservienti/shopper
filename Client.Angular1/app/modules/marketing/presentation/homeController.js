@@ -1,5 +1,5 @@
 (function () {
-    angular.module('app.home')
+    angular.module('app.marketing')
         .controller('homeController',
         ['$log', 'publishingService',
             function ($log, publishingService) {

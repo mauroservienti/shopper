@@ -10,7 +10,8 @@
         "Microsoft.AspNetCore.Mvc": "1.1.0",
         "Microsoft.AspNetCore.Routing": "1.1.0",
         "CoreUIComposition": "1.0.0-*",
-        "CoreViewModelComposition": "1.0.0-*"
+        "CoreViewModelComposition": "1.0.0-*",
+        "Marketing.CoreViewModelComposition": "1.0.0-*"
     },
     "tools": {
         "Microsoft.AspNetCore.Razor.Tools": "1.0.0-preview2-final"

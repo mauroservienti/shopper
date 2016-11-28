@@ -1,16 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Marketing.CoreViewModelComposition;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Marketing.ViewComponents.Controllers
 {
     [Route("Products")]
     public class ProductsController : Controller
     {
-        [Route("{id:int}")]
-        public IActionResult Details(int id)
-        {
-            ViewData["Title"] = "Product: " + id;
+        ProductViewModelBuilder _builder;
 
-            return View();
+        public ProductsController(ProductViewModelBuilder builder)
+        {
+            _builder = builder;
+        }
+
+        [Route("{id:int}")]
+        public async Task<IActionResult> Details(int id)
+        {
+            var vm = await _builder.Build(id);
+
+            return View(vm);
         }
     }
 }

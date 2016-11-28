@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Marketing.CoreViewModelComposition
 {
-    public class HomeViewModelBuilder: IHomeViewModelBuilder
+    public class HomeViewModelBuilder
     {
         IConfiguration _config;
         IEnumerable<IHomeViewModelVisitor> _composers;

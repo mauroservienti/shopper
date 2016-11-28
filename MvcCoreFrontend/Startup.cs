@@ -70,7 +70,7 @@ namespace MvcCoreFrontend
             })
             .ToList();
 
-            viewComponents.ForEach(vc => 
+            viewComponents.ForEach(vc =>
             {
                 services.Configure<RazorViewEngineOptions>(options =>
                 {
@@ -78,11 +78,19 @@ namespace MvcCoreFrontend
                 });
             });
 
-            allServices.ForEach(item => 
+            allServices.ForEach(item =>
             {
-                var contract = Type.GetType(item.GetValue<string>("contract"));
-                var implementation = Type.GetType(item.GetValue<string>("implementation"));
-                services.AddSingleton(contract, implementation);
+                var implementationType = Type.GetType(item.GetValue<string>("implementation"), true);
+                var contract = item.GetValue<string>("contract");
+                if (!string.IsNullOrWhiteSpace(contract))
+                {
+                    var contractType = Type.GetType(contract, true);
+                    services.AddSingleton(contractType, implementationType);
+                }
+                else
+                {
+                    services.AddSingleton(implementationType);
+                }
             });
 
             // Add framework services.

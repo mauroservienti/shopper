@@ -1,5 +1,11 @@
-﻿<div class="jumbotron">
-    @*@await Component.InvokeAsync("Marketing.ViewComponents.HomeHeadlineItemDescription", @Model.HeadlineProduct)
-    @await Component.InvokeAsync("Sales.ViewComponents.HomeItemPrice", @Model.HeadlineProduct)
-    @await Component.InvokeAsync("CustomerCare.ViewComponents.ItemRating", @Model.HeadlineProduct)*@
+﻿@{
+    ViewData["Title"] = "Product: " + Model.Id;
+}
+<div class="jumbotron">
+    <h3>Product page</h3>
+    <hr />
+    @*@await Component.InvokeAsync("CustomerCare.ViewComponents.ItemRating", @Model)*@
+    @await Component.InvokeAsync("Marketing.ViewComponents.ItemDescription", @Model)
+    @*@await Component.InvokeAsync("Sales.ViewComponents.ItemPrice", @Model)
+    @await Component.InvokeAsync("CustomerCare.ViewComponents.ItemReviews", @Model)*@
 </div>

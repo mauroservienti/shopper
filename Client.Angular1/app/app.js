@@ -4,11 +4,9 @@
     'use strict';
 
     angular.module('app.sales', []);
-    angular.module('app.home', []);
     angular.module('app.marketing', []);
     angular.module('app.customerCare', []);
 
-    angular.module('app.controllers', []);
     angular.module('app.services', []);
 
     var app = angular.module('app', [
@@ -16,13 +14,9 @@
                 'ui.router',
                 'app.services',
                 'app.templates',
-                'app.home',
                 'app.marketing',
                 'app.sales',
-                'app.customerCare' //,
-                // 'app.customers',
-                // 'app.finance',
-                // 'app.sales'
+                'app.customerCare'
     ]);
 
     app.config(['$locationProvider', '$logProvider',

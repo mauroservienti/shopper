@@ -11,6 +11,7 @@ using CoreViewModelComposition;
 using System.Reflection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.AspNetCore.Mvc.Razor;
+using CoreUIComposition;
 
 namespace MvcCoreFrontend
 {
@@ -27,14 +28,11 @@ namespace MvcCoreFrontend
         }
 
         public IConfigurationRoot Configuration { get; }
+        List<Type> routesBuilders= new List<Type>();
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
-            services.AddMvc();
-            services.AddSingleton<IConfiguration>(Configuration);
-
             var modules = Configuration.GetSection("modules").GetChildren();
 
             var allServices = new List<IConfigurationSection>();
@@ -51,34 +49,61 @@ namespace MvcCoreFrontend
                 allViewComponents.AddRange(
                     Configuration.GetSection($"modules:{moduleName}:viewComponents").GetChildren()
                     );
+
+                var routesBuilder = Configuration.GetSection($"modules:{moduleName}:routesBuilder").Value;
+                if (routesBuilder != null)
+                {
+                    routesBuilders.Add(Type.GetType(routesBuilder, true));
+                }
             }
 
-            RegisterSingletons(services, allServices);
-            RegisterViewComponents(services, allViewComponents);
-        }
-
-        void RegisterViewComponents(IServiceCollection services, IEnumerable<IConfigurationSection> viewComponents)
-        {
-            foreach (var vc in viewComponents)
+            var viewComponents = allViewComponents.Select(cs =>
             {
-                var an = new AssemblyName(vc.Value);
+                var an = new AssemblyName(cs.Value);
                 var a = Assembly.Load(an);
 
+                return new
+                {
+                    baseNamesapce = cs.Value,
+                    assembly = a
+                };
+            })
+            .ToList();
+
+            viewComponents.ForEach(vc =>
+            {
                 services.Configure<RazorViewEngineOptions>(options =>
                 {
-                    options.FileProviders.Add(new EmbeddedFileProvider(a, vc.Value));
+                    options.FileProviders.Add(new EmbeddedFileProvider(vc.assembly, vc.baseNamesapce));
                 });
-            }
-        }
+            });
 
-        void RegisterSingletons(IServiceCollection services, IEnumerable<IConfigurationSection> registrations)
-        {
-            foreach (var item in registrations)
+            allServices.ForEach(item =>
             {
-                var contract = Type.GetType(item.GetValue<string>("contract"));
-                var implementation = Type.GetType(item.GetValue<string>("implementation"));
-                services.AddSingleton(contract, implementation);
-            }
+                var implementationType = Type.GetType(item.GetValue<string>("implementation"), true);
+                var contract = item.GetValue<string>("contract");
+                if (!string.IsNullOrWhiteSpace(contract))
+                {
+                    var contractType = Type.GetType(contract, true);
+                    services.AddSingleton(contractType, implementationType);
+                }
+                else
+                {
+                    services.AddSingleton(implementationType);
+                }
+            });
+
+            // Add framework services.
+            var imvc = services.AddMvc();
+
+            viewComponents.ForEach(vc =>
+            {
+                imvc = imvc.AddApplicationPart(vc.assembly);
+            });
+
+            imvc.AddControllersAsServices();
+
+            services.AddSingleton<IConfiguration>(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -94,7 +119,7 @@ namespace MvcCoreFrontend
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/UnhandledError/Error");
             }
 
             app.UseStaticFiles();
@@ -104,6 +129,12 @@ namespace MvcCoreFrontend
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+
+                foreach (var rbt in routesBuilders)
+                {
+                    var rb = (IHaveRoutes)Activator.CreateInstance(rbt);
+                    rb.BuildRoutes(routes);
+                }
             });
         }
     }

@@ -1,0 +1,26 @@
+﻿@{
+    if (Model.Length > 0)
+    {
+        <h3>
+            We have @Model.Length
+            @if (Model.Length == 1)
+            { <span> review</span> }
+            else
+            { <span> reviews</span> }
+        </h3>
+        <ul>
+            @foreach (var review in Model)
+            {
+                <li>
+                    <p>Author: @review.Author | Stars: @review.Stars</p>
+                    <h4>@review.Title</h4>
+                    <p>@review.Text</p>
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>Not reviews yet.</p>
+    }
+}

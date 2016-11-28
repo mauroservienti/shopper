@@ -15,6 +15,7 @@ using System.Web.Http;
 using Microsoft.Owin.Cors;
 using System.ComponentModel.Composition.Hosting;
 using System.Reflection;
+using System.Web.Http.Batch;
 
 namespace CustomerCare.API.Host
 {
@@ -45,6 +46,14 @@ namespace CustomerCare.API.Host
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
+            );
+
+            HttpServer server = new HttpServer(config);
+
+            config.Routes.MapHttpBatchRoute(
+                routeName: "batch",
+                routeTemplate: "api/batch",
+                batchHandler: new DefaultHttpBatchHandler(server)
             );
 
             appBuilder.UseCors(CorsOptions.AllowAll);

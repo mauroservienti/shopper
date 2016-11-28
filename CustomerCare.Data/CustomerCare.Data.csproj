@@ -72,6 +72,7 @@
     <Compile Include="Context\CustomerCareContext.cs" />
     <Compile Include="Migrations\DatabaseInitializer.cs" />
     <Compile Include="Migrations\SeedData.cs" />
+    <Compile Include="Models\Review.cs" />
     <Compile Include="Models\Raiting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

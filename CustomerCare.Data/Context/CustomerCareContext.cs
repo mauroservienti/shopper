@@ -18,11 +18,16 @@ namespace CustomerCare.Data.Context
 
         public IDbSet<Raiting> Raitings { get; set; }
 
+        public IDbSet<Review> Reviews { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             Database.SetInitializer(new DatabaseInitializer(modelBuilder));
 
             modelBuilder.Entity<Raiting>()
+                .HasKey(sp => sp.Id);
+
+            modelBuilder.Entity<Review>()
                 .HasKey(sp => sp.Id);
 
             base.OnModelCreating(modelBuilder);

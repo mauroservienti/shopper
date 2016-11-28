@@ -1,14 +1,15 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CoreViewModelComposition;
+using Marketing.CoreViewModelComposition;
 
 namespace MvcCoreFrontend.Controllers
 {
     public class HomeController : Controller
     {
-        IHomeViewModelBuilder _builder;
+        HomeViewModelBuilder _builder;
 
-        public HomeController(IHomeViewModelBuilder builder)
+        public HomeController(HomeViewModelBuilder builder)
         {
             _builder = builder;
         }
@@ -18,11 +19,6 @@ namespace MvcCoreFrontend.Controllers
             var vm = await _builder.Build();
 
             return View(vm);
-        }
-
-        public IActionResult Error()
-        {
-            return View();
         }
     }
 }

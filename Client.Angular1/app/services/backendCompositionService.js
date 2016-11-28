@@ -65,8 +65,6 @@
                             }
                         }
 
-                        var deferred = $q.defer();
-
                         var composedResult = {};
                         var promises = [];
 
@@ -92,7 +90,7 @@
                                 //     return rawData;
                                 // })
                                 .then(function(rawData){
-                                    $log.debug('calling visitors, rawData: ', rawData);
+                                    $log.debug('calling visitors, rawData: ', rawData, ' composedResult: ', composedResult);
                                     angular.forEach(visitors, function (visitor, index) {
                                         var vp = visitor.visit(args, composedResult, rawData);
                                         promises.push(vp);

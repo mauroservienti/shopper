@@ -1,7 +1,9 @@
 ﻿using HttpHelpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Warehouse.ViewComponents.Models;
 
@@ -33,9 +35,16 @@ namespace Warehouse.ViewComponents.Controllers
         }
 
         [HttpPost]
-        public IActionResult New(NewStockItem stockItem)
+        public async Task<IActionResult> New(NewStockItem stockItem)
         {
-            return View();
+            var apiUrl = _config.GetValue<string>("modules:warehouse:config:apiUrl");
+
+            var client = new HttpClient();
+            var argsAsJson = JsonConvert.SerializeObject(stockItem);
+            var postContent = new StringContent(argsAsJson, Encoding.UTF8, "application/json");
+            var result = await client.PutAsync($"{apiUrl}Stockitems", postContent);
+
+            return RedirectToAction("Index");
         }
     }
 }

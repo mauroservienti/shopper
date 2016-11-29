@@ -20,6 +20,17 @@ namespace Warehouse.API.Controllers
             }
         }
 
+        [HttpPut]
+        public dynamic Put(StockItem model)
+        {
+            using (var _repository = new WarehouseContext())
+            {
+                _repository.StockItems.Add(model);
+                _repository.SaveChanges();
+                return null;
+            }
+        }
+
         [HttpGet]
         public IEnumerable<dynamic> Get()
         {

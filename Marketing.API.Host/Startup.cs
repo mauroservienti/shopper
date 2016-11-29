@@ -2,6 +2,7 @@
 using Marketing.Data.Context;
 using Microsoft.Owin.Cors;
 using Newtonsoft.Json.Serialization;
+using NServiceBus;
 using Owin;
 using Radical.Bootstrapper;
 using Radical.Bootstrapper.Windsor.WebAPI.Infrastructure;
@@ -19,6 +20,15 @@ namespace Marketing.API.Host
         {
             var bootstrapper = new WindsorBootstrapper(AppDomain.CurrentDomain.BaseDirectory, filter: "*.*");
             var container = bootstrapper.Boot();
+
+            var endpointConfiguration = new EndpointConfiguration("Marketing");
+            endpointConfiguration.UseContainer<WindsorBuilder>(c => c.ExistingContainer(container));
+
+            endpointConfiguration.ApplyCommonConfiguration();
+            endpointConfiguration.UseSqlitePersistence();
+
+            var endpoint = Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
+            container.Register(Component.For<IMessageSession>().Instance(endpoint));
 
             var config = new HttpConfiguration();
 

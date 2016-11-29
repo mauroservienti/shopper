@@ -61,6 +61,10 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "CoreUIComposition", "CoreUI
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Warehouse.ViewComponents", "Warehouse.ViewComponents\Warehouse.ViewComponents.xproj", "{90E62C5F-27E7-45BB-88DE-50B789972283}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NServiceBus.Shared", "NServiceBus.Shared\NServiceBus.Shared.csproj", "{0B00E27D-EA5F-42B5-A6CE-63C0CE4DF9A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warehouse.StockItems.Events", "Warehouse.StockItems.Events\Warehouse.StockItems.Events.csproj", "{E2891416-E942-4717-A152-B38D678377AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -159,6 +163,14 @@ Global
 		{90E62C5F-27E7-45BB-88DE-50B789972283}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90E62C5F-27E7-45BB-88DE-50B789972283}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90E62C5F-27E7-45BB-88DE-50B789972283}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B00E27D-EA5F-42B5-A6CE-63C0CE4DF9A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B00E27D-EA5F-42B5-A6CE-63C0CE4DF9A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B00E27D-EA5F-42B5-A6CE-63C0CE4DF9A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B00E27D-EA5F-42B5-A6CE-63C0CE4DF9A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2891416-E942-4717-A152-B38D678377AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2891416-E942-4717-A152-B38D678377AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2891416-E942-4717-A152-B38D678377AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2891416-E942-4717-A152-B38D678377AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -186,5 +198,7 @@ Global
 		{660A269D-D0F7-4387-8FDD-F97695F23E75} = {D10E0315-B178-4A0B-B089-C8B77DFB7E28}
 		{95D767F0-FBC7-469B-AF40-418B79F9ED01} = {9C624413-311A-4BC3-8B7D-C0BD80654813}
 		{90E62C5F-27E7-45BB-88DE-50B789972283} = {65F37558-1C29-4247-BD01-4DFAFD452ECB}
+		{0B00E27D-EA5F-42B5-A6CE-63C0CE4DF9A1} = {9C624413-311A-4BC3-8B7D-C0BD80654813}
+		{E2891416-E942-4717-A152-B38D678377AB} = {65F37558-1C29-4247-BD01-4DFAFD452ECB}
 	EndGlobalSection
 EndGlobal

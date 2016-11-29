@@ -1,16 +1,24 @@
-﻿using System;
+﻿using NServiceBus;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Warehouse.Data.Context;
 using Warehouse.Data.Models;
+using Warehouse.StockItems.Events;
 
 namespace Warehouse.API.Controllers
 {
     [RoutePrefix("api/stockitems")]
     public class StockItemsController : ApiController
     {
+        IMessageSession _messageSession;
+        public StockItemsController(IMessageSession messageSession)
+        {
+            _messageSession = messageSession;
+        }
+
         [HttpGet]
         public dynamic Get(int id)
         {
@@ -21,13 +29,16 @@ namespace Warehouse.API.Controllers
         }
 
         [HttpPut]
-        public dynamic Put(StockItem model)
+        public async Task<dynamic> Put(StockItem model)
         {
             using (var _repository = new WarehouseContext())
             {
                 _repository.StockItems.Add(model);
-                _repository.SaveChanges();
-                return null;
+                await _repository.SaveChangesAsync();
+
+                await _messageSession.Publish<IStockItemCreatedEvent>(e => e.Id = model.Id);
+
+                return model.Id;
             }
         }
 

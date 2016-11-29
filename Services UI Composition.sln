@@ -59,6 +59,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "CustomerCare.CoreViewModelC
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "CoreUIComposition", "CoreUIComposition\CoreUIComposition.xproj", "{95D767F0-FBC7-469B-AF40-418B79F9ED01}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Warehouse.ViewComponents", "Warehouse.ViewComponents\Warehouse.ViewComponents.xproj", "{90E62C5F-27E7-45BB-88DE-50B789972283}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -153,6 +155,10 @@ Global
 		{95D767F0-FBC7-469B-AF40-418B79F9ED01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95D767F0-FBC7-469B-AF40-418B79F9ED01}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95D767F0-FBC7-469B-AF40-418B79F9ED01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90E62C5F-27E7-45BB-88DE-50B789972283}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90E62C5F-27E7-45BB-88DE-50B789972283}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90E62C5F-27E7-45BB-88DE-50B789972283}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90E62C5F-27E7-45BB-88DE-50B789972283}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -179,5 +185,6 @@ Global
 		{522B899F-7CC7-4F43-B875-9678C712A747} = {D10E0315-B178-4A0B-B089-C8B77DFB7E28}
 		{660A269D-D0F7-4387-8FDD-F97695F23E75} = {D10E0315-B178-4A0B-B089-C8B77DFB7E28}
 		{95D767F0-FBC7-469B-AF40-418B79F9ED01} = {9C624413-311A-4BC3-8B7D-C0BD80654813}
+		{90E62C5F-27E7-45BB-88DE-50B789972283} = {65F37558-1C29-4247-BD01-4DFAFD452ECB}
 	EndGlobalSection
 EndGlobal

@@ -30,7 +30,8 @@
         "BundlerMinifier.Core": "2.2.306",
         "Microsoft.AspNetCore.Mvc": "1.1.0",
         "Microsoft.Extensions.FileProviders.Embedded": "1.1.0",
-        "CoreUIComposition": "1.0.0-*"
+        "CoreUIComposition": "1.0.0-*",
+        "Warehouse.ViewComponents": "1.0.0-*"
     },
 
     "tools": {

@@ -20,6 +20,16 @@ namespace Warehouse.API.Controllers
             }
         }
 
+        [HttpGet]
+        public IEnumerable<dynamic> Get()
+        {
+            using (var _repository = new WarehouseContext())
+            {
+                //WARN: should apply pagination
+                return _repository.StockItems.ToList();
+            }
+        }
+
         [HttpGet, Route("ByIds/{ids}")]
         public IEnumerable<dynamic> ByIds(string ids)
         {

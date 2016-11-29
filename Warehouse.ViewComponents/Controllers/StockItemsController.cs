@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Warehouse.ViewComponents.Models;
 
 namespace Warehouse.ViewComponents.Controllers
 {
@@ -24,6 +25,17 @@ namespace Warehouse.ViewComponents.Controllers
             dynamic[] stockItems = await response.Content.AsExpandoArrayAsync();
 
             return View(stockItems);
+        }
+
+        public IActionResult New()
+        {
+            return View(new NewStockItem());
+        }
+
+        [HttpPost]
+        public IActionResult New(NewStockItem stockItem)
+        {
+            return View();
         }
     }
 }

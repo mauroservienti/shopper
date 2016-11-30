@@ -149,6 +149,7 @@
   <ItemGroup>
     <Compile Include="Controllers\ProductDescriptionsController.cs" />
     <Compile Include="Controllers\PublishingController.cs" />
+    <Compile Include="Handlers\StockItemCreatedHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -169,6 +170,10 @@
     <ProjectReference Include="..\Radical.Bootstrapper.Windsor.WebAPI\Radical.Bootstrapper.Windsor.WebAPI.csproj">
       <Project>{3ce63ade-dfad-4258-95a9-1376927f7db0}</Project>
       <Name>Radical.Bootstrapper.Windsor.WebAPI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Warehouse.StockItems.Events\Warehouse.StockItems.Events.csproj">
+      <Project>{e2891416-e942-4717-a152-b38d678377ab}</Project>
+      <Name>Warehouse.StockItems.Events</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

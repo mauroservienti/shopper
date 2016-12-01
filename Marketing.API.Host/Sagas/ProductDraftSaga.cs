@@ -1,4 +1,5 @@
 ﻿using NServiceBus;
+using Shipping.ShippingDetails.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,10 @@ using Warehouse.StockItems.Events;
 
 namespace Marketing.API.Host.Sagas
 {
-    class ProductDraftSaga 
+    class ProductDraftSaga
         : Saga<ProductDraftSaga.State>,
-        IAmStartedByMessages<IStockItemCreatedEvent>
+        IAmStartedByMessages<IStockItemCreatedEvent>,
+        IAmStartedByMessages<IShippingDetailsDefinedEvent>
     {
         public class State : ContainSagaData
         {
@@ -19,10 +21,16 @@ namespace Marketing.API.Host.Sagas
 
         protected override void ConfigureHowToFindSaga(SagaPropertyMapper<State> mapper)
         {
-            mapper.ConfigureMapping<IStockItemCreatedEvent>(e => e.Id).ToSaga(s => s.StockItemId);
+            mapper.ConfigureMapping<IStockItemCreatedEvent>(e => e.StockItemId).ToSaga(s => s.StockItemId);
+            mapper.ConfigureMapping<IShippingDetailsDefinedEvent>(e => e.StockItemId).ToSaga(s => s.StockItemId);
         }
 
         public Task Handle(IStockItemCreatedEvent message, IMessageHandlerContext context)
+        {
+            return Task.CompletedTask;
+        }
+
+        public Task Handle(IShippingDetailsDefinedEvent message, IMessageHandlerContext context)
         {
             return Task.CompletedTask;
         }

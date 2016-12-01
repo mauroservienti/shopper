@@ -36,7 +36,7 @@ namespace Warehouse.API.Controllers
                 _repository.StockItems.Add(model);
                 await _repository.SaveChangesAsync();
 
-                await _messageSession.Publish<IStockItemCreatedEvent>(e => e.Id = model.Id);
+                await _messageSession.Publish<IStockItemCreatedEvent>(e => e.StockItemId = model.Id);
 
                 return model.Id;
             }
@@ -66,6 +66,22 @@ namespace Warehouse.API.Controllers
                             select si;
 
                 return query.ToList();
+            }
+        }
+
+        [HttpGet, Route("Sizings/{id}")]
+        public dynamic Sizings(int id)
+        {
+            using (var _repository = new WarehouseContext())
+            {
+                var result = (from si in _repository.StockItems
+                            where si.Id==id
+                            select si.Weight).Single();
+
+                return new
+                {
+                    Weight = result
+                };
             }
         }
     }

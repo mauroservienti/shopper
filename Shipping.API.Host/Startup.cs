@@ -15,6 +15,7 @@ using System.Web.Http;
 using Microsoft.Owin.Cors;
 using System.ComponentModel.Composition.Hosting;
 using System.Reflection;
+using NServiceBus;
 
 namespace Shipping.API.Host
 {
@@ -26,6 +27,15 @@ namespace Shipping.API.Host
         {
             var bootstrapper = new WindsorBootstrapper(AppDomain.CurrentDomain.BaseDirectory, filter: "*.*");
             var container = bootstrapper.Boot();
+
+            var endpointConfiguration = new EndpointConfiguration("Shipping");
+            endpointConfiguration.UseContainer<WindsorBuilder>(c => c.ExistingContainer(container));
+
+            endpointConfiguration.ApplyCommonConfiguration();
+            endpointConfiguration.UseSqlitePersistence();
+
+            var endpoint = Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
+            container.Register(Component.For<IMessageSession>().Instance(endpoint));
 
             var config = new HttpConfiguration();
 

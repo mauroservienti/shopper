@@ -69,6 +69,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Shipping.CoreViewModelCompo
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Shipping.ViewComponents", "Shipping.ViewComponents\Shipping.ViewComponents.xproj", "{F3DCEDF2-AB7E-47BD-8A34-26B7DC01318F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shipping.ShippingDetails.Events", "Shipping.ShippingDetails.Events\Shipping.ShippingDetails.Events.csproj", "{DB6D4E42-B411-42A9-810E-C1A5C7620F45}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -183,6 +185,10 @@ Global
 		{F3DCEDF2-AB7E-47BD-8A34-26B7DC01318F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3DCEDF2-AB7E-47BD-8A34-26B7DC01318F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3DCEDF2-AB7E-47BD-8A34-26B7DC01318F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB6D4E42-B411-42A9-810E-C1A5C7620F45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB6D4E42-B411-42A9-810E-C1A5C7620F45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB6D4E42-B411-42A9-810E-C1A5C7620F45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB6D4E42-B411-42A9-810E-C1A5C7620F45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -214,5 +220,6 @@ Global
 		{E2891416-E942-4717-A152-B38D678377AB} = {65F37558-1C29-4247-BD01-4DFAFD452ECB}
 		{3853D455-69C2-43EB-BE5F-E1D7D8B1B44A} = {26682838-0793-404D-A434-8C9890CD8141}
 		{F3DCEDF2-AB7E-47BD-8A34-26B7DC01318F} = {26682838-0793-404D-A434-8C9890CD8141}
+		{DB6D4E42-B411-42A9-810E-C1A5C7620F45} = {26682838-0793-404D-A434-8C9890CD8141}
 	EndGlobalSection
 EndGlobal

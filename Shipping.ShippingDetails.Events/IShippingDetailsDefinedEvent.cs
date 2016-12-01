@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Warehouse.StockItems.Events
+namespace Shipping.ShippingDetails.Events
 {
-    public interface IStockItemCreatedEvent
+    public interface IShippingDetailsDefinedEvent
     {
+        int Id { get; set; }
         int StockItemId { get; set; }
     }
 }

@@ -1,15 +1,14 @@
 ﻿using Castle.MicroKernel.Registration;
-using Marketing.Data.Context;
+using Marketing.Data.Migrations;
 using Microsoft.Owin.Cors;
 using Newtonsoft.Json.Serialization;
 using NServiceBus;
 using Owin;
 using Radical.Bootstrapper;
 using Radical.Bootstrapper.Windsor.WebAPI.Infrastructure;
+using Raven.Client;
 using System;
-using System.ComponentModel.Composition.Hosting;
 using System.Net.Http.Formatting;
-using System.Reflection;
 using System.Web.Http;
 
 namespace Marketing.API.Host
@@ -18,14 +17,21 @@ namespace Marketing.API.Host
     {
         public void Configuration(IAppBuilder appBuilder)
         {
-            var bootstrapper = new WindsorBootstrapper(AppDomain.CurrentDomain.BaseDirectory, filter: "*.*");
+            var bootstrapper = new WindsorBootstrapper(AppDomain.CurrentDomain.BaseDirectory, filter: "Marketing*.*");
             var container = bootstrapper.Boot();
+
+            var store = CommonConfiguration.CreateEmbeddableDocumentStore("Marketing", session =>
+            {
+                SeedData.ProductDescriptions().ForEach(s => session.Store(s));
+            });
+
+            container.Register(Component.For<IDocumentStore>().Instance(store).LifestyleSingleton());
 
             var endpointConfiguration = new EndpointConfiguration("Marketing");
             endpointConfiguration.UseContainer<WindsorBuilder>(c => c.ExistingContainer(container));
 
             endpointConfiguration.ApplyCommonConfiguration();
-            endpointConfiguration.UseSqlitePersistence();
+            endpointConfiguration.UseRavenPersistence(store);
 
             var endpoint = Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
             container.Register(Component.For<IMessageSession>().Instance(endpoint));

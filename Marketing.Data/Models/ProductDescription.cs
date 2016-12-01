@@ -4,10 +4,10 @@ namespace Marketing.Data.Models
 {
     public class ProductDescription
     {
-        public int Id { get; set; }
-        public int StockItemId { get; set; }
-        public String Title { get; set; }
-        public String Description { get; set; }
-        public String ImageUrl { get; set; }
+        public string Id { get; set; }
+        public string StockItemId { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

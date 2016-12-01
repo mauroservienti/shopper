@@ -1,6 +1,5 @@
 ﻿using HttpHelpers;
 using NServiceBus;
-using Shipping.Data.Context;
 using Shipping.Data.Models;
 using Shipping.ShippingDetails.Events;
 using System;
@@ -51,11 +50,8 @@ namespace Marketing.API.Host.Handlers
                 details.Cost = 50;
             }
 
-            using (var db = new ShippingContext())
-            {
-                db.ShippingDetails.Add(details);
-                await db.SaveChangesAsync();
-            }
+            var session = context.SynchronizedStorageSession.RavenSession();
+            await session.StoreAsync(details).ConfigureAwait(false);
 
             await context.Publish<IShippingDetailsDefinedEvent>(e =>
             {

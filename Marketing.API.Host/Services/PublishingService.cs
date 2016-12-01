@@ -1,14 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
-using System.Text;
+﻿using System.Dynamic;
 using System.Threading.Tasks;
 
 namespace Marketing.Data.Services
 {
     public class PublishingService
     {
+        //IDocumentStore _store;
+
+        //public PublishingService(IDocumentStore store)
+        //{
+        //    _store = store;
+        //}
+
         public Task<dynamic> GetHomeShowcase()
         {
             dynamic vm = new ExpandoObject();

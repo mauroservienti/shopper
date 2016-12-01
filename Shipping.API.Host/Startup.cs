@@ -1,21 +1,15 @@
 ﻿using Castle.MicroKernel.Registration;
-using Shipping.Data.Context;
 using Newtonsoft.Json.Serialization;
 using Owin;
 using Radical.Bootstrapper;
 using Radical.Bootstrapper.Windsor.WebAPI.Infrastructure;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net.Http.Formatting;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.Owin.Cors;
-using System.ComponentModel.Composition.Hosting;
-using System.Reflection;
 using NServiceBus;
+using Raven.Client;
+using Shipping.Data.Migrations;
 
 namespace Shipping.API.Host
 {
@@ -25,14 +19,21 @@ namespace Shipping.API.Host
         // parameter in the WebApp.Start method.
         public void Configuration(IAppBuilder appBuilder)
         {
-            var bootstrapper = new WindsorBootstrapper(AppDomain.CurrentDomain.BaseDirectory, filter: "*.*");
+            var bootstrapper = new WindsorBootstrapper(AppDomain.CurrentDomain.BaseDirectory, filter: "Shipping*.*");
             var container = bootstrapper.Boot();
+
+            var store = CommonConfiguration.CreateEmbeddableDocumentStore("Shipping", session =>
+            {
+                SeedData.ShippingDetails().ForEach(s => session.Store(s));
+            });
+
+            container.Register(Component.For<IDocumentStore>().Instance(store).LifestyleSingleton());
 
             var endpointConfiguration = new EndpointConfiguration("Shipping");
             endpointConfiguration.UseContainer<WindsorBuilder>(c => c.ExistingContainer(container));
 
             endpointConfiguration.ApplyCommonConfiguration();
-            endpointConfiguration.UseSqlitePersistence();
+            endpointConfiguration.UseRavenPersistence(store);
 
             var endpoint = Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
             container.Register(Component.For<IMessageSession>().Instance(endpoint));

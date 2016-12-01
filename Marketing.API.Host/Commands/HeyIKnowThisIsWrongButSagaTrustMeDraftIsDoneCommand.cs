@@ -8,6 +8,6 @@ namespace Marketing.API.Host.Commands
 {
     class HeyIKnowThisIsWrongButSagaTrustMeDraftIsDoneCommand
     {
-        public int StockItemId { get; set; }
+        public string StockItemId { get; set; }
     }
 }

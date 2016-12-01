@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Http;
-using Marketing.Data.Context;
 using System.Collections.Generic;
 using Marketing.Data.Services;
 using System.Threading.Tasks;
@@ -21,9 +20,7 @@ namespace Marketing.API.Controllers
         [HttpGet, Route("ByStockItem")]
         public async Task<IEnumerable<dynamic>> ByStockItem(string ids)
         {
-            var _ids = ids.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
-                .Select(id => int.Parse(id))
-                .ToArray();
+            var _ids = ids.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
 
             return await _service.GetByStockItem(_ids);
         }

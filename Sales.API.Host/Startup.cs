@@ -1,20 +1,15 @@
-﻿using Castle.MicroKernel.Registration;
-using Sales.Data.Context;
-using Newtonsoft.Json.Serialization;
+﻿using Newtonsoft.Json.Serialization;
 using Owin;
 using Radical.Bootstrapper;
 using Radical.Bootstrapper.Windsor.WebAPI.Infrastructure;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net.Http.Formatting;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.Owin.Cors;
-using System.ComponentModel.Composition.Hosting;
-using System.Reflection;
+using NServiceBus;
+using Sales.Data.Migrations;
+using Raven.Client;
+using Castle.MicroKernel.Registration;
 
 namespace Sales.API.Host
 {
@@ -24,8 +19,24 @@ namespace Sales.API.Host
         // parameter in the WebApp.Start method.
         public void Configuration(IAppBuilder appBuilder)
         {
-            var bootstrapper = new WindsorBootstrapper(AppDomain.CurrentDomain.BaseDirectory, filter: "*.*");
+            var bootstrapper = new WindsorBootstrapper(AppDomain.CurrentDomain.BaseDirectory, filter: "Sales*.*");
             var container = bootstrapper.Boot();
+
+            var store = CommonConfiguration.CreateEmbeddableDocumentStore("Sales", session =>
+            {
+                SeedData.ItemPrices().ForEach(s => session.Store(s));
+            });
+
+            container.Register(Component.For<IDocumentStore>().Instance(store).LifestyleSingleton());
+
+            var endpointConfiguration = new EndpointConfiguration("Sales");
+            endpointConfiguration.UseContainer<WindsorBuilder>(c => c.ExistingContainer(container));
+
+            endpointConfiguration.ApplyCommonConfiguration();
+            endpointConfiguration.UseRavenPersistence(store);
+
+            var endpoint = Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
+            container.Register(Component.For<IMessageSession>().Instance(endpoint));
 
             var config = new HttpConfiguration();
 

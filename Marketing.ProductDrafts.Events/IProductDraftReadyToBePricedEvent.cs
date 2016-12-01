@@ -8,7 +8,7 @@ namespace Marketing.ProductDrafts.Events
 {
     public interface IProductDraftReadyToBePricedEvent
     {
-        int ProductDraftId { get; set; }
-        int StockItemId { get; set; }
+        string ProductDraftId { get; set; }
+        string StockItemId { get; set; }
     }
 }

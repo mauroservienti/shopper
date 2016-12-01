@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Http;
-using Marketing.Data.Context;
 using System.Collections.Generic;
 using Marketing.Data.Services;
 using System.Threading.Tasks;
 using Marketing.Data.Models;
 using NServiceBus;
 using Marketing.API.Host.Commands;
+using Raven.Client;
 
 namespace Marketing.API.Controllers
 {
@@ -15,31 +15,31 @@ namespace Marketing.API.Controllers
     public class ProductDraftsController : ApiController
     {
         IMessageSession _messageSession;
+        IDocumentStore _store;
 
-        public ProductDraftsController( IMessageSession messageSession)
+        public ProductDraftsController( IMessageSession messageSession, IDocumentStore store)
         {
             _messageSession = messageSession;
+            _store = store;
         }
 
         [HttpGet]
-        public IEnumerable<dynamic> Get()
+        public async Task<IEnumerable<dynamic>> Get()
         {
-            using (var _repository = new MarketingContext())
+            using (var session = _store.OpenAsyncSession())
             {
                 //WARN: should apply pagination
-                return _repository.ProductDrafts.ToList();
+                return await session.Query<ProductDraft>().ToListAsync();
             }
         }
 
         [HttpPost]
         public async Task<dynamic> Post(ProductDraft model)
         {
-            using (var _repository = new MarketingContext())
+            using (var session = _store.OpenAsyncSession())
             {
-                _repository.ProductDrafts.Attach(model);
-                _repository.Entry(model).State = System.Data.Entity.EntityState.Modified;
-
-                await _repository.SaveChangesAsync();
+                await session.StoreAsync(model);
+                await session.SaveChangesAsync();
 
                 await _messageSession.SendLocal<HeyIKnowThisIsWrongButSagaTrustMeDraftIsDoneCommand>(cmd => cmd.StockItemId = model.StockItemId);
 

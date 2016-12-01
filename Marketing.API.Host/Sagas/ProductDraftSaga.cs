@@ -1,5 +1,4 @@
-﻿using Marketing.Data.Context;
-using Marketing.Data.Models;
+﻿using Marketing.Data.Models;
 using Marketing.ProductDrafts.Events;
 using NServiceBus;
 using Shipping.ShippingDetails.Events;
@@ -21,11 +20,11 @@ namespace Marketing.API.Host.Sagas
     {
         public class State : ContainSagaData
         {
-            public virtual int StockItemId { get; set; }
-            public virtual bool StockItemReady { get; set; }
-            public virtual int ShippingDetailsId { get; set; }
-            public virtual bool ShippingDetailsReady { get; set; }
-            public virtual int ProductDraftId { get; set; }
+            public string StockItemId { get; set; }
+            public bool StockItemReady { get; set; }
+            public string ShippingDetailsId { get; set; }
+            public bool ShippingDetailsReady { get; set; }
+            public string ProductDraftId { get; set; }
         }
 
         protected override void ConfigureHowToFindSaga(SagaPropertyMapper<State> mapper)
@@ -74,25 +73,23 @@ namespace Marketing.API.Host.Sagas
 
         async Task CreateProductDraft(IMessageHandlerContext context)
         {
-            using (var db = new MarketingContext())
+            var session = context.SynchronizedStorageSession.RavenSession();
+
+            var draft = new ProductDraft()
             {
-                var draft = new ProductDraft()
-                {
-                    StockItemId = Data.StockItemId,
-                };
+                StockItemId = Data.StockItemId,
+            };
 
-                db.ProductDrafts.Add(draft);
-                await db.SaveChangesAsync().ConfigureAwait(false);
+            await session.StoreAsync(draft).ConfigureAwait(false);
 
-                Data.ProductDraftId = draft.Id;
+            Data.ProductDraftId = draft.Id;
 
-                await context.Publish<IProductDraftCreatedEvent>(e =>
-                {
-                    e.ProductDraftId = draft.Id;
-                    e.StockItemId = draft.StockItemId;
-                })
-                .ConfigureAwait(false);
-            }
+            await context.Publish<IProductDraftCreatedEvent>(e =>
+            {
+                e.ProductDraftId = draft.Id;
+                e.StockItemId = draft.StockItemId;
+            })
+            .ConfigureAwait(false);
         }
     }
 }

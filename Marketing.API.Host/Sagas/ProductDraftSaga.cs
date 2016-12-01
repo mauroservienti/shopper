@@ -17,6 +17,9 @@ namespace Marketing.API.Host.Sagas
         public class State : ContainSagaData
         {
             public virtual int StockItemId { get; set; }
+            public virtual bool StockItemReady { get; set; }
+            public virtual int ShippingDetailsId { get; set; }
+            public virtual bool ShippingDetailsReady { get; set; }
         }
 
         protected override void ConfigureHowToFindSaga(SagaPropertyMapper<State> mapper)
@@ -25,14 +28,38 @@ namespace Marketing.API.Host.Sagas
             mapper.ConfigureMapping<IShippingDetailsDefinedEvent>(e => e.StockItemId).ToSaga(s => s.StockItemId);
         }
 
-        public Task Handle(IStockItemCreatedEvent message, IMessageHandlerContext context)
+        public async Task Handle(IStockItemCreatedEvent message, IMessageHandlerContext context)
         {
-            return Task.CompletedTask;
+            Data.StockItemId = message.StockItemId;
+            Data.StockItemReady = true;
+
+            if (CanCreateProductDraft())
+            {
+                await CreateProductDraft().ConfigureAwait(false);
+            }
         }
 
-        public Task Handle(IShippingDetailsDefinedEvent message, IMessageHandlerContext context)
+        public async Task Handle(IShippingDetailsDefinedEvent message, IMessageHandlerContext context)
         {
-            return Task.CompletedTask;
+            Data.ShippingDetailsId = message.ShippingDetailsId;
+            Data.ShippingDetailsReady = true;
+
+            if (CanCreateProductDraft())
+            {
+                await CreateProductDraft().ConfigureAwait(false);
+            }
+        }
+
+        bool CanCreateProductDraft()
+        {
+            return Data.StockItemReady && Data.ShippingDetailsReady;
+        }
+
+        async Task CreateProductDraft()
+        {
+            //scrive sul db
+            //pubblica evento
+            await Task.CompletedTask;
         }
     }
 }

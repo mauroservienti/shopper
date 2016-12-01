@@ -8,7 +8,7 @@ namespace Shipping.ShippingDetails.Events
 {
     public interface IShippingDetailsDefinedEvent
     {
-        int Id { get; set; }
+        int ShippingDetailsId { get; set; }
         int StockItemId { get; set; }
     }
 }

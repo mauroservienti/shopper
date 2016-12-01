@@ -59,7 +59,7 @@ namespace Marketing.API.Host.Handlers
 
             await context.Publish<IShippingDetailsDefinedEvent>(e =>
             {
-                e.Id = details.Id;
+                e.ShippingDetailsId = details.Id;
                 e.StockItemId = details.StockItemId;
             }).ConfigureAwait(false);
         }

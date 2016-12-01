@@ -1,0 +1,21 @@
+﻿{
+  "version": "1.0.0-*",
+
+    "dependencies": {
+        "CoreViewModelComposition": "1.0.0-*",
+        "HttpHelpers": "1.0.0-*",
+        "JsonHelpers": "1.0.0-*",
+        "Microsoft.CSharp": "4.3.0",
+        "Microsoft.Extensions.Configuration.Abstractions": "1.1.0",
+        "Microsoft.Extensions.Configuration.Binder": "1.1.0",
+        "NETStandard.Library": "1.6.1",
+        "Newtonsoft.Json": "9.0.1",
+        "System.Net.Http": "4.3.0"
+    },
+
+  "frameworks": {
+    "netstandard1.6": {
+      "imports": "dnxcore50"
+    }
+  }
+}

@@ -52,8 +52,8 @@ namespace Warehouse.API.Controllers
             }
         }
 
-        [HttpGet, Route("ByIds/{ids}")]
-        public IEnumerable<dynamic> ByIds(string ids)
+        [HttpGet, Route("ByStockItem")]
+        public IEnumerable<dynamic> ByStockItem(string ids)
         {
             using (var _repository = new WarehouseContext())
             {
@@ -75,8 +75,8 @@ namespace Warehouse.API.Controllers
             using (var _repository = new WarehouseContext())
             {
                 var result = (from si in _repository.StockItems
-                            where si.Id==id
-                            select si.Weight).Single();
+                              where si.Id == id
+                              select si.Weight).Single();
 
                 return new
                 {

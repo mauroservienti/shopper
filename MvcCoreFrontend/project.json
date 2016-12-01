@@ -33,7 +33,8 @@
         "CoreUIComposition": "1.0.0-*",
         "Warehouse.ViewComponents": "1.0.0-*",
         "Shipping.ViewComponents": "1.0.0-*",
-        "Shipping.CoreViewModelComposition": "1.0.0-*"
+        "Shipping.CoreViewModelComposition": "1.0.0-*",
+        "Warehouse.CoreViewModelComposition": "1.0.0-*"
     },
 
     "tools": {

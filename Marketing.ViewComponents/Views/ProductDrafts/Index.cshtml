@@ -1,0 +1,27 @@
+﻿@model dynamic[]
+@{
+    ViewData["Title"] = "Product Drafts | All";
+}
+<section>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Warehouse details</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@item.Id</th>
+                    <td>@item.Title</td>
+                    <td>@item.Description</td>
+                    <td>@await Component.InvokeAsync("Warehouse.ViewComponents.ProductDraftStockItemInfo", item)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>

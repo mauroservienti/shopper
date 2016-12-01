@@ -1,4 +1,6 @@
 ﻿using NServiceBus.Persistence;
+using Raven.Client;
+using Raven.Client.Embedded;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -27,20 +29,52 @@ namespace NServiceBus
             endpointConfiguration.EnableInstallers();
         }
 
-        public static void UseSqlitePersistence(this EndpointConfiguration endpointConfiguration)
+        public static void UseRavenPersistence(this EndpointConfiguration endpointConfiguration, IDocumentStore store)
         {
-            endpointConfiguration.UsePersistence<NHibernatePersistence>()
-                .UseConfiguration(new global::NHibernate.Cfg.Configuration
-                {
-                    Properties =
-                    {
-                        ["connection.driver_class"] = "NHibernate.Driver.SQLite20Driver",
-                        ["dialect"] = "NHibernate.Dialect.SQLiteDialect",
-                        ["query.substitutions"] = "true=1;false=0",
-                        ["show_sql"]= "true",
-                        ["connection.connection_string"] = ConfigurationManager.ConnectionStrings["NServiceBus/Persistence"].ConnectionString
-                    }
-                });
+            endpointConfiguration.UsePersistence<RavenDBPersistence>()
+                .SetDefaultDocumentStore(store);
         }
+
+        public static IDocumentStore CreateEmbeddableDocumentStore(string defaultDatabaseName, Action<IDocumentSession> seedCallback = null)
+        {
+            var store = new EmbeddableDocumentStore()
+            {
+                DataDirectory = ConfigurationManager.AppSettings["RavenDB/DataDirectory"],
+                DefaultDatabase = defaultDatabaseName
+            }.Initialize();
+
+            if (seedCallback != null)
+            {
+                using (var session = store.OpenSession())
+                {
+                    dynamic seed = session.Load<dynamic>("Data/Seed");
+                    if (seed == null)
+                    {
+                        session.Store(new { }, "Data/Seed");
+                        seedCallback(session);
+
+                        session.SaveChanges();
+                    }
+                }
+            }
+
+            return store;
+        }
+
+        //public static void UseSqlitePersistence(this EndpointConfiguration endpointConfiguration)
+        //{
+        //    endpointConfiguration.UsePersistence<NHibernatePersistence>()
+        //        .UseConfiguration(new global::NHibernate.Cfg.Configuration
+        //        {
+        //            Properties =
+        //            {
+        //                ["connection.driver_class"] = "NHibernate.Driver.SQLite20Driver",
+        //                ["dialect"] = "NHibernate.Dialect.SQLiteDialect",
+        //                ["query.substitutions"] = "true=1;false=0",
+        //                ["show_sql"]= "true",
+        //                ["connection.connection_string"] = ConfigurationManager.ConnectionStrings["NServiceBus/Persistence"].ConnectionString
+        //            }
+        //        });
+        //}
     }
 }

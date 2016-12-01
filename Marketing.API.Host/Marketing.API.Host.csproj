@@ -149,7 +149,8 @@
   <ItemGroup>
     <Compile Include="Controllers\ProductDescriptionsController.cs" />
     <Compile Include="Controllers\PublishingController.cs" />
-    <Compile Include="Handlers\StockItemCreatedHandler.cs" />
+    <Compile Include="Sagas\ProductDraftSaga.cs" />
+    <Compile Include="Sagas\StockItemCreatedHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />

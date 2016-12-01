@@ -9,6 +9,16 @@ namespace Marketing.Data.Migrations
 {
     public static class SeedData
     {
+        public static HomeStructure HomeStructure()
+        {
+            return new HomeStructure()
+            {
+                Id = "HomeStructure",
+                HeadlineStockItemId = "StockItems/1",
+                ShowcaseStockItemIds = new[] { "StockItems/2", "StockItems/4", "StockItems/5" }
+            };
+        }
+
         public static List<ProductDescription> ProductDescriptions()
         {
             return new List<ProductDescription>

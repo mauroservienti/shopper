@@ -1,24 +1,25 @@
-﻿using System.Dynamic;
+﻿using Marketing.Data.Models;
+using Raven.Client;
+using System.Dynamic;
 using System.Threading.Tasks;
 
 namespace Marketing.Data.Services
 {
     public class PublishingService
     {
-        //IDocumentStore _store;
+        IDocumentStore _store;
 
-        //public PublishingService(IDocumentStore store)
-        //{
-        //    _store = store;
-        //}
-
-        public Task<dynamic> GetHomeShowcase()
+        public PublishingService(IDocumentStore store)
         {
-            dynamic vm = new ExpandoObject();
-            vm.HeadlineStockItemId = 1;
-            vm.ShowcaseStockItemIds = new[] { 2, 4, 5 };
+            _store = store;
+        }
 
-            return Task.FromResult<dynamic>( vm );
+        public async Task<dynamic> GetHomeShowcase()
+        {
+            using (var session = _store.OpenAsyncSession())
+            {
+                return await session.LoadAsync<HomeStructure>("HomeStructure");
+            }
         }
     }
 }

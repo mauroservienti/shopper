@@ -1,4 +1,7 @@
-﻿using NServiceBus;
+﻿using Marketing.Data.Context;
+using Marketing.Data.Models;
+using Marketing.ProductDrafts.Events;
+using NServiceBus;
 using Shipping.ShippingDetails.Events;
 using System;
 using System.Collections.Generic;
@@ -6,13 +9,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Warehouse.StockItems.Events;
+using Marketing.API.Host.Commands;
 
 namespace Marketing.API.Host.Sagas
 {
     class ProductDraftSaga
         : Saga<ProductDraftSaga.State>,
         IAmStartedByMessages<IStockItemCreatedEvent>,
-        IAmStartedByMessages<IShippingDetailsDefinedEvent>
+        IAmStartedByMessages<IShippingDetailsDefinedEvent>,
+        IHandleMessages<HeyIKnowThisIsWrongButSagaTrustMeDraftIsDoneCommand>
     {
         public class State : ContainSagaData
         {
@@ -20,12 +25,14 @@ namespace Marketing.API.Host.Sagas
             public virtual bool StockItemReady { get; set; }
             public virtual int ShippingDetailsId { get; set; }
             public virtual bool ShippingDetailsReady { get; set; }
+            public virtual int ProductDraftId { get; set; }
         }
 
         protected override void ConfigureHowToFindSaga(SagaPropertyMapper<State> mapper)
         {
             mapper.ConfigureMapping<IStockItemCreatedEvent>(e => e.StockItemId).ToSaga(s => s.StockItemId);
             mapper.ConfigureMapping<IShippingDetailsDefinedEvent>(e => e.StockItemId).ToSaga(s => s.StockItemId);
+            mapper.ConfigureMapping<HeyIKnowThisIsWrongButSagaTrustMeDraftIsDoneCommand>(e => e.ProductDraftId).ToSaga(s => s.ProductDraftId);
         }
 
         public async Task Handle(IStockItemCreatedEvent message, IMessageHandlerContext context)
@@ -35,7 +42,7 @@ namespace Marketing.API.Host.Sagas
 
             if (CanCreateProductDraft())
             {
-                await CreateProductDraft().ConfigureAwait(false);
+                await CreateProductDraft(context).ConfigureAwait(false);
             }
         }
 
@@ -46,8 +53,18 @@ namespace Marketing.API.Host.Sagas
 
             if (CanCreateProductDraft())
             {
-                await CreateProductDraft().ConfigureAwait(false);
+                await CreateProductDraft(context).ConfigureAwait(false);
             }
+        }
+
+        public async Task Handle(HeyIKnowThisIsWrongButSagaTrustMeDraftIsDoneCommand message, IMessageHandlerContext context)
+        {
+            await context.Publish<IProductDraftReadyToBePricedEvent>(e =>
+            {
+                e.ProductDraftId = Data.ProductDraftId;
+                e.StockItemId = Data.StockItemId;
+            })
+            .ConfigureAwait(false);
         }
 
         bool CanCreateProductDraft()
@@ -55,11 +72,27 @@ namespace Marketing.API.Host.Sagas
             return Data.StockItemReady && Data.ShippingDetailsReady;
         }
 
-        async Task CreateProductDraft()
+        async Task CreateProductDraft(IMessageHandlerContext context)
         {
-            //scrive sul db
-            //pubblica evento
-            await Task.CompletedTask;
+            using (var db = new MarketingContext())
+            {
+                var draft = new ProductDraft()
+                {
+                    StockItemId = Data.StockItemId,
+                };
+
+                db.ProductDrafts.Add(draft);
+                await db.SaveChangesAsync().ConfigureAwait(false);
+
+                Data.ProductDraftId = draft.Id;
+
+                await context.Publish<IProductDraftCreatedEvent>(e =>
+                {
+                    e.ProductDraftId = draft.Id;
+                    e.StockItemId = draft.StockItemId;
+                })
+                .ConfigureAwait(false);
+            }
         }
     }
 }

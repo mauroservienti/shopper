@@ -73,6 +73,7 @@
     <Compile Include="Migrations\DatabaseInitializer.cs" />
     <Compile Include="Migrations\SeedData.cs" />
     <Compile Include="Models\ProductDescription.cs" />
+    <Compile Include="Models\ProductDraft.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ProductDescriptionService.cs" />
     <Compile Include="Services\PublishingService.cs" />

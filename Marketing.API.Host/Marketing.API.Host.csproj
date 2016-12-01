@@ -147,6 +147,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\HeyIKnowThisIsWrongButSagaTrustMeDraftIsDoneCommand.cs" />
+    <Compile Include="Controllers\ProductDraftsController.cs" />
     <Compile Include="Controllers\ProductDescriptionsController.cs" />
     <Compile Include="Controllers\PublishingController.cs" />
     <Compile Include="Sagas\ProductDraftSaga.cs" />
@@ -162,6 +164,10 @@
     <ProjectReference Include="..\Marketing.Data\Marketing.Data.csproj">
       <Project>{314aa28e-e5a9-40b3-aa9b-c2c0e5bad059}</Project>
       <Name>Marketing.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Marketing.ProductDrafts.Events\Marketing.ProductDrafts.Events.csproj">
+      <Project>{de40bd3c-6b14-41ab-983c-90c78a9a2b78}</Project>
+      <Name>Marketing.ProductDrafts.Events</Name>
     </ProjectReference>
     <ProjectReference Include="..\NServiceBus.Shared\NServiceBus.Shared.csproj">
       <Project>{0b00e27d-ea5f-42b5-a6ce-63c0ce4df9a1}</Project>

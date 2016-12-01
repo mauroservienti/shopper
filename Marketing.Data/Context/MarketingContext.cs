@@ -18,11 +18,16 @@ namespace Marketing.Data.Context
 
         public IDbSet<ProductDescription> ProductDescriptions { get; set; }
 
+        public IDbSet<ProductDraft> ProductDrafts { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             Database.SetInitializer(new DatabaseInitializer(modelBuilder));
 
             modelBuilder.Entity<ProductDescription>()
+                .HasKey(sp => sp.Id);
+
+            modelBuilder.Entity<ProductDraft>()
                 .HasKey(sp => sp.Id);
 
             base.OnModelCreating(modelBuilder);

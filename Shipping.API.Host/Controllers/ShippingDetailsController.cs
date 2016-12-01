@@ -19,8 +19,8 @@ namespace Shipping.API.Controllers
             }
         }
 
-        [HttpGet, Route("ByStockItemIds/{ids}")]
-        public IEnumerable<dynamic> ByStockItemIds(string ids)
+        [HttpGet, Route("ByStockItem")]
+        public IEnumerable<dynamic> ByStockItem(string ids)
         {
             using (ShippingContext _context = new ShippingContext())
             {

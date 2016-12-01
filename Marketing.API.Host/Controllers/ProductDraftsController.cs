@@ -41,7 +41,7 @@ namespace Marketing.API.Controllers
 
                 await _repository.SaveChangesAsync();
 
-                await _messageSession.SendLocal<HeyIKnowThisIsWrongButSagaTrustMeDraftIsDoneCommand>(cmd => cmd.ProductDraftId = model.Id);
+                await _messageSession.SendLocal<HeyIKnowThisIsWrongButSagaTrustMeDraftIsDoneCommand>(cmd => cmd.StockItemId = model.StockItemId);
 
                 return model.Id;
             }

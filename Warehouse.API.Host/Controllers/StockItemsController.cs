@@ -69,7 +69,7 @@ namespace Warehouse.API.Controllers
             }
         }
 
-        [HttpGet, Route("Sizings/{id}")]
+        [HttpGet, Route("Sizings")]
         public dynamic Sizings(int id)
         {
             using (var _repository = new WarehouseContext())

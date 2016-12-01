@@ -8,6 +8,6 @@ namespace Marketing.API.Host.Commands
 {
     class HeyIKnowThisIsWrongButSagaTrustMeDraftIsDoneCommand
     {
-        public int ProductDraftId { get; internal set; }
+        public int StockItemId { get; set; }
     }
 }

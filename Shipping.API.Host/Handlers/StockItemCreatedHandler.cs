@@ -20,7 +20,7 @@ namespace Marketing.API.Host.Handlers
         {
             var client = new HttpClient();
             var warehouse = ConfigurationManager.AppSettings["warehouse/baseAddress"];
-            var url = $"{warehouse}/StockItems/Sizings/{message.StockItemId}";
+            var url = $"{warehouse}StockItems/Sizings?id={message.StockItemId}";
 
             var result = await client.GetAsync(url).ConfigureAwait(false);
             dynamic sizings = await result.Content.AsExpandoAsync();

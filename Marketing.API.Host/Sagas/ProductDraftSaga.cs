@@ -32,7 +32,7 @@ namespace Marketing.API.Host.Sagas
         {
             mapper.ConfigureMapping<IStockItemCreatedEvent>(e => e.StockItemId).ToSaga(s => s.StockItemId);
             mapper.ConfigureMapping<IShippingDetailsDefinedEvent>(e => e.StockItemId).ToSaga(s => s.StockItemId);
-            mapper.ConfigureMapping<HeyIKnowThisIsWrongButSagaTrustMeDraftIsDoneCommand>(e => e.ProductDraftId).ToSaga(s => s.ProductDraftId);
+            mapper.ConfigureMapping<HeyIKnowThisIsWrongButSagaTrustMeDraftIsDoneCommand>(e => e.StockItemId).ToSaga(s => s.StockItemId);
         }
 
         public async Task Handle(IStockItemCreatedEvent message, IMessageHandlerContext context)

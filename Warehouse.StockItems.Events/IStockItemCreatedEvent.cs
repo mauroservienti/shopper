@@ -8,6 +8,6 @@ namespace Warehouse.StockItems.Events
 {
     public interface IStockItemCreatedEvent
     {
-        int StockItemId { get; set; }
+        string StockItemId { get; set; }
     }
 }

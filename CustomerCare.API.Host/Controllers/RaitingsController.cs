@@ -1,38 +1,43 @@
 ﻿using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
-using CustomerCare.Data.Context;
 using System;
+using Raven.Client;
+using CustomerCare.Data.Models;
+using System.Threading.Tasks;
+using Raven.Client.Linq;
 
 namespace CustomerCare.API.Controllers
 {
     [RoutePrefix("api/Raitings")]
     public class RaitingsController : ApiController
     {
-        [HttpGet]
-        public dynamic Get(int id)
+        IDocumentStore _store;
+
+        public RaitingsController( IDocumentStore store )
         {
-            using (CustomerCareContext _context = new CustomerCareContext())
+            _store = store;
+        }
+
+        [HttpGet]
+        public async Task<dynamic> Get(string id)
+        {
+            using (var session =  _store.OpenAsyncSession())
             {
-                return _context.Raitings.Where(si => si.Id == id).Single();
+                return await session.LoadAsync<Raiting>(id);
             }
         }
 
         [HttpGet, Route("ByStockItem")]
-        public IEnumerable<dynamic> ByStockItem(string ids)
+        public async Task<IEnumerable<dynamic>> ByStockItem(string ids)
         {
-            using (CustomerCareContext _context = new CustomerCareContext())
+            using (var session = _store.OpenAsyncSession())
             {
-                var _ids = ids.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
-                    .Select(id => int.Parse(id))
-                    .ToList();
+                var _ids = ids.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
 
-                var query = from si in _context.Raitings
-                            where _ids.Contains(si.StockItemId)
-                            select si;
+                var query = session.Query<Raiting>().Where(r => r.StockItemId.In(_ids));
 
-                return query.ToList();
+                return await query.ToListAsync();
             }
         }
     }

@@ -7,27 +7,27 @@ using CustomerCare.Data.Models;
 
 namespace CustomerCare.Data.Migrations
 {
-    static class SeedData
+    public static class SeedData
     {
-        public static Raiting[] Raitings()
+        public static List<Raiting> Raitings()
         {
-            return new Raiting[]
+            return new List<Raiting>
             {
-                new Raiting() {StockItemId = 1, Stars = 4.3, ReviewCount=543},
-                new Raiting() {StockItemId = 2, Stars = 5, ReviewCount=1234},
-                new Raiting() {StockItemId = 3, Stars = 4.2, ReviewCount=1},
-                new Raiting() {StockItemId = 4, Stars = .7, ReviewCount=4},
-                new Raiting() {StockItemId = 5, Stars = 0, ReviewCount=0}
+                new Raiting() {StockItemId = "StockItems/1", Stars = 4.3, ReviewCount=543},
+                new Raiting() {StockItemId = "StockItems/2", Stars = 5, ReviewCount=1234},
+                new Raiting() {StockItemId = "StockItems/3", Stars = 4.2, ReviewCount=1},
+                new Raiting() {StockItemId = "StockItems/4", Stars = .7, ReviewCount=4},
+                new Raiting() {StockItemId = "StockItems/5", Stars = 0, ReviewCount=0}
             };
         }
 
-        public static Review[] Reviews()
+        public static List<Review> Reviews()
         {
-            return new Review[]
+            return new List<Review>
             {
                 new Review()
                 {
-                    StockItemId = 2,
+                    StockItemId = "StockItems/2",
                     Stars = 4,
                     Author = "Giovanna Coscialunga",
                     Title ="Fondamentale",

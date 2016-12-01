@@ -1,10 +1,11 @@
 ﻿using NServiceBus;
+using Raven.Client;
+using Raven.Client.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Warehouse.Data.Context;
 using Warehouse.Data.Models;
 using Warehouse.StockItems.Events;
 
@@ -14,27 +15,30 @@ namespace Warehouse.API.Controllers
     public class StockItemsController : ApiController
     {
         IMessageSession _messageSession;
-        public StockItemsController(IMessageSession messageSession)
+        IDocumentStore _store;
+
+        public StockItemsController(IMessageSession messageSession, IDocumentStore store)
         {
             _messageSession = messageSession;
+            _store = store;
         }
 
         [HttpGet]
-        public dynamic Get(int id)
+        public async Task<dynamic> Get(int id)
         {
-            using (var _repository = new WarehouseContext())
+            using (var session = _store.OpenAsyncSession())
             {
-                return _repository.StockItems.Where(si => si.Id == id).Single();
+                return await session.LoadAsync<StockItem>(id);
             }
         }
 
         [HttpPut]
         public async Task<dynamic> Put(StockItem model)
         {
-            using (var _repository = new WarehouseContext())
+            using (var session = _store.OpenAsyncSession())
             {
-                _repository.StockItems.Add(model);
-                await _repository.SaveChangesAsync();
+                await session.StoreAsync(model);
+                await session.SaveChangesAsync();
 
                 await _messageSession.Publish<IStockItemCreatedEvent>(e => e.StockItemId = model.Id);
 
@@ -43,44 +47,38 @@ namespace Warehouse.API.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<dynamic> Get()
+        public async Task<IEnumerable<dynamic>> Get()
         {
-            using (var _repository = new WarehouseContext())
+            using (var session = _store.OpenAsyncSession())
             {
                 //WARN: should apply pagination
-                return _repository.StockItems.ToList();
+                return await session.Query<StockItem>().ToListAsync();
             }
         }
 
         [HttpGet, Route("ByStockItem")]
-        public IEnumerable<dynamic> ByStockItem(string ids)
+        public async Task<IEnumerable<dynamic>> ByStockItem(string ids)
         {
-            using (var _repository = new WarehouseContext())
+            using (var session = _store.OpenAsyncSession())
             {
-                var _ids = ids.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
-                    .Select(id => int.Parse(id))
-                    .ToList();
+                var _ids = ids.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
 
-                var query = from si in _repository.StockItems
-                            where _ids.Contains(si.Id)
-                            select si;
+                var query = session.Query<StockItem>().Where(r => r.Id.In(_ids));
 
-                return query.ToList();
+                return await query.ToListAsync();
             }
         }
 
         [HttpGet, Route("Sizings")]
-        public dynamic Sizings(int id)
+        public async Task<dynamic> Sizings(string id)
         {
-            using (var _repository = new WarehouseContext())
+            using (var session = _store.OpenAsyncSession())
             {
-                var result = (from si in _repository.StockItems
-                              where si.Id == id
-                              select si.Weight).Single();
+                var result = await session.LoadAsync<StockItem>(id);
 
                 return new
                 {
-                    Weight = result
+                    Weight = result.Weight
                 };
             }
         }

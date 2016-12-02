@@ -10,6 +10,8 @@ using Microsoft.Owin.Cors;
 using NServiceBus;
 using Raven.Client;
 using Warehouse.Data.Migrations;
+using Microsoft.Owin;
+using System.Threading.Tasks;
 
 namespace Warehouse.API.Host
 {
@@ -40,6 +42,8 @@ namespace Warehouse.API.Host
 
             var config = new HttpConfiguration();
 
+            appBuilder.Use<GlobalExceptionMiddleware>();
+
             config.Formatters.Clear();
             config.Formatters.Add(new JsonMediaTypeFormatter());
 
@@ -60,6 +64,25 @@ namespace Warehouse.API.Host
 
             appBuilder.UseCors(CorsOptions.AllowAll);
             appBuilder.UseWebApi(config);
+        }
+    }
+
+    public class GlobalExceptionMiddleware : OwinMiddleware
+    {
+        public GlobalExceptionMiddleware(OwinMiddleware next) : base(next)
+        { }
+
+        public override async Task Invoke(IOwinContext context)
+        {
+            try
+            {
+                await Next.Invoke(context);
+            }
+            catch (Exception ex)
+            {
+                // your handling logic
+                throw;
+            }
         }
     }
 }

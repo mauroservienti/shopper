@@ -9,7 +9,7 @@
                 <th>#</th>
                 <th>Title</th>
                 <th>Description</th>
-                <th>Warehouse details</th>
+                @await Component.InvokeAsync("Warehouse.ViewComponents.ProductDraftStockItemInfoHeader", null)
             </tr>
         </thead>
         <tbody>
@@ -19,7 +19,7 @@
                     <th scope="row"><a href="/@item.Id">@item.Id</a></th>
                     <td>@item.Title</td>
                     <td>@item.Description</td>
-                    <td>@await Component.InvokeAsync("Warehouse.ViewComponents.ProductDraftStockItemInfo", item)</td>
+                    @await Component.InvokeAsync("Warehouse.ViewComponents.ProductDraftStockItemInfo", item)
                 </tr>
             }
         </tbody>

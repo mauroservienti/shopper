@@ -1,6 +1,7 @@
 ﻿using NServiceBus.Persistence;
 using Raven.Client;
 using Raven.Client.Embedded;
+using Raven.Client.Indexes;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -42,6 +43,12 @@ namespace NServiceBus
                 DataDirectory = ConfigurationManager.AppSettings["RavenDB/DataDirectory"],
                 DefaultDatabase = defaultDatabaseName
             }.Initialize();
+
+            var index = store.DatabaseCommands.GetIndex("Raven/DocumentsByEntityName");
+            if (index == null)
+            {
+                new RavenDocumentsByEntityName().Execute(store);
+            }
 
             if (seedCallback != null)
             {

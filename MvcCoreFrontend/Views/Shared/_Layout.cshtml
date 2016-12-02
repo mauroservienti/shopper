@@ -31,7 +31,8 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    @await Component.InvokeAsync("Warehouse.ViewComponents.MainMenuItem", @Model)
+                    @await Component.InvokeAsync("Warehouse.ViewComponents.WarehouseMenuItem", @Model)
+                    @await Component.InvokeAsync("Marketing.ViewComponents.MarketingMenuItem", @Model)
                 </ul>
             </div>
         </div>

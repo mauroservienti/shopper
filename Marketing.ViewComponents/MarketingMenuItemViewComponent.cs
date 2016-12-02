@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Warehouse.ViewComponents
+namespace Marketing.ViewComponents
 {
-    [ViewComponent(Name = "Warehouse.ViewComponents.MainMenuItem")]
-    public class MainMenuItemViewComponent : ViewComponent
+    [ViewComponent(Name = "Marketing.ViewComponents.MarketingMenuItem")]
+    public class MarketingMenuItemViewComponent : ViewComponent
     {
         public IViewComponentResult Invoke(dynamic model)
         {

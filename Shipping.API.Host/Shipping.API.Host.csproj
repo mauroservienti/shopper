@@ -7,8 +7,8 @@
     <ProjectGuid>{8453A5D4-29B7-4FA2-87AE-7F927D23C620}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Marketing.API.Host</RootNamespace>
-    <AssemblyName>Marketing.API.Host</AssemblyName>
+    <RootNamespace>Shipping.API.Host</RootNamespace>
+    <AssemblyName>Shipping.API.Host</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

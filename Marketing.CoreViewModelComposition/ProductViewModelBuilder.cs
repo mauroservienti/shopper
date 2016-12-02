@@ -21,7 +21,7 @@ namespace Marketing.CoreViewModelComposition
             _composers = composers;
         }
 
-        public async Task<dynamic> Build(int id)
+        public async Task<dynamic> Build(string id)
         {
             dynamic vm = new ExpandoObject();
             vm.Id = id;

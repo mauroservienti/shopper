@@ -17,7 +17,8 @@ namespace Marketing.ViewComponents.Controllers
         [Route("{id:int}")]
         public async Task<IActionResult> Details(int id)
         {
-            var vm = await _builder.Build(id);
+            var realId = $"StockItems/{id}";
+            var vm = await _builder.Build(realId);
 
             return View(vm);
         }

@@ -1,2 +1,7 @@
-﻿<h1><a href="/products/@Model.StockItemId">@Model.Title</a></h1>
+﻿@{
+    var destinationUrl = ((string)Model.StockItemId)
+        .ToLowerInvariant()
+        .Replace("stockitems", "products");
+}
+<h1><a href="/@destinationUrl">@Model.Title</a></h1>
 <p>@Model.Description</p>

@@ -10,6 +10,7 @@
                 <th>Title</th>
                 <th>Description</th>
                 @await Component.InvokeAsync("Warehouse.ViewComponents.ProductDraftStockItemInfoHeader", null)
+                @await Component.InvokeAsync("Shipping.ViewComponents.ProductDraftShippingCostHeader", null)
             </tr>
         </thead>
         <tbody>
@@ -20,6 +21,7 @@
                     <td>@item.Title</td>
                     <td>@item.Description</td>
                     @await Component.InvokeAsync("Warehouse.ViewComponents.ProductDraftStockItemInfo", item)
+                    @await Component.InvokeAsync("Shipping.ViewComponents.ProductDraftShippingCost", item)
                 </tr>
             }
         </tbody>

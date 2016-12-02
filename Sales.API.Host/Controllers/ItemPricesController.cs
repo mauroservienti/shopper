@@ -35,7 +35,7 @@ namespace Sales.API.Controllers
             {
                 var _ids = ids.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
 
-                var query = session.Query<ItemPrice>().Where(r => r.Id.In(_ids));
+                var query = session.Query<ItemPrice>().Where(r => r.StockItemId.In(_ids));
 
                 return await query.ToListAsync();
             }

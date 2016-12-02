@@ -46,7 +46,7 @@
   <ItemGroup>
     <Compile Include="Migrations\SeedData.cs" />
     <Compile Include="Models\HomeStructure.cs" />
-    <Compile Include="Models\ProductDescription.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductDraft.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

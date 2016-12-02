@@ -16,7 +16,7 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <th scope="row">@item.Id</th>
+                    <th scope="row"><a href="/@item.Id">@item.Id</a></th>
                     <td>@item.Title</td>
                     <td>@item.Description</td>
                     <td>@await Component.InvokeAsync("Warehouse.ViewComponents.ProductDraftStockItemInfo", item)</td>

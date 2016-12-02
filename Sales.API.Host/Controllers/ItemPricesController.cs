@@ -20,7 +20,7 @@ namespace Sales.API.Controllers
         }
 
         [HttpGet]
-        public async Task<dynamic> Get(int id)
+        public async Task<dynamic> Get(string id)
         {
             using (var session = _store.OpenAsyncSession())
             {

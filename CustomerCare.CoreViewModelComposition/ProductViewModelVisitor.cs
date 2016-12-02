@@ -22,8 +22,8 @@ namespace CustomerCare.CoreViewModelComposition
         {
             var apiUrl = _config.GetValue<string>("modules:customerCare:config:apiUrl");
 
-            var getRatingsUrl = $"{apiUrl}Raitings/ByStockItem?ids={ composedViewModel.Id }";
-            var getReviewsUrl = $"{apiUrl}Reviews/ByStockItem?ids={ composedViewModel.Id }";
+            var getRatingsUrl = $"{apiUrl}Raitings/ByStockItem?ids={ composedViewModel.StockItemId }";
+            var getReviewsUrl = $"{apiUrl}Reviews/ByStockItem?ids={ composedViewModel.StockItemId }";
 
             //var getRatings = new HttpRequestMessage(
             //    method: HttpMethod.Get,

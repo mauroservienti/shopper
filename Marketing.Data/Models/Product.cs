@@ -2,7 +2,7 @@
 
 namespace Marketing.Data.Models
 {
-    public class ProductDescription
+    public class Product
     {
         public string Id { get; set; }
         public string StockItemId { get; set; }

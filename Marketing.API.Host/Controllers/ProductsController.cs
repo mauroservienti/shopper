@@ -1,20 +1,25 @@
 ﻿using System;
-using System.Linq;
 using System.Web.Http;
 using System.Collections.Generic;
-using Marketing.Data.Services;
 using System.Threading.Tasks;
+using Marketing.API.Services;
 
 namespace Marketing.API.Controllers
 {
-    [RoutePrefix("api/ProductDescriptions")]
-    public class ProductDescriptionsController : ApiController
+    [RoutePrefix("api/Products")]
+    public class ProductsController : ApiController
     {
-        private readonly ProductDescriptionService _service;
+        private readonly ProductsService _service;
 
-        public ProductDescriptionsController(ProductDescriptionService service)
+        public ProductsController(ProductsService service)
         {
             _service = service;
+        }
+
+        [HttpGet]
+        public async Task<dynamic> Get(string id)
+        {
+            return await _service.GetById(id);
         }
 
         [HttpGet, Route("ByStockItem")]

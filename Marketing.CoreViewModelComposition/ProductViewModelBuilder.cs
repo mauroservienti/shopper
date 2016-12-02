@@ -1,7 +1,6 @@
 ﻿using CoreViewModelComposition;
 using HttpHelpers;
 using Microsoft.Extensions.Configuration;
-using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
@@ -23,8 +22,16 @@ namespace Marketing.CoreViewModelComposition
 
         public async Task<dynamic> Build(string id)
         {
+            var apiUrl = _config.GetValue<string>("modules:marketing:config:apiUrl");
+            var url = $"{apiUrl}Products?id={ id }";
+
+            var client = new HttpClient();
+            var response = await client.GetAsync(url);
+            dynamic description = await response.Content.AsExpandoAsync();
+
             dynamic vm = new ExpandoObject();
-            vm.Id = id;
+            vm.ItemDescription = description;
+            vm.StockItemId = description.StockItemId;
 
             var ts = new List<Task>();
             foreach (var composer in _composers)

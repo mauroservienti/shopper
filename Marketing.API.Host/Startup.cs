@@ -22,7 +22,7 @@ namespace Marketing.API.Host
 
             var store = CommonConfiguration.CreateEmbeddableDocumentStore("Marketing", session =>
             {
-                SeedData.ProductDescriptions().ForEach(s => session.Store(s));
+                SeedData.Products().ForEach(s => session.Store(s));
                 session.Store(SeedData.HomeStructure());
             });
 

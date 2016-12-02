@@ -20,7 +20,7 @@ namespace Sales.CoreViewModelComposition
         public async Task Visit(dynamic composedViewModel)
         {
             var apiUrl = _config.GetValue<string>("modules:sales:config:apiUrl");
-            var url = $"{apiUrl}ItemPrices/ByStockItem?ids={ composedViewModel.Id }";
+            var url = $"{apiUrl}ItemPrices/ByStockItem?ids={ composedViewModel.StockItemId }";
 
             var client = new HttpClient();
             var response = await client.GetAsync(url);

@@ -19,31 +19,31 @@ namespace Marketing.Data.Migrations
             };
         }
 
-        public static List<ProductDescription> ProductDescriptions()
+        public static List<Product> Products()
         {
-            return new List<ProductDescription>
+            return new List<Product>
             {
-                new ProductDescription() {
+                new Product() {
                     StockItemId = "StockItems/1",
                     Title = "Halloween Pumpkin",
                     Description ="Fantastic Halloween Pumpkin, with a smiling face, white battery led included.",
                     ImageUrl =""},
-                new ProductDescription() {
+                new Product() {
                     StockItemId = "StockItems/2",
                     Title = "Banana Trolley",
                     Description ="",
                     ImageUrl =""},
-                new ProductDescription() {
+                new Product() {
                     StockItemId = "StockItems/3",
                     Title = "USB-C Universal power supply",
                     Description ="",
                     ImageUrl =""},
-                new ProductDescription() {
+                new Product() {
                     StockItemId = "StockItems/4",
                     Title = "Learn ServiceFabric",
                     Description ="Editor:MS-Press|Title:Learn ServiceFabric|Author:Alessandro Melchiori",
                     ImageUrl =""},
-                new ProductDescription() {
+                new Product() {
                     StockItemId = "StockItems/5",
                     Title = "LH740 Airplane Model",
                     Description ="",

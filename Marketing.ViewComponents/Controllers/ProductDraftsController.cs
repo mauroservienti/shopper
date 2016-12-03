@@ -1,6 +1,7 @@
 ﻿using CoreViewModelComposition;
 using HttpHelpers;
 using Marketing.CoreViewModelComposition;
+using Marketing.ViewComponents.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
@@ -12,41 +13,32 @@ namespace Marketing.ViewComponents.Controllers
     [Route("ProductDrafts")]
     public class ProductDraftsController : Controller
     {
-        IEnumerable<IProductDraftsViewModelVisitor> _composers;
-        readonly IConfiguration _config;
+        ProductDraftsViewModelBuilder _builder;
 
-        public ProductDraftsController(IConfiguration config, IEnumerable<IProductDraftsViewModelVisitor> composers)
+        public ProductDraftsController(ProductDraftsViewModelBuilder builder)
         {
-            _config = config;
-            _composers = composers;
+            _builder = builder;
         }
 
         public async Task<IActionResult> Index()
         {
-            var apiUrl = _config.GetValue<string>("modules:marketing:config:apiUrl");
-
-            var client = new HttpClient();
-            //WARN: should apply pagination
-            var response = await client.GetAsync($"{apiUrl}ProductDrafts");
-            dynamic[] productDrafts = await response.Content.AsExpandoArrayAsync();
-
-            var ts = new List<Task>();
-            foreach (var composer in _composers)
-            {
-                ts.Add(composer.Visit(productDrafts));
-            }
-
-            await Task.WhenAll(ts.ToArray());
+            var productDrafts = await _builder.BuildAll();
 
             return View(productDrafts);
         }
 
-        //[Route("{id:int}")]
-        //public async Task<IActionResult> Details(int id)
-        //{
-        //    var vm = await _builder.Build(id);
+        [Route("Edit/{id:int}")]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var vm = await _builder.BuildOne($"ProductDrafts/{id}");
 
-        //    return View(vm);
+            return View(vm);
+        }
+
+        //[HttpPost, Route("Edit/{id:int}")]
+        //public async Task<IActionResult> Edit(int id, EditedDraft draft)
+        //{
+        //    return View();
         //}
     }
 }

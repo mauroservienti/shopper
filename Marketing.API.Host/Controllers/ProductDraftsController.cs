@@ -24,6 +24,15 @@ namespace Marketing.API.Controllers
         }
 
         [HttpGet]
+        public async Task<dynamic> Get(string id)
+        {
+            using (var session = _store.OpenAsyncSession())
+            {
+                return await session.LoadAsync<ProductDraft>(id);
+            }
+        }
+
+        [HttpGet]
         public async Task<IEnumerable<dynamic>> Get()
         {
             using (var session = _store.OpenAsyncSession())

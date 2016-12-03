@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Shipping.CoreViewModelComposition
 {
-    public class ShippingInfoViewModelVisitor : IProductViewModelVisitor
+    public class ShippingInfoViewModelVisitor : IProductsViewModelVisitor
     {
         readonly IConfiguration _config;
 
@@ -18,7 +18,7 @@ namespace Shipping.CoreViewModelComposition
             _config = config;
         }
 
-        public async Task Visit(dynamic composedViewModel)
+        public async Task VisitOne(dynamic composedViewModel)
         {
             var apiUrl = _config.GetValue<string>("modules:shipping:config:apiUrl");
             var url = $"{apiUrl}ShippingDetails/ByStockItem?ids={ composedViewModel.StockItemId }";

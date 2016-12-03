@@ -7,9 +7,9 @@ namespace Marketing.ViewComponents.Controllers
     [Route("Products")]
     public class ProductsController : Controller
     {
-        ProductViewModelBuilder _builder;
+        ProductsViewModelBuilder _builder;
 
-        public ProductsController(ProductViewModelBuilder builder)
+        public ProductsController(ProductsViewModelBuilder builder)
         {
             _builder = builder;
         }
@@ -17,7 +17,7 @@ namespace Marketing.ViewComponents.Controllers
         [Route("{id:int}")]
         public async Task<IActionResult> Details(int id)
         {
-            var vm = await _builder.Build($"Products/{id}");
+            var vm = await _builder.BuildOne($"Products/{id}");
 
             return View(vm);
         }

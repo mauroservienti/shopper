@@ -9,7 +9,7 @@ using System;
 
 namespace CustomerCare.CoreViewModelComposition
 {
-    public class ProductViewModelVisitor : IProductViewModelVisitor
+    public class ProductViewModelVisitor : IProductsViewModelVisitor
     {
         readonly IConfiguration _config;
 
@@ -18,7 +18,7 @@ namespace CustomerCare.CoreViewModelComposition
             _config = config;
         }
 
-        public async Task Visit(dynamic composedViewModel)
+        public async Task VisitOne(dynamic composedViewModel)
         {
             var apiUrl = _config.GetValue<string>("modules:customerCare:config:apiUrl");
 

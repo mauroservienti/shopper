@@ -7,6 +7,7 @@ namespace CoreViewModelComposition
 {
     public interface IProductDraftsViewModelVisitor
     {
-        Task Visit(IEnumerable<dynamic> composedViewModels);
+        Task VisitAll(IEnumerable<dynamic> composedViewModels);
+        Task VisitOne(dynamic composedViewModels);
     }
 }

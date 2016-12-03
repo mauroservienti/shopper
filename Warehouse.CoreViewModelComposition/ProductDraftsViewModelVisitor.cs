@@ -18,7 +18,7 @@ namespace Warehouse.CoreViewModelComposition
             _config = config;
         }
 
-        public async Task Visit(IEnumerable<dynamic> composedViewModels)
+        public async Task VisitAll(IEnumerable<dynamic> composedViewModels)
         {
             var ids = composedViewModels.Select(vm => vm.StockItemId).ToArray();
             if (ids.Any())
@@ -36,6 +36,11 @@ namespace Warehouse.CoreViewModelComposition
                     vm.StockItemInfo = obj;
                 }
             }
+        }
+
+        public Task VisitOne(dynamic composedViewModels)
+        {
+            return Task.CompletedTask;
         }
     }
 }

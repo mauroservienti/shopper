@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Sales.CoreViewModelComposition
 {
-    public class ProductPriceViewModelVisitor : IProductViewModelVisitor
+    public class ProductPriceViewModelVisitor : IProductsViewModelVisitor
     {
         readonly IConfiguration _config;
 
@@ -17,7 +17,7 @@ namespace Sales.CoreViewModelComposition
             _config = config;
         }
 
-        public async Task Visit(dynamic composedViewModel)
+        public async Task VisitOne(dynamic composedViewModel)
         {
             var apiUrl = _config.GetValue<string>("modules:sales:config:apiUrl");
             var url = $"{apiUrl}ItemPrices/ByStockItem?ids={ composedViewModel.StockItemId }";

@@ -9,18 +9,18 @@ using System.Threading.Tasks;
 
 namespace Marketing.CoreViewModelComposition
 {
-    public class ProductViewModelBuilder
+    public class ProductsViewModelBuilder
     {
         IConfiguration _config;
-        IEnumerable<IProductViewModelVisitor> _composers;
+        IEnumerable<IProductsViewModelVisitor> _composers;
 
-        public ProductViewModelBuilder(IConfiguration config, IEnumerable<IProductViewModelVisitor> composers)
+        public ProductsViewModelBuilder(IConfiguration config, IEnumerable<IProductsViewModelVisitor> composers)
         {
             _config = config;
             _composers = composers;
         }
 
-        public async Task<dynamic> Build(string id)
+        public async Task<dynamic> BuildOne(string id)
         {
             var apiUrl = _config.GetValue<string>("modules:marketing:config:apiUrl");
             var url = $"{apiUrl}Products?id={ id }";
@@ -36,7 +36,7 @@ namespace Marketing.CoreViewModelComposition
             var ts = new List<Task>();
             foreach (var composer in _composers)
             {
-                ts.Add(composer.Visit(vm));
+                ts.Add(composer.VisitOne(vm));
             }
 
             await Task.WhenAll(ts.ToArray());

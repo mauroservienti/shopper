@@ -30,6 +30,7 @@ namespace Marketing.ViewComponents.Controllers
             return View(productDrafts);
         }
 
+        [Route("PleaseWait")]
         public IActionResult PleaseWait()
         {
             return View();

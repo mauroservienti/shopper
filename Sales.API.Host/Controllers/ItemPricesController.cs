@@ -46,7 +46,7 @@ namespace Sales.API.Controllers
         }
 
         [HttpPut]
-        public async Task Propose(dynamic proposedPrice)
+        public async Task<dynamic> Propose(dynamic proposedPrice)
         {
             using (var session = _store.OpenAsyncSession())
             {
@@ -58,6 +58,8 @@ namespace Sales.API.Controllers
                 await session.StoreAsync(itemPrice);
                 await session.SaveChangesAsync();
                 await _messageSession.Publish<IProposedPriceAcceptedEvent>(e => e.StockItemId = itemPrice.StockItemId);
+
+                return itemPrice.Id;
             }
         }
     }

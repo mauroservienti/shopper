@@ -43,7 +43,7 @@ namespace Marketing.API.Controllers
         }
 
         [HttpPost]
-        public async Task Post(dynamic model)
+        public async Task<dynamic> Post(dynamic model)
         {
             await _messageSession.SendLocal<HeyIKnowThisIsWrongButSagaTrustMeDraftIsDoneCommand>(cmd =>
             {
@@ -52,6 +52,8 @@ namespace Marketing.API.Controllers
                 cmd.Title = model.Title;
                 cmd.Description = model.Description;
             });
+
+            return model.Id;
         }
     }
 }

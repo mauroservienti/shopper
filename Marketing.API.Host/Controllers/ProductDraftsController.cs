@@ -43,17 +43,15 @@ namespace Marketing.API.Controllers
         }
 
         [HttpPost]
-        public async Task<dynamic> Post(ProductDraft model)
+        public async Task Post(dynamic model)
         {
-            using (var session = _store.OpenAsyncSession())
+            await _messageSession.SendLocal<HeyIKnowThisIsWrongButSagaTrustMeDraftIsDoneCommand>(cmd =>
             {
-                await session.StoreAsync(model);
-                await session.SaveChangesAsync();
-
-                await _messageSession.SendLocal<HeyIKnowThisIsWrongButSagaTrustMeDraftIsDoneCommand>(cmd => cmd.StockItemId = model.StockItemId);
-
-                return model.Id;
-            }
+                cmd.ProductDraftId = model.Id;
+                cmd.StockItemId = model.StockItemId;
+                cmd.Title = model.Title;
+                cmd.Description = model.Description;
+            });
         }
     }
 }

@@ -75,6 +75,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marketing.ProductDrafts.Eve
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Warehouse.CoreViewModelComposition", "Warehouse.CoreViewModelComposition\Warehouse.CoreViewModelComposition.xproj", "{2818EF51-FE6B-44FF-9952-F9292FDD0C9A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sales.ProposedPrice.Events", "Sales.ProposedPrice.Events\Sales.ProposedPrice.Events.csproj", "{684D2696-8AE7-4395-A33C-62D30917E537}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -201,6 +203,10 @@ Global
 		{2818EF51-FE6B-44FF-9952-F9292FDD0C9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2818EF51-FE6B-44FF-9952-F9292FDD0C9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2818EF51-FE6B-44FF-9952-F9292FDD0C9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{684D2696-8AE7-4395-A33C-62D30917E537}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{684D2696-8AE7-4395-A33C-62D30917E537}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{684D2696-8AE7-4395-A33C-62D30917E537}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{684D2696-8AE7-4395-A33C-62D30917E537}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -235,5 +241,6 @@ Global
 		{DB6D4E42-B411-42A9-810E-C1A5C7620F45} = {26682838-0793-404D-A434-8C9890CD8141}
 		{DE40BD3C-6B14-41AB-983C-90C78A9A2B78} = {808B901F-6EF7-49F0-B668-F54EEDB1F3F1}
 		{2818EF51-FE6B-44FF-9952-F9292FDD0C9A} = {65F37558-1C29-4247-BD01-4DFAFD452ECB}
+		{684D2696-8AE7-4395-A33C-62D30917E537} = {3F113598-B240-4E06-B41A-6C684C208F2A}
 	EndGlobalSection
 EndGlobal

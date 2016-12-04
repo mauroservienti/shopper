@@ -162,6 +162,10 @@
       <Project>{80f82f7d-3f0a-4316-87cd-49f19dbd5b85}</Project>
       <Name>Sales.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Sales.ProposedPrice.Events\Sales.ProposedPrice.Events.csproj">
+      <Project>{684d2696-8ae7-4395-a33c-62d30917e537}</Project>
+      <Name>Sales.ProposedPrice.Events</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

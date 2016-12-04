@@ -17,9 +17,31 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <th scope="row"><a href="/@item.Id">@item.Id</a></th>
-                    <td>@item.Title</td>
-                    <td>@item.Description</td>
+                    @{
+                        var segments = @item.Id.Split('/');
+
+                    }
+                    <th scope="row"><a href="@segments[0]/edit/@segments[1]">@item.Id</a></th>
+                    <td>
+                        @if (string.IsNullOrWhiteSpace(item.Title))
+                        {
+                            <span>--</span>
+                        }
+                        else
+                        {
+                            <span>item.Title</span>
+                        }
+                    </td>
+                    <td>
+                        @if (string.IsNullOrWhiteSpace(item.Description))
+                        {
+                            <span>--</span>
+                        }
+                        else
+                        {
+                            <span>item.Description</span>
+                        }
+                    </td>
                     @await Component.InvokeAsync("Warehouse.ViewComponents.ProductDraftStockItemInfo", item)
                     @await Component.InvokeAsync("Shipping.ViewComponents.ProductDraftShippingCost", item)
                 </tr>

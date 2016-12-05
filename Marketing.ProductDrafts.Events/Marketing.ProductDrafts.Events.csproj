@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IProductDraftCreatedEvent.cs" />
+    <Compile Include="IProductDraftPublishedEvent.cs" />
     <Compile Include="IProductDraftReadyToBePricedEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

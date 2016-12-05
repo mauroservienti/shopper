@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Marketing.API.Host.Commands
+namespace Sales.API.Host.Commands
 {
-    class PublishProductDraftCommand
+    class ProposePriceCommand
     {
+        public double ProposedPrice { get; set; }
         public string StockItemId { get; set; }
     }
 }

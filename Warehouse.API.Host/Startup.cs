@@ -27,6 +27,7 @@ namespace Warehouse.API.Host
             var store = CommonConfiguration.CreateEmbeddableDocumentStore("Warehouse", session =>
             {
                 SeedData.StockItems().ForEach(s => session.Store(s));
+                session.Store(new { Id = "Raven/Hilo/StockItems", Max = 100 });
             });
 
             container.Register(Component.For<IDocumentStore>().Instance(store).LifestyleSingleton());

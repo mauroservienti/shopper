@@ -8,9 +8,9 @@ namespace Marketing.API.Host.Commands
 {
     class HeyIKnowThisIsWrongButSagaTrustMeDraftIsDoneCommand
     {
-        public dynamic Description { get; internal set; }
-        public dynamic ProductDraftId { get; internal set; }
+        public string Description { get; set; }
+        public string ProductDraftId { get; set; }
         public string StockItemId { get; set; }
-        public dynamic Title { get; internal set; }
+        public string Title { get; set; }
     }
 }

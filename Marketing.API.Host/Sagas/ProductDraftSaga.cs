@@ -14,15 +14,15 @@ using Sales.ProposedPrice.Events;
 namespace Marketing.API.Host.Sagas
 {
     class ProductDraftSaga
-        : Saga<ProductDraftSaga.State>,
+        : Saga<ProductDraftSaga.ProductDraftSagaState>,
         IAmStartedByMessages<IStockItemCreatedEvent>,
         IAmStartedByMessages<IShippingDetailsDefinedEvent>,
         IHandleMessages<HeyIKnowThisIsWrongButSagaTrustMeDraftIsDoneCommand>,
-        IHandleTimeouts<IsPriceApprovedTimeout>,
+        //IHandleTimeouts<IsPriceApprovedTimeout>,
         IHandleMessages<IProposedPriceAcceptedEvent>,
         IHandleMessages<PublishProductDraftCommand>
     {
-        public class State : ContainSagaData
+        public class ProductDraftSagaState : ContainSagaData
         {
             public string StockItemId { get; set; }
             public bool StockItemReady { get; set; }
@@ -33,7 +33,7 @@ namespace Marketing.API.Host.Sagas
             public bool PriceApproved { get; set; }
         }
 
-        protected override void ConfigureHowToFindSaga(SagaPropertyMapper<State> mapper)
+        protected override void ConfigureHowToFindSaga(SagaPropertyMapper<ProductDraftSagaState> mapper)
         {
             mapper.ConfigureMapping<IStockItemCreatedEvent>(e => e.StockItemId).ToSaga(s => s.StockItemId);
             mapper.ConfigureMapping<IShippingDetailsDefinedEvent>(e => e.StockItemId).ToSaga(s => s.StockItemId);
@@ -70,6 +70,7 @@ namespace Marketing.API.Host.Sagas
             var draft = await session.LoadAsync<ProductDraft>(Data.ProductDraftId);
             draft.Description = message.Description;
             draft.Title = message.Title;
+            await session.StoreAsync(draft);
 
             Data.DraftHasAllDetails = true;
 
@@ -77,21 +78,21 @@ namespace Marketing.API.Host.Sagas
             {
                 await PublishProductDraft(context);
             }
-            else
-            {
-                await RequestTimeout<IsPriceApprovedTimeout>(context, TimeSpan.FromMinutes(10));
-            }
+            //else
+            //{
+            //    await RequestTimeout<IsPriceApprovedTimeout>(context, TimeSpan.FromMinutes(10));
+            //}
         }
 
-        public Task Timeout(IsPriceApprovedTimeout state, IMessageHandlerContext context)
-        {
-            if (!Data.PriceApproved)
-            {
-                //Shame on me!
-            }
+        //public Task Timeout(IsPriceApprovedTimeout state, IMessageHandlerContext context)
+        //{
+        //    if (!Data.PriceApproved)
+        //    {
+        //        //Shame on me!
+        //    }
 
-            return Task.CompletedTask;
-        }
+        //    return Task.CompletedTask;
+        //}
 
         public async Task Handle(IProposedPriceAcceptedEvent message, IMessageHandlerContext context)
         {
@@ -145,18 +146,25 @@ namespace Marketing.API.Host.Sagas
             var draft = await session.LoadAsync<ProductDraft>(Data.ProductDraftId);
             var home = await session.LoadAsync<HomeStructure>("HomeStructure");
 
-            await session.StoreAsync(new Product()
+            var product = new Product()
             {
                 Description = draft.Description,
                 Title = draft.Title,
                 StockItemId = draft.StockItemId
-            });
+            };
+
+            await session.StoreAsync(product);
 
             var lastIdx = home.ShowcaseStockItemIds.Length - 1;
             home.ShowcaseStockItemIds[lastIdx] = draft.StockItemId;
             await session.StoreAsync(home);
 
             session.Delete(draft);
+
+            await context.Publish<IProductDraftPublishedEvent>(e =>
+            {
+                e.StockItemId = draft.StockItemId;
+            });
 
             MarkAsComplete();
         }

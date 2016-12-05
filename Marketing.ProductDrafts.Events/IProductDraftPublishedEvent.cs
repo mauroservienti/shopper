@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Marketing.API.Host.Commands
+namespace Marketing.ProductDrafts.Events
 {
-    class PublishProductDraftCommand
+    public interface IProductDraftPublishedEvent
     {
-        public string StockItemId { get; set; }
+        string StockItemId { get; set; }
     }
 }

@@ -8,6 +8,7 @@ using Sales.Data.Models;
 using Raven.Client.Linq;
 using NServiceBus;
 using Sales.ProposedPrice.Events;
+using Sales.API.Host.Commands;
 
 namespace Sales.API.Controllers
 {
@@ -48,19 +49,13 @@ namespace Sales.API.Controllers
         [HttpPut]
         public async Task<dynamic> Propose(dynamic proposedPrice)
         {
-            using (var session = _store.OpenAsyncSession())
+            await _messageSession.SendLocal<ProposePriceCommand>(cmd => 
             {
-                var itemPrice = new ItemPrice()
-                {
-                    StockItemId = proposedPrice.StockItemId,
-                    StreetPrice = proposedPrice.Price
-                };
-                await session.StoreAsync(itemPrice);
-                await session.SaveChangesAsync();
-                await _messageSession.Publish<IProposedPriceAcceptedEvent>(e => e.StockItemId = itemPrice.StockItemId);
+                cmd.StockItemId = proposedPrice.StockItemId;
+                cmd.ProposedPrice = proposedPrice.Price;
+            });
 
-                return itemPrice.Id;
-            }
+            return proposedPrice.StockItemId;
         }
     }
 }

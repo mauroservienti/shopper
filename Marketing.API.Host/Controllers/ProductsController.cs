@@ -27,7 +27,9 @@ namespace Marketing.API.Controllers
         {
             var _ids = ids.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
 
-            return await _service.GetByStockItem(_ids);
+            var data = await _service.GetByStockItem(_ids);
+
+            return data;
         }
     }
 }

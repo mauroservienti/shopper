@@ -2,10 +2,11 @@
 using HttpHelpers;
 using Marketing.CoreViewModelComposition;
 using Marketing.ViewComponents.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
-using System.Net.Http;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Marketing.ViewComponents.Controllers
@@ -14,10 +15,12 @@ namespace Marketing.ViewComponents.Controllers
     public class ProductDraftsController : Controller
     {
         ProductDraftsViewModelBuilder _builder;
+        ProductDraftViewModelEditor _editor;
 
-        public ProductDraftsController(ProductDraftsViewModelBuilder builder)
+        public ProductDraftsController(ProductDraftsViewModelBuilder builder, ProductDraftViewModelEditor editor)
         {
             _builder = builder;
+            _editor = editor;
         }
 
         public async Task<IActionResult> Index()
@@ -27,18 +30,28 @@ namespace Marketing.ViewComponents.Controllers
             return View(productDrafts);
         }
 
+        [Route("PleaseWait")]
+        public IActionResult PleaseWait()
+        {
+            return View();
+        }
+
         [Route("Edit/{id:int}")]
         public async Task<IActionResult> Edit(int id)
         {
-            var vm = await _builder.BuildOne($"ProductDrafts/{id}");
+            var vm = await _builder.BuildEditableOne($"ProductDrafts/{id}");
 
             return View(vm);
         }
 
-        //[HttpPost, Route("Edit/{id:int}")]
-        //public async Task<IActionResult> Edit(int id, EditedDraft draft)
-        //{
-        //    return View();
-        //}
+        [HttpPost, Route("Edit/{id:int}")]
+        public async Task<IActionResult> Edit(int id, IFormCollection form)
+        {
+            var dictionary = form.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+
+            await _editor.EditOne($"ProductDrafts/{id}", dictionary);
+
+            return RedirectToAction("PleaseWait");
+        }
     }
 }

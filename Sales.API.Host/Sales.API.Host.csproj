@@ -64,7 +64,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="NServiceBus.Core, Version=6.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NServiceBus.6.0.2\lib\net452\NServiceBus.Core.dll</HintPath>
+      <HintPath>..\packages\NServiceBus.6.0.3\lib\net452\NServiceBus.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="NServiceBus.ObjectBuilder.CastleWindsor, Version=6.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
@@ -136,9 +136,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\ProposePriceCommand.cs" />
     <Compile Include="Controllers\ItemPricesController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sagas\ProposedPriceSaga.cs" />
     <Compile Include="ServiceHost.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -150,6 +152,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Marketing.ProductDrafts.Events\Marketing.ProductDrafts.Events.csproj">
+      <Project>{de40bd3c-6b14-41ab-983c-90c78a9a2b78}</Project>
+      <Name>Marketing.ProductDrafts.Events</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NServiceBus.Shared\NServiceBus.Shared.csproj">
       <Project>{0B00E27D-EA5F-42B5-A6CE-63C0CE4DF9A1}</Project>
       <Name>NServiceBus.Shared</Name>
@@ -161,6 +167,10 @@
     <ProjectReference Include="..\Sales.Data\Sales.Data.csproj">
       <Project>{80f82f7d-3f0a-4316-87cd-49f19dbd5b85}</Project>
       <Name>Sales.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sales.ProposedPrice.Events\Sales.ProposedPrice.Events.csproj">
+      <Project>{684d2696-8ae7-4395-a33c-62d30917e537}</Project>
+      <Name>Sales.ProposedPrice.Events</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

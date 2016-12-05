@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Product Drafts | All";
+}
+<section>
+    <form method="post">
+        <div class="form-group">
+            <label for="ProductDescription_Title">Title</label>
+            <input type="text" class="form-control" id="ProductDescription_Title" name="ProductDescription_Title" placeholder="Title" value="@Model.Title">
+        </div>
+        <div class="form-group">
+            <label for="ProductDescription_Description">Description</label>
+            <input type="text" class="form-control" id="ProductDescription_Description" name="ProductDescription_Description" placeholder="Description" value="@Model.Description">
+        </div>
+        <input type="hidden" class="form-control" id="ProductDescription_StockItemId" name="ProductDescription_StockItemId" value="@Model.StockItemId">
+        @await Component.InvokeAsync("Sales.ViewComponents.ProductDraftProposedPriceEditor", Model)
+        <button type="submit" class="btn btn-default">Propose Publish</button>
+    </form>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                @await Component.InvokeAsync("Warehouse.ViewComponents.ProductDraftStockItemInfoHeader", null)
+                @await Component.InvokeAsync("Shipping.ViewComponents.ProductDraftShippingCostHeader", null)
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                @await Component.InvokeAsync("Warehouse.ViewComponents.ProductDraftStockItemInfo", Model)
+                @await Component.InvokeAsync("Shipping.ViewComponents.ProductDraftShippingCost", Model)
+            </tr>
+        </tbody>
+    </table>
+</section>

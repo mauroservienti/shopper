@@ -20,7 +20,7 @@ namespace Marketing.CoreViewModelComposition
             _composers = composers;
         }
 
-        public async Task<dynamic> BuildOne(string id)
+        public async Task<dynamic> BuildEditableOne(string id)
         {
             var apiUrl = _config.GetValue<string>("modules:marketing:config:apiUrl");
 
@@ -32,7 +32,7 @@ namespace Marketing.CoreViewModelComposition
             var ts = new List<Task>();
             foreach (var composer in _composers)
             {
-                ts.Add(composer.VisitOne(productDraft));
+                ts.Add(composer.VisitEditableOne(productDraft));
             }
 
             await Task.WhenAll(ts.ToArray());

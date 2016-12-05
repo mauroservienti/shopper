@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace Marketing.API.Host.Commands
 {
-    class HeyIKnowThisIsWrongButSagaTrustMeDraftIsDoneCommand
+    class PublishProductDraftCommand
     {
-        public string Description { get; set; }
-        public string ProductDraftId { get; set; }
         public string StockItemId { get; set; }
-        public string Title { get; set; }
     }
 }

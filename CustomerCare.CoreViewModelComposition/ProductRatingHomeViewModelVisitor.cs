@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using System.Dynamic;
 
 namespace CustomerCare.CoreViewModelComposition
 {
@@ -24,7 +25,7 @@ namespace CustomerCare.CoreViewModelComposition
                 composedViewModel.HeadlineProduct.StockItemId
             };
 
-            foreach(var p in composedViewModel.ShowcaseProducts)
+            foreach (var p in composedViewModel.ShowcaseProducts)
             {
                 ids.Add(p.StockItemId);
             }
@@ -37,12 +38,25 @@ namespace CustomerCare.CoreViewModelComposition
             var r = await response.Content.ReadAsStringAsync();
             dynamic[] ratings = await response.Content.AsExpandoArrayAsync();
 
-            composedViewModel.HeadlineProduct.ItemRating = ratings.Single(d => d.StockItemId == composedViewModel.HeadlineProduct.StockItemId);
-
-            foreach(var p in composedViewModel.ShowcaseProducts)
+            dynamic headlineProductItemRating = ratings.SingleOrDefault(d => d.StockItemId == composedViewModel.HeadlineProduct.StockItemId);
+            if (headlineProductItemRating == null)
             {
-                var obj = ratings.Single(d => d.StockItemId == p.StockItemId);
-                p.ItemRating = obj;
+                headlineProductItemRating = new ExpandoObject();
+                headlineProductItemRating.Stars = 0;
+                headlineProductItemRating.StockItemId = composedViewModel.HeadlineProduct.StockItemId;
+            }
+            composedViewModel.HeadlineProduct.ItemRating = headlineProductItemRating;
+
+            foreach (var p in composedViewModel.ShowcaseProducts)
+            {
+                var elementItemRating = ratings.SingleOrDefault(d => d.StockItemId == p.StockItemId);
+                if (elementItemRating == null)
+                {
+                    elementItemRating = new ExpandoObject();
+                    elementItemRating.Stars = 0;
+                    elementItemRating.StockItemId = p.StockItemId;
+                }
+                p.ItemRating = elementItemRating;
             }
         }
     }

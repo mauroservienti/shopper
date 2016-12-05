@@ -38,9 +38,15 @@ namespace Warehouse.CoreViewModelComposition
             }
         }
 
-        public Task VisitOne(dynamic composedViewModels)
+        public async Task VisitEditableOne(dynamic composedViewModel)
         {
-            return Task.CompletedTask;
+            var id = composedViewModel.StockItemId;
+            var apiUrl = _config.GetValue<string>("modules:warehouse:config:apiUrl");
+
+            var client = new HttpClient();
+            var response = await client.GetAsync($"{apiUrl}StockItems/ByStockItem?ids={ id }");
+            dynamic[] stockItems = await response.Content.AsExpandoArrayAsync();
+            composedViewModel.StockItemInfo = stockItems.Single();
         }
     }
 }

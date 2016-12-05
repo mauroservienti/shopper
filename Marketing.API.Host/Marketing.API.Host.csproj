@@ -64,7 +64,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="NServiceBus.Core, Version=6.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NServiceBus.6.0.2\lib\net452\NServiceBus.Core.dll</HintPath>
+      <HintPath>..\packages\NServiceBus.6.0.3\lib\net452\NServiceBus.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="NServiceBus.ObjectBuilder.CastleWindsor, Version=6.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
@@ -137,6 +137,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\HeyIKnowThisIsWrongButSagaTrustMeDraftIsDoneCommand.cs" />
+    <Compile Include="Commands\PublishProductDraftCommand.cs" />
     <Compile Include="Controllers\ProductDraftsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\PublishingController.cs" />
@@ -171,6 +172,10 @@
     <ProjectReference Include="..\Radical.Bootstrapper.Windsor.WebAPI\Radical.Bootstrapper.Windsor.WebAPI.csproj">
       <Project>{3ce63ade-dfad-4258-95a9-1376927f7db0}</Project>
       <Name>Radical.Bootstrapper.Windsor.WebAPI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sales.ProposedPrice.Events\Sales.ProposedPrice.Events.csproj">
+      <Project>{684d2696-8ae7-4395-a33c-62d30917e537}</Project>
+      <Name>Sales.ProposedPrice.Events</Name>
     </ProjectReference>
     <ProjectReference Include="..\Shipping.ShippingDetails.Events\Shipping.ShippingDetails.Events.csproj">
       <Project>{db6d4e42-b411-42a9-810e-c1a5c7620f45}</Project>

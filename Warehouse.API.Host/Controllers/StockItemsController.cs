@@ -37,11 +37,10 @@ namespace Warehouse.API.Controllers
         {
             using (var session = _store.OpenAsyncSession())
             {
-                await session.StoreAsync(model).ConfigureAwait(false);
-                await session.SaveChangesAsync().ConfigureAwait(false);
+                await session.StoreAsync(model);
+                await session.SaveChangesAsync();
 
-                await _messageSession.Publish<IStockItemCreatedEvent>(e => e.StockItemId = model.Id)
-                    .ConfigureAwait(false);
+                await _messageSession.Publish<IStockItemCreatedEvent>(e => e.StockItemId = model.Id);
 
                 return model.Id;
             }

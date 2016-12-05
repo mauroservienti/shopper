@@ -6,6 +6,9 @@ using Raven.Client;
 using System.Threading.Tasks;
 using Sales.Data.Models;
 using Raven.Client.Linq;
+using NServiceBus;
+using Sales.ProposedPrice.Events;
+using Sales.API.Host.Commands;
 
 namespace Sales.API.Controllers
 {
@@ -13,10 +16,12 @@ namespace Sales.API.Controllers
     public class ItemPricesController : ApiController
     {
         IDocumentStore _store;
+        IMessageSession _messageSession;
 
-        public ItemPricesController(IDocumentStore store)
+        public ItemPricesController(IDocumentStore store, IMessageSession messageSession)
         {
             _store = store;
+            _messageSession = messageSession;
         }
 
         [HttpGet]
@@ -39,6 +44,18 @@ namespace Sales.API.Controllers
 
                 return await query.ToListAsync();
             }
+        }
+
+        [HttpPut]
+        public async Task<dynamic> Propose(dynamic proposedPrice)
+        {
+            await _messageSession.SendLocal<ProposePriceCommand>(cmd => 
+            {
+                cmd.StockItemId = proposedPrice.StockItemId;
+                cmd.ProposedPrice = proposedPrice.Price;
+            });
+
+            return proposedPrice.StockItemId;
         }
     }
 }

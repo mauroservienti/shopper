@@ -33,6 +33,10 @@ namespace Marketing.API.Host
 
             endpointConfiguration.ApplyCommonConfiguration();
             endpointConfiguration.UseRavenPersistence(store);
+            endpointConfiguration.LimitMessageProcessingConcurrencyTo(1);
+
+            //var timeoutManager = endpointConfiguration.TimeoutManager();
+            //timeoutManager.LimitMessageProcessingConcurrencyTo(4);
 
             var endpoint = Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
             container.Register(Component.For<IMessageSession>().Instance(endpoint));

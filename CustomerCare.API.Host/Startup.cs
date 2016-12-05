@@ -23,7 +23,7 @@ namespace CustomerCare.API.Host
             var bootstrapper = new WindsorBootstrapper(AppDomain.CurrentDomain.BaseDirectory, filter: "CustomerCare*.*");
             var container = bootstrapper.Boot();
 
-            var store = CommonConfiguration.CreateEmbeddableDocumentStore("CustomerCare", session => 
+            var store = CommonConfiguration.CreateEmbeddableDocumentStore("CustomerCare", session =>
             {
                 SeedData.Raitings().ForEach(r => session.Store(r));
                 SeedData.Reviews().ForEach(r => session.Store(r));

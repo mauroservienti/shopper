@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Dynamic;
 
 namespace CustomerCare.CoreViewModelComposition
 {
@@ -54,8 +55,18 @@ namespace CustomerCare.CoreViewModelComposition
             dynamic[] ratings = await getRatingsTask.Result.Content.AsExpandoArrayAsync();
             dynamic[] reviews = await getReviewsTask.Result.Content.AsExpandoArrayAsync();
 
-            composedViewModel.ItemRating = ratings.Single();
             composedViewModel.ItemReviews = reviews;
+            if (ratings.Any())
+            {
+                composedViewModel.ItemRating = ratings.Single();
+            }
+            else
+            {
+                dynamic itemRating = new ExpandoObject();
+                itemRating.Stars = 0;
+                itemRating.StockItemId = composedViewModel.StockItemId;
+                composedViewModel.ItemRating = itemRating;
+            }
         }
     }
 }

@@ -75,7 +75,7 @@ namespace CustomerCare.CoreViewModelComposition
             {
                 dynamic itemRating = new ExpandoObject();
                 itemRating.Stars = 0;
-                itemRating.StockItemId = composedViewModel.StockItemId;
+                itemRating.StockItemId = composedViewModel.Id;
                 composedViewModel.ItemRating = itemRating;
             }
         }

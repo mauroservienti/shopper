@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Dynamic;
 
 namespace CustomerCare.CoreViewModelComposition
 {
@@ -43,19 +44,40 @@ namespace CustomerCare.CoreViewModelComposition
             var client = new HttpClient();
             var tasks = new List<Task>();
 
-            var getRatingsTask = client.GetAsync(getRatingsUrl);
-            tasks.Add(getRatingsTask);
+            dynamic[] ratings = null;
+            dynamic[] reviews = null;
 
-            var getReviewsTask = client.GetAsync(getReviewsUrl);
-            tasks.Add(getReviewsTask);
+            try
+            {
+                var getRatingsTask = client.GetAsync(getRatingsUrl);
+                tasks.Add(getRatingsTask);
 
-            await Task.WhenAll(tasks);
+                var getReviewsTask = client.GetAsync(getReviewsUrl);
+                tasks.Add(getReviewsTask);
 
-            dynamic[] ratings = await getRatingsTask.Result.Content.AsExpandoArrayAsync();
-            dynamic[] reviews = await getReviewsTask.Result.Content.AsExpandoArrayAsync();
+                await Task.WhenAll(tasks);
 
-            composedViewModel.ItemRating = ratings.Single();
+                ratings = await getRatingsTask.Result.Content.AsExpandoArrayAsync();
+                reviews = await getReviewsTask.Result.Content.AsExpandoArrayAsync();
+            }
+            catch (HttpRequestException)
+            {
+                ratings = new dynamic[0];
+                reviews = new dynamic[0];
+            }
+
             composedViewModel.ItemReviews = reviews;
+            if (ratings.Any())
+            {
+                composedViewModel.ItemRating = ratings.Single();
+            }
+            else
+            {
+                dynamic itemRating = new ExpandoObject();
+                itemRating.Stars = 0;
+                itemRating.StockItemId = composedViewModel.StockItemId;
+                composedViewModel.ItemRating = itemRating;
+            }
         }
     }
 }

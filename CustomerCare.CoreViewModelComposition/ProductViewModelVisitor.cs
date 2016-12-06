@@ -26,6 +26,7 @@ namespace CustomerCare.CoreViewModelComposition
             var getRatingsUrl = $"{apiUrl}Raitings/ByStockItem?ids={ composedViewModel.StockItemId }";
             var getReviewsUrl = $"{apiUrl}Reviews/ByStockItem?ids={ composedViewModel.StockItemId }";
 
+            //attempt to use batching
             //var getRatings = new HttpRequestMessage(
             //    method: HttpMethod.Get,
             //    requestUri: getRatingsUrl);
@@ -44,16 +45,27 @@ namespace CustomerCare.CoreViewModelComposition
             var client = new HttpClient();
             var tasks = new List<Task>();
 
-            var getRatingsTask = client.GetAsync(getRatingsUrl);
-            tasks.Add(getRatingsTask);
+            dynamic[] ratings = null;
+            dynamic[] reviews = null;
 
-            var getReviewsTask = client.GetAsync(getReviewsUrl);
-            tasks.Add(getReviewsTask);
+            try
+            {
+                var getRatingsTask = client.GetAsync(getRatingsUrl);
+                tasks.Add(getRatingsTask);
 
-            await Task.WhenAll(tasks);
+                var getReviewsTask = client.GetAsync(getReviewsUrl);
+                tasks.Add(getReviewsTask);
 
-            dynamic[] ratings = await getRatingsTask.Result.Content.AsExpandoArrayAsync();
-            dynamic[] reviews = await getReviewsTask.Result.Content.AsExpandoArrayAsync();
+                await Task.WhenAll(tasks);
+
+                ratings = await getRatingsTask.Result.Content.AsExpandoArrayAsync();
+                reviews = await getReviewsTask.Result.Content.AsExpandoArrayAsync();
+            }
+            catch (HttpRequestException)
+            {
+                ratings = new dynamic[0];
+                reviews = new dynamic[0];
+            }
 
             composedViewModel.ItemReviews = reviews;
             if (ratings.Any())

@@ -33,10 +33,18 @@ namespace CustomerCare.CoreViewModelComposition
             var apiUrl = _config.GetValue<string>("modules:customerCare:config:apiUrl");
             var url = $"{apiUrl}Raitings/ByStockItem?ids={ string.Join(",", ids) }";
 
+            dynamic[] ratings = null;
             var client = new HttpClient();
-            var response = await client.GetAsync(url);
-            var r = await response.Content.ReadAsStringAsync();
-            dynamic[] ratings = await response.Content.AsExpandoArrayAsync();
+            try
+            {
+                var response = await client.GetAsync(url);
+                var r = await response.Content.ReadAsStringAsync();
+                ratings = await response.Content.AsExpandoArrayAsync();
+            }
+            catch (HttpRequestException)
+            {
+                ratings = new dynamic[0];
+            }
 
             dynamic headlineProductItemRating = ratings.SingleOrDefault(d => d.StockItemId == composedViewModel.HeadlineProduct.StockItemId);
             if (headlineProductItemRating == null)

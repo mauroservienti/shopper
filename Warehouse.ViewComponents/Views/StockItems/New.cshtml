@@ -1,0 +1,25 @@
+﻿@model Warehouse.ViewComponents.Models.NewStockItem
+@{
+    ViewData["Title"] = "Stock Items | New";
+}
+<section>
+    <form method="post">
+        <div class="form-group">
+            <label for="Code">Code</label>
+            <input type="text" class="form-control" id="Code" name="Code" placeholder="Code" value="@Model.Code">
+        </div>
+        <div class="form-group">
+            <label for="SupplierCode">Supplier Code</label>
+            <input type="text" class="form-control" id="SupplierCode" name="SupplierCode" placeholder="SupplierCode" value="@Model.SupplierCode">
+        </div>
+        <div class="form-group">
+            <label for="SupplierDescription">Description</label>
+            <input type="text" class="form-control" id="SupplierDescription" name="SupplierDescription" placeholder="Supplier Description" value="@Model.SupplierDescription">
+        </div>
+        <div class="form-group">
+            <label for="Weight">Weight</label>
+            <input type="text" class="form-control" id="Weight" name="Weight" placeholder="Weight" value="@Model.Weight">
+        </div>
+        <button type="submit" class="btn btn-default">Create</button>
+    </form>
+</section>

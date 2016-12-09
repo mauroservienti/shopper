@@ -1,0 +1,30 @@
+﻿@model dynamic[]
+@{
+    ViewData["Title"] = "Stock Items | All";
+}
+<section>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Code</th>
+                <th>Supplier code</th>
+                <th>Description</th>
+                <th>Weight</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@item.Id</th>
+                    <td>@item.Code</td>
+                    <td>@item.SupplierCode</td>
+                    <td>@item.SupplierDescription</td>
+                    <td>@item.Weight</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a class="btn btn-default" href="/stockItems/new" role="button">Create</a>
+</section>

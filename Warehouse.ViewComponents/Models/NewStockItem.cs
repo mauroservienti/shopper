@@ -1,12 +1,12 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Warehouse.Data.Models
+namespace Warehouse.ViewComponents.Models
 {
-    public class StockItem
+    public class NewStockItem
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
         public string Code { get; set; }
         public string SupplierCode { get; set; }
         public string SupplierDescription { get; set; }

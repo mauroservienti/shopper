@@ -1,4 +1,4 @@
-# Services UI Composition
+# Shopper, a Services UI Composition and SOA sample
 
 The goal of this set of samples is to show concepts expressed in ["The secret of better UI composition"](http://particular.net/blog/secret-of-better-ui-composition) blog post.
 

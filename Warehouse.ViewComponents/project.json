@@ -1,0 +1,29 @@
+﻿{
+    "version": "1.0.0-*",
+
+    "dependencies": {
+        "NETStandard.Library": "1.6.1",
+        "Microsoft.AspNetCore.Razor.Tools": {
+            "version": "1.0.0-preview2-final",
+            "type": "build"
+        },
+        "Microsoft.AspNetCore.Mvc": "1.1.0",
+        "Microsoft.AspNetCore.Routing": "1.1.0",
+        "CoreUIComposition": "1.0.0-*",
+        "CoreViewModelComposition": "1.0.0-*",
+        "Microsoft.Extensions.Configuration.Binder": "1.1.0",
+        "JsonHelpers": "1.0.0-*",
+        "HttpHelpers": "1.0.0-*",
+    },
+    "tools": {
+        "Microsoft.AspNetCore.Razor.Tools": "1.0.0-preview2-final"
+    },
+    "frameworks": {
+        "netstandard1.6": {
+            "imports": [ "dnxcore50", "net451" ]
+        }
+    },
+    "buildOptions": {
+        "embed": "Views/**/*.cshtml"
+    }
+}

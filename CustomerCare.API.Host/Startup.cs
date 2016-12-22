@@ -1,21 +1,16 @@
 ﻿using Castle.MicroKernel.Registration;
-using CustomerCare.Data.Context;
 using Newtonsoft.Json.Serialization;
 using Owin;
 using Radical.Bootstrapper;
 using Radical.Bootstrapper.Windsor.WebAPI.Infrastructure;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net.Http.Formatting;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.Owin.Cors;
-using System.ComponentModel.Composition.Hosting;
-using System.Reflection;
 using System.Web.Http.Batch;
+using Raven.Client;
+using CustomerCare.Data.Migrations;
+using NServiceBus;
 
 namespace CustomerCare.API.Host
 {
@@ -25,8 +20,16 @@ namespace CustomerCare.API.Host
         // parameter in the WebApp.Start method.
         public void Configuration(IAppBuilder appBuilder)
         {
-            var bootstrapper = new WindsorBootstrapper(AppDomain.CurrentDomain.BaseDirectory, filter: "*.*");
+            var bootstrapper = new WindsorBootstrapper(AppDomain.CurrentDomain.BaseDirectory, filter: "CustomerCare*.*");
             var container = bootstrapper.Boot();
+
+            var store = CommonConfiguration.CreateEmbeddableDocumentStore("CustomerCare", session =>
+            {
+                SeedData.Raitings().ForEach(r => session.Store(r));
+                SeedData.Reviews().ForEach(r => session.Store(r));
+            });
+
+            container.Register(Component.For<IDocumentStore>().Instance(store).LifestyleSingleton());
 
             var config = new HttpConfiguration();
 

@@ -10,7 +10,7 @@ using System.Dynamic;
 
 namespace CustomerCare.CoreViewModelComposition
 {
-    public class ProductViewModelVisitor : IProductViewModelVisitor
+    public class ProductViewModelVisitor : IProductsViewModelVisitor
     {
         readonly IConfiguration _config;
 
@@ -19,13 +19,14 @@ namespace CustomerCare.CoreViewModelComposition
             _config = config;
         }
 
-        public async Task Visit(dynamic composedViewModel)
+        public async Task VisitOne(dynamic composedViewModel)
         {
             var apiUrl = _config.GetValue<string>("modules:customerCare:config:apiUrl");
 
-            var getRatingsUrl = $"{apiUrl}Raitings/ByStockItem?ids={ composedViewModel.Id }";
-            var getReviewsUrl = $"{apiUrl}Reviews/ByStockItem?ids={ composedViewModel.Id }";
+            var getRatingsUrl = $"{apiUrl}Raitings/ByStockItem?ids={ composedViewModel.StockItemId }";
+            var getReviewsUrl = $"{apiUrl}Reviews/ByStockItem?ids={ composedViewModel.StockItemId }";
 
+            //attempt to use batching
             //var getRatings = new HttpRequestMessage(
             //    method: HttpMethod.Get,
             //    requestUri: getRatingsUrl);
@@ -75,7 +76,7 @@ namespace CustomerCare.CoreViewModelComposition
             {
                 dynamic itemRating = new ExpandoObject();
                 itemRating.Stars = 0;
-                itemRating.StockItemId = composedViewModel.Id;
+                itemRating.StockItemId = composedViewModel.StockItemId;
                 composedViewModel.ItemRating = itemRating;
             }
         }

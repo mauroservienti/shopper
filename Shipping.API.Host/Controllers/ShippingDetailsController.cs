@@ -1,38 +1,42 @@
 ﻿using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
-using Shipping.Data.Context;
 using System;
+using Raven.Client;
+using System.Threading.Tasks;
+using Raven.Client.Linq;
 
 namespace Shipping.API.Controllers
 {
     [RoutePrefix("api/ShippingDetails")]
     public class ShippingDetailsController : ApiController
     {
-        [HttpGet]
-        public dynamic Get(int id)
+        IDocumentStore _store;
+
+        public ShippingDetailsController(IDocumentStore store)
         {
-            using (ShippingContext _context = new ShippingContext())
+            _store = store;
+        }
+
+        [HttpGet]
+        public async Task<dynamic> Get(string id)
+        {
+            using (var session = _store.OpenAsyncSession())
             {
-                return _context.ShippingDetails.Where(si => si.Id == id).Single();
+                return await session.LoadAsync<Data.Models.ShippingDetails>(id);
             }
         }
 
         [HttpGet, Route("ByStockItem")]
-        public IEnumerable<dynamic> ByStockItem(string ids)
+        public async Task<IEnumerable<dynamic>> ByStockItem(string ids)
         {
-            using (ShippingContext _context = new ShippingContext())
+            using (var session = _store.OpenAsyncSession())
             {
-                var _ids = ids.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
-                .Select(id => int.Parse(id))
-                .ToList();
+                var _ids = ids.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
 
-                var query = from si in _context.ShippingDetails
-                            where _ids.Contains(si.StockItemId)
-                            select si;
+                var query = session.Query<Data.Models.ShippingDetails>().Where(r => r.StockItemId.In(_ids));
 
-                return query.ToList();
+                return await query.ToListAsync();
             }
         }
     }

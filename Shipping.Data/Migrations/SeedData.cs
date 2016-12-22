@@ -7,17 +7,17 @@ using Shipping.Data.Models;
 
 namespace Shipping.Data.Migrations
 {
-    static class SeedData
+    public static class SeedData
     {
-        public static ShippingDetails[] ShippingDetails()
+        public static List<ShippingDetails> ShippingDetails()
         {
-            return new ShippingDetails[]
+            return new List<ShippingDetails>
             {
-                new ShippingDetails() {StockItemId = 1, Cost = 20, Weight=4},
-                new ShippingDetails() {StockItemId = 2, Cost = 0, Weight=1},
-                new ShippingDetails() {StockItemId = 3, Cost = 10, Weight=1},
-                new ShippingDetails() {StockItemId = 4, Cost = 10, Weight=1},
-                new ShippingDetails() {StockItemId = 5, Cost = 10, Weight=1}
+                new ShippingDetails() {StockItemId = "StockItems/1", Cost = 20, Weight=4},
+                new ShippingDetails() {StockItemId = "StockItems/2", Cost = 0, Weight=1},
+                new ShippingDetails() {StockItemId = "StockItems/3", Cost = 10, Weight=1},
+                new ShippingDetails() {StockItemId = "StockItems/4", Cost = 10, Weight=1},
+                new ShippingDetails() {StockItemId = "StockItems/5", Cost = 10, Weight=1}
             };
         }
     }

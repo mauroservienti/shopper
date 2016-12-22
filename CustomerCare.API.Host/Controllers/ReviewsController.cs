@@ -1,4 +1,6 @@
-﻿using CustomerCare.Data.Context;
+﻿using CustomerCare.Data.Models;
+using Raven.Client;
+using Raven.Client.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,20 +13,23 @@ namespace CustomerCare.API.Host.Controllers
     [RoutePrefix("api/Reviews")]
     public class ReviewsController : ApiController
     {
-        [HttpGet, Route("ByStockItem")]
-        public IEnumerable<dynamic> ByStockItem(string ids)
+        IDocumentStore _store;
+
+        public ReviewsController(IDocumentStore store)
         {
-            using (var _context = new CustomerCareContext())
+            _store = store;
+        }
+
+        [HttpGet, Route("ByStockItem")]
+        public async Task<IEnumerable<dynamic>> ByStockItem(string ids)
+        {
+            using (var session = _store.OpenAsyncSession())
             {
-                var _ids = ids.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
-                    .Select(id => int.Parse(id))
-                    .ToList();
+                var _ids = ids.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
 
-                var query = from si in _context.Reviews
-                            where _ids.Contains(si.StockItemId)
-                            select si;
+                var query = session.Query<Review>().Where(r => r.StockItemId.In(_ids));
 
-                return query.ToList();
+                return await query.ToListAsync();
             }
         }
     }

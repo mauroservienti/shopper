@@ -1,0 +1,51 @@
+﻿@model dynamic[]
+@{
+    ViewData["Title"] = "Product Drafts | All";
+}
+<section>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>Description</th>
+                @await Component.InvokeAsync("Warehouse.ViewComponents.ProductDraftStockItemInfoHeader", null)
+                @await Component.InvokeAsync("Shipping.ViewComponents.ProductDraftShippingCostHeader", null)
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @{
+                        var segments = @item.Id.Split('/');
+
+                    }
+                    <th scope="row"><a href="@segments[0]/edit/@segments[1]">@item.Id</a></th>
+                    <td>
+                        @if (string.IsNullOrWhiteSpace(item.Title))
+                        {
+                            <span>--</span>
+                        }
+                        else
+                        {
+                            <span>@item.Title</span>
+                        }
+                    </td>
+                    <td>
+                        @if (string.IsNullOrWhiteSpace(item.Description))
+                        {
+                            <span>--</span>
+                        }
+                        else
+                        {
+                            <span>@item.Description</span>
+                        }
+                    </td>
+                    @await Component.InvokeAsync("Warehouse.ViewComponents.ProductDraftStockItemInfo", item)
+                    @await Component.InvokeAsync("Shipping.ViewComponents.ProductDraftShippingCost", item)
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>

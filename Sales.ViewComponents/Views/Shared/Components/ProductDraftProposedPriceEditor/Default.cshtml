@@ -1,0 +1,15 @@
+﻿<!-- proposed price here injected by sales, proposed price will be sent to sales -->
+<div class="form-group">
+    <label for="ProposedPrice_Price">Proposed Price</label>
+    <input type="text"
+           class="form-control"
+           id="ProposedPrice_Price"
+           name="ProposedPrice_Price"
+           placeholder="Proposed Price"
+           value="@Model.Price">
+</div>
+<input type="hidden"
+       class="form-control"
+       id="ProposedPrice_StockItemId"
+       name="ProposedPrice_StockItemId"
+       value="@Model.StockItemId">

@@ -1,5 +1,4 @@
-﻿using Marketing.Data.Context;
-using Marketing.Data.Services;
+﻿using Marketing.Data.Services;
 using System.Threading.Tasks;
 using System.Web.Http;
 

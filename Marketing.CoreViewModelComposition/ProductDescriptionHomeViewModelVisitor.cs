@@ -30,7 +30,7 @@ namespace Marketing.CoreViewModelComposition
             }
 
             var apiUrl = _config.GetValue<string>("modules:marketing:config:apiUrl");
-            var url = $"{apiUrl}ProductDescriptions/ByStockItem?ids={ string.Join(",", ids) }";
+            var url = $"{apiUrl}Products/ByStockItem?ids={ string.Join(",", ids) }";
 
             var client = new HttpClient();
             var response = await client.GetAsync(url);

@@ -7,17 +7,17 @@ using Sales.Data.Models;
 
 namespace Sales.Data.Migrations
 {
-    static class SeedData
+    public static class SeedData
     {
-        public static ItemPrice[] ItemPrices()
+        public static List<ItemPrice> ItemPrices()
         {
-            return new ItemPrice[]
+            return new List<ItemPrice>
             {
-                new ItemPrice() {StockItemId = 1, StreetPrice = 10},
-                new ItemPrice() {StockItemId = 2, StreetPrice = 300},
-                new ItemPrice() {StockItemId = 3, StreetPrice = 22},
-                new ItemPrice() {StockItemId = 4, StreetPrice = 55.6},
-                new ItemPrice() {StockItemId = 5, StreetPrice = 0.56}
+                new ItemPrice() {StockItemId = "StockItems/1", StreetPrice = 10},
+                new ItemPrice() {StockItemId = "StockItems/2", StreetPrice = 300},
+                new ItemPrice() {StockItemId = "StockItems/3", StreetPrice = 22},
+                new ItemPrice() {StockItemId = "StockItems/4", StreetPrice = 55.6},
+                new ItemPrice() {StockItemId = "StockItems/5", StreetPrice = 0.56}
             };
         }
     }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Topshelf;
 
 namespace Sales.API.Host
 {
@@ -11,15 +12,21 @@ namespace Sales.API.Host
     {
         static void Main(string[] args)
         {
-            Console.Title = "Sales.API.Host";
-            string baseAddress = "http://localhost:20187/";
-
-            using(WebApp.Start<Startup>(url: baseAddress))
+            HostFactory.Run(x =>
             {
-                Console.WriteLine();
-                Console.WriteLine($"{Console.Title}: {baseAddress}");
-                Console.ReadLine();
-            }
+                x.Service<ServiceHost>(s =>
+                {
+                    s.ConstructUsing(name => new ServiceHost());
+                    s.WhenStarted(tc => tc.Start());
+                    s.WhenStopped(tc => tc.Stop());
+                });
+                x.RunAsLocalService();
+                x.StartAutomatically();
+
+                x.SetDescription("Services UI Composition sample: Sales API Host");
+                x.SetDisplayName("Sales API Host");
+                x.SetServiceName("SalesAPIHost");
+            });
         }
     }
 }

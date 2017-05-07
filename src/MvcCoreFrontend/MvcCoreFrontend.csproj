@@ -1,0 +1,57 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.0</TargetFramework>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    <AssemblyName>MvcCoreFrontend</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <PackageId>MvcCoreFrontend</PackageId>
+    <RuntimeIdentifiers>win10-x64;win7-x64</RuntimeIdentifiers>
+    <RuntimeFrameworkVersion>1.1.1</RuntimeFrameworkVersion>
+    <PackageTargetFallback>$(PackageTargetFallback);dotnet5.6;portable-net45+win8</PackageTargetFallback>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="wwwroot\**\*">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Marketing.CoreViewModelComposition\Marketing.CoreViewModelComposition.csproj" />
+    <ProjectReference Include="..\Sales.CoreViewModelComposition\Sales.CoreViewModelComposition.csproj" />
+    <ProjectReference Include="..\Sales.ViewComponents\Sales.ViewComponents.csproj" />
+    <ProjectReference Include="..\Marketing.ViewComponents\Marketing.ViewComponents.csproj" />
+    <ProjectReference Include="..\CustomerCare.CoreViewModelComposition\CustomerCare.CoreViewModelComposition.csproj" />
+    <ProjectReference Include="..\CustomerCare.ViewComponents\CustomerCare.ViewComponents.csproj" />
+    <ProjectReference Include="..\Warehouse.ViewComponents\Warehouse.ViewComponents.csproj" />
+    <ProjectReference Include="..\Shipping.ViewComponents\Shipping.ViewComponents.csproj" />
+    <ProjectReference Include="..\Shipping.CoreViewModelComposition\Shipping.CoreViewModelComposition.csproj" />
+    <ProjectReference Include="..\Warehouse.CoreViewModelComposition\Warehouse.CoreViewModelComposition.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Routing" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="1.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.1.0" />
+    <PackageReference Include="BundlerMinifier.Core" Version="2.4.337" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.2" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="1.1.0" />
+  </ItemGroup>
+
+  <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
+    <Exec Command="bower install" />
+    <Exec Command="dotnet bundle" />
+  </Target>
+
+</Project>

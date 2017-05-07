@@ -1,46 +1,39 @@
-# Shopper, a Services UI Composition and SOA sample
+# Shopper
 
-The goal of this set of samples is to show concepts expressed in ["The secret of better UI composition"](http://particular.net/blog/secret-of-better-ui-composition) blog post.
+### A Services UI Composition and SOA sample
 
-## Services
+The original goal of this set of samples was to show concepts described in ["The secret of better UI composition"](http://particular.net/blog/secret-of-better-ui-composition) blog post. It evolved to a full SOA sample that aims to be a playground to implement and showcase concepts from the [ADSD Course](http://particular.net/adsd) by [Udi Dahan](http://www.udidahan.com).
 
-`CustomerCare`, `Marketing`, `Sales`, `Shipping`, and `Warehouse` are Services that compose this samples. The sample mimics a very small subset of an e-commerce system.
+Shopper is a trivially simple e-commerce solution, far away from being ready for any production system, that implements the following high level business capabilities:
 
-## Front-ends
+#### Product catalog
 
-### MvcCoreFrontend
+A minimal product catalog, with categories support.
 
-[`MvcCoreFrontend`](https://github.com/mauroservienti/Services-UI-Composition/tree/master/MvcCoreFrontend) is a .Net MVC Core application.
+#### Product search
 
-### Client.Angular1
+Ability to search products via a google-like search engine, with faceted results support.
 
-[`Client.Angular1`](https://github.com/mauroservienti/Services-UI-Composition/tree/master/Client.Angular1) is an AngularJS (1.x) single page application.
+#### Shopping cart
 
-## Getting started
+#### Stars and Reviews
 
-### API Projects
+#### Checkout process
 
-Configure `Visual Studio` to run the following projects as startup projects:
+#### Product Catalog back-office
 
-* `CustomerCare.API.Host`
-* `Marketing.API.Host`
-* `Sales.API.Host`
-* `Shipping.API.Host`
-* `Warehouse.API.Host`
+> *Note*
+>
+> I actually work as a Solution Architect in [Particular Software](http://particular.net/).
 
-The above projects will expose, self-hosting Owin, APIs through data, owned by services, are accessible.
+## Service Boundaries
 
-### Single page application
+bla bla
 
-The [single page application](https://github.com/mauroservienti/Services-UI-Composition/tree/master/Client.Angular1) requires `Node.js`, `bower` and `grunt` to be built and served locally:
+## UI and ViewModel Composition
 
-* Install `Node.js` if not already installed
-* Install `bower` globally running at a `Node` command prompt `npm install -g bower`
-* Install `grunt` globally running at a `Node` command prompt `npm install -g grunt`
-* Install `grunt-cli` globally running at a `Node` command prompt `npm install -g grunt-cli`
+bla bla
 
-Open a `Node` command prompt, move to the [single page application](https://github.com/mauroservienti/Services-UI-Composition/tree/master/Client.Angular1):
-* _first time only_: run `npm install` to install all required dependencies
-* run `grunt build` to build the single page application
-* run `gunt connect` to serve it using the grung default web server (application will be available at `http://localhost:9000`)
+## Service to Service communication
 
+bla bla

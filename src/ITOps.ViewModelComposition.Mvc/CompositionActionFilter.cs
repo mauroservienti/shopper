@@ -13,7 +13,7 @@ namespace ITOps.ViewModelComposition.Mvc
             if (context.Result is ViewResult viewResult && viewResult.ViewData.Model == null)
             {
                 //MVC
-                var compositionResult = await CompositionHandler.HandleGetRequest(context.HttpContext);
+                var compositionResult = await CompositionHandler.HandleRequest(context.HttpContext);
                 if (compositionResult.StatusCode == StatusCodes.Status200OK)
                 {
                     viewResult.ViewData.Model = compositionResult.ViewModel;
@@ -22,7 +22,7 @@ namespace ITOps.ViewModelComposition.Mvc
             else if (context.Result is ObjectResult objectResult && objectResult.Value == null)
             {
                 //WebAPI
-                var compositionResult = await CompositionHandler.HandleGetRequest(context.HttpContext);
+                var compositionResult = await CompositionHandler.HandleRequest(context.HttpContext);
                 if (compositionResult.StatusCode == StatusCodes.Status200OK)
                 {
                     objectResult.Value = compositionResult.ViewModel;

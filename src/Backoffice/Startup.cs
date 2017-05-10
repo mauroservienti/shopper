@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using ITOps.ViewModelComposition;
 using ITOps.ViewModelComposition.Mvc;
 using ITOps.UIComposition.Mvc;
+using ITOps.ViewModelComposition.Gateway;
 
 namespace Backoffice
 {
@@ -20,7 +21,7 @@ namespace Backoffice
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
@@ -30,35 +31,15 @@ namespace Backoffice
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddRouting();
             services.AddViewModelComposition();
-            services
-                .AddMvc()
-                .AddViewModelCompositionMvcSupport()
-                .AddUIComposition();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            DefaultAppConfigure(app, env, loggerFactory);
-
+            app.UseDefaultFiles();
             app.UseStaticFiles();
-            app.UseMvcWithDefaultRoute();
-        }
-
-        void DefaultAppConfigure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
-        {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
-
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
-            }
-            else
-            {
-                app.UseExceptionHandler("/UnhandledError/Error");
-            }
+            app.RunCompositionGatewayWithDefaultRoutes();
         }
     }
 }

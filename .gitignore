@@ -191,3 +191,6 @@ UpgradeLog*.htm
 FakesAssemblies/
 
 **/wwwroot/lib/*
+**/wwwroot/dist/*
+**/app/**/*.js
+**/app/**/*.js.map

@@ -16,7 +16,7 @@ namespace ITOps.ViewModelComposition
             var types = new List<Type>();
             foreach (var fileName in fileNames)
             {
-                var temp = Assembly.Load(new AssemblyName(Path.GetFileNameWithoutExtension(fileName)))
+                var temp = AssemblyLoader.Load(fileName)
                     .GetTypes()
                     .Where(t =>
                     {
@@ -31,10 +31,7 @@ namespace ITOps.ViewModelComposition
 
             foreach (var type in types)
             {
-                if (typeof(IInterceptRoutes).IsAssignableFrom(type))
-                {
-                    services.AddSingleton(typeof(IInterceptRoutes), type);
-                }
+                services.AddSingleton(typeof(IInterceptRoutes), type);
             }
         }
     }
